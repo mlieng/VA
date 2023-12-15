@@ -1,0 +1,81 @@
+
+::.myexam::{
+SendText "
+(
+ 
+*********************************************************************
+EXAM:
+
+  VISUAL ACUITY: ( )sc (x)cc
+ 
+     OD  20/30+2 PH NI
+     OS  20/30   PH 20/30+1
+
+  TONOMETRY: Applanation, Time
+	OD:
+	OS:
+
+  PUPILS:
+ 	Equal, round and reactive to light.
+ 	Pupil Diameter (room light):
+	 OD:
+	 OS:
+	Pupil Diameter (dim light):
+	 OD:
+	 OS:
+
+	Afferent Pupillary Defect: None
+
+
+ CONFRONTATION FIELDS:
+	OD: full count fingers 4 quadrants
+	OS: full count fingers 4 quadrants
+
+ EXTRAOCULAR MOTILITY: full, equal, smooth accurate
+
+ ISHIHARA - 11/11 OU
+
+
+SLIT-LAMP BIOMICROSCOPY:
+
+  Lids/Lashes:	
+	OD: no blepharitis
+	OS: no blepharitis
+  Conjunctiva:
+	OD: white and quiet
+	OS: white and quiet
+  Cornea:
+	OD: clear
+	OS: clear
+  AC:
+	OD: deep and quiet
+	OS: deep and quiet
+  Iris:
+	OD: no NVI
+	OS: no NVI
+  Lens:
+	OD: trace NSC
+	OS: trace NSC
+
+  Ant Vit:
+	OD: clear
+	OS: clear
+
+DFE
+  Vitreous:
+	OD: clear
+	OS: clear
+  Disc:
+	OD: distinct, pink, flat
+	OS: distinct, pink, flat
+  C/D Ratio 
+	OD:
+	OS: 
+  Vessels:
+ 	OD: unremarkable
+ 	OS: unremarkable
+  Periphery:
+	OD: no holes or tears
+	OS: no holes or tears	
+)"
+}	
