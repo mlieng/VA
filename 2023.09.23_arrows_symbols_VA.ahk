@@ -36,6 +36,9 @@ UPDATES
 [ ] create help screen
 [ ] ADD NONFORMULARY ON ORDERS
 [ ] hotstring expander https://github.com/henrystern/hotstring_hints
+[ ] auto processing optometry note
+
+
 
 - format indent 6, 7 
 
@@ -198,8 +201,8 @@ simple replacement
 ;attending := "Dr. Alfred Paul MD"
 ;attending := "Dr. Salvatore Loporchio MD"
 ;attending := "Dr. Robert Janigian MD"
-attending := "Dr. Noelle Pruzan MD"
-
+;attending := "Dr. Noelle Pruzan MD"
+attending := "Dr. Crystal Zhang MD"
 
 ::.riv::Rivera,Jorge
 ::.lop::Loporchio,Salvatore
@@ -477,6 +480,14 @@ SendText "
 	)"
 }
 
+::odos::{
+SendText "
+	(
+	  OD:
+	  OS:
+	)"
+}
+
 ::.odos1::{
 SendText "
 	(
@@ -583,6 +594,7 @@ Capslock & r::
 	  MouseClick "left", 353, 135
 	}
 Capslock & a::AddNewOrder()
+Capslock & m::AddNewMedicine()
 
 #Hotif FindVarString_Loose(WinGetTitle("A"), "Order Menu")
 	a::
@@ -674,10 +686,18 @@ ImagingOptionsNames := Array(
 AddNewOrder()
 	{
 		Send "^o"
-		Sleep 5 ;wait to be processed
+		Sleep 10 ;wait to be processed
 		MouseClick "left", 50, 400
 		Send "a"	
 	}
+AddNewMedicine()
+	{
+		Send "^o"
+		Sleep 10 ;wait to be processed
+		MouseClick "left", 50, 400
+		Send "m"	
+	}
+
 ClickImaging()
 	{
 		MouseClick "left", 683, 37 ; clicks 42 local consults/requests
@@ -724,7 +744,7 @@ EnterEKGOrderDetails()
 
 ClickNonFormulary()
 	{
-		MouseClick "left", 741, 29 ;clicks 42 local consults/requests
+		MouseClick "left", 741, 31 ;clicks 42 local consults/requests
 		;Send "{Tab 2}"
 		;Send "{Enter}"
 		MouseClick "left", 537, 185 ;clicks 23 pharmacy consult
@@ -732,8 +752,9 @@ ClickNonFormulary()
 		;Send "{Down 9}"
 		;Send "{Enter}"
 		MouseClick "left", 141, 198 ;clicks NFDR EConsult Outpatient
-		Send "{Down 10}"
-		Send "{Enter}"
+		;Send "{Down 10}"
+		;Send "{Enter}"
+		Send "{Tab 2}"
 	}
 
 ; https://www.autohotkey.com/docs/v2/howto/WriteHotkeys.htm
@@ -817,7 +838,7 @@ ImagingGUI()
 			{
 				Send "{Enter}"
 
-				MouseClick "left", 657, 594
+				MouseClick "left", 657, 487
 				if WinExist("Order a Consult")
 					WinActivate 
 
@@ -923,6 +944,9 @@ EncounterBiometry()
 	MouseClick "left", 388, 454 ; clicks 'Add' to add provider
 	MouseClick "left", 359, 559 ; clicks 'Primary' to make attending the primary provider
 
+	MouseClick "left", 168, 9	; click 'Procedures'
+	MouseClick "left", 91, 46 ; click 'Image/Photos'
+	MouseClick "left", 218, 82 ; click 'OCT Mac'
 
 	MouseClick "left", 71, 9 	; click 'Diagnoses'
 	MouseClick "left", 103, 153 ; click 'LENS/CORNEA/POSTOP'
