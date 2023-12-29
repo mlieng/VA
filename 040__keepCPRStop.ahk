@@ -35,9 +35,13 @@ g.Add("Button","vTabName x+0","Change Tab Name").OnEvent("click",gui_events)
 g.Add("Button","vNoTabIcon xm+10 y+0","Remove Icon").OnEvent("click",gui_events)
 g.Add("Button","vTabIcon x+0","Add Icon").OnEvent("click",gui_events)
 
+
 ctl.SetIcon(1,2), ctl.SetIcon(2,1)
 
 ctl.UseTab()
+
+message :="No turned off"
+ctl := g.Add("text", "vTextShown", message)
 
 g.show("")
 
@@ -56,6 +60,12 @@ gui_events(ctl, info) {
         msgbox "You clicked the pic btn."
 	} Else If (ctl.name = "ToggleBtn") {
         Msgbox "Value: " ctl.Value
+        if ctl.Value = 1
+            message := "ON"
+        	mess := ctl.gui["TextShown"]
+        	mess.
+        else if ctl.Value = 0
+        	message := "OFF"
     } Else If (ctl.name = "TabData") {
         TB := ctl.gui["Tabs"]
         MsgBox "Tab 1`n"
@@ -74,7 +84,7 @@ gui_events(ctl, info) {
     } Else If (ctl.name = "TabIcon") {
         TB := ctl.gui["Tabs"]
         TB.SetIcon(2,1)
-    }
+}
 }
 
 m(coords) {

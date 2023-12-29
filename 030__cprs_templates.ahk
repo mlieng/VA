@@ -12,6 +12,32 @@ Components of note
 */
 
 
+/*
+:*:.multiline::{
+	Send "
+	(
+	{
+	SendText `"
+	(
+	)`"
+	}
+
+	)"
+}
+
+*/
+
+::.noshow::{
+	SendText "
+	(
+`t`t`tCHART REVIEW
+
+
+Patient canceled or did not show to appointment. The following notes are per 
+chart review and are intended to be used in the next visit
+	)"
+}
+
 ::.consult::{
 	SendText "
 (
@@ -23,6 +49,19 @@ Unable to result consult through consult tab
 )"
 }	
 
+::.ora::{
+SendText "
+(
+Intraocular Pressure: ORA  (IOPcc | CH | IOPg) 
+        OD: 1. | . | 1.
+        OS: 1. | . | 1.
+
+Applanation @ : 
+        OD: 1 mmHg
+        OS: 1 mmHg
+)"
+
+}
 
 
 
@@ -31,38 +70,38 @@ Unable to result consult through consult tab
 	(
 EXAMINATION:
  
-	VISUAL ACUITY: ()SC ()CC
-		OD: 20/ PHNI
-		OS: 20/ PHNI
-	 
-	Intraocular Pressure: tonopen @ : am 
-		OD: 1 mmHg
-		OS: 1 mmHg
+VISUAL ACUITY: ()SC ()CC
+	OD: 20/ PHNI
+	OS: 20/ PHNI
+ 
+Intraocular Pressure: tonopen 
+	OD: 1 mmHg
+	OS: 1 mmHg
 
-	Pupils: PERRLA
-	Confrontation Fields: full count fingers in 4 quadrants OU
-	Extraocular Motility: full, equal, smooth accurate OU 
-	Ishihara - 11/11 OU 
+Pupils: PERRLA
+Confrontation Fields: full count fingers in 4 quadrants OU
+Extraocular Motility: full, equal, smooth accurate OU 
+Ishihara - 11/11 OU 
 
 
-	SLE:
-		L/L: no bleph
-		S,C: white and quiet 
-		K: clear 
-		I: no NVI 
-		AC: deep & quiet
-		L: ***2-3+ NS 
-		AV: clear 
-	 
-	DFE OU:
-		Vit: PVD***
-		Disc: flat, pink, distinct
-			C/D: 
-				OD:  
-				OS: 
-		Macula: foveal reflex intact
-		Vessels: no hemorrhages
-		Periphery: no holes/tears
+SLE:
+	L/L: no bleph
+	S,C: white and quiet 
+	K: clear 
+	I: no NVI 
+	AC: deep & quiet
+	L: ***2-3+ NS 
+	AV: clear 
+ 
+DFE OU:
+	Vit: PVD***
+	Disc: flat, pink, distinct
+	C/D: 
+		OD:  
+		OS: 
+	Macula: foveal reflex intact
+	Vessels: no hemorrhages
+	Periphery: no holes/tears
 	)"
 }	
 
@@ -85,9 +124,9 @@ vasculature: normal caliber and appearance
 		Send "{enter}{backspace}{enter}"
 		SendText "
 		(	
-	Intraocular Pressure: tonopen @ : am 
-	`tOD: 14 mmHg
-	OS: 11 mmHg
+	Intraocular Pressure: tonopen 
+	`tOD: 1 mmHg
+	OS: 1 mmHg
 		)"
 		Send "{enter}{backspace 2}{enter}"
 		SendText "
@@ -121,6 +160,20 @@ vasculature: normal caliber and appearance
 		)"
 }	
 
+
+::.cc::{
+	SendText "
+	(
+CHIEF COMPLAINT
+
+********************************************************************* 
+PAST OCULAR HX
+
+OCULAR MEDS
+********************************************************************* 
+
+	)"
+}	
 
 
 ::.ap::{
@@ -312,7 +365,7 @@ EXAMINATION:
 		OD: 20/ PHNI
 		OS: 20/ PHNI
 	 
-	Intraocular Pressure: tonopen @ : am 
+	Intraocular Pressure: tonopen  
 		OD: 1 mmHg
 		OS: 1 mmHg
 
