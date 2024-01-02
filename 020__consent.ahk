@@ -27,7 +27,14 @@ Greenberg
 */
 
 #HotIf GetKeyState("Shift")
-	Capslock & c:: FillConsent("Salvatore J. Loporchio, MD")
+	Capslock & c:: {
+		if WinExist("Informed Consent")
+    		WinActivate
+			WinMove (A_ScreenWidth/2)-(1250/2),(A_ScreenHeight/2)-(950/2),1250,950
+			;WinMove 0,0,1250,950 
+		FillConsent("Salvatore J. Loporchio, MD")
+	}
+
 
 #HotIf
 
@@ -78,31 +85,39 @@ FillConsent(attending)
 #HotIf FindVarString_Loose(WinGetTitle("A"), "Informed Consent")
 Capslock & f::
 {
-MouseClick "left", 98, 342
+if WinExist("Informed Consent")
+	WinActivate
+WinMove (A_ScreenWidth/2)-(1250/2),(A_ScreenHeight/2)-(950/2),1250,950
 
-MouseClick "left", 38, 380 ;verify
+;verify patient id
+MouseClick "left", 38, 390 ;verify
 
-MouseClick "left", 40, 455
-MouseClick "left", 40, 480
-MouseClick "left", 40, 495
-MouseClick "left", 40, 518
+; verify 4 steps
+MouseClick "left", 40, 505
+MouseClick "left", 40, 525
+MouseClick "left", 40, 545
+MouseClick "left", 40, 565
 
-MouseClick "left", 36, 590
-Sleep 2000
+; site marked
+MouseClick "left", 40, 634
+Sleep 500
 
+;scrolls down
 Send "{End}"
-Sleep 1000
+Sleep 500
 
-MouseClick "left", 40, 426
-MouseClick "left", 40, 446
-MouseClick "left", 38, 471
-MouseClick "left", 38, 506
+;
+MouseClick "left", 40, 417
+MouseClick "left", 40, 436
+MouseClick "left", 38, 456
 
-MouseClick "left", 38, 527
-MouseClick "left", 38, 563
-MouseClick "left", 39, 586
+MouseClick "left", 38, 499
+MouseClick "left", 38, 518
 
-Sleep 2000
+MouseClick "left", 38, 554
+MouseClick "left", 39, 574
+
+Sleep 500
 
 Send "{tab 2}"
 
@@ -112,9 +127,10 @@ Send "{tab}"
 SendWait("Pete Ortiz")
 
 Send "{tab}"
-SendDownUp() ; chooses "yes decision making capacity"
+SendDownUpDown() ; chooses "yes decision making capacity"
 
-MouseClick "left", 38, 657
+; 
+MouseClick "left", 96, 657
 
 ; put in laterality
 
