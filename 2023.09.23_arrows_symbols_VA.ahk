@@ -218,7 +218,6 @@ attending := "Dr. Crystal Zhang MD"
 ::.mar::Marchand,Nicole
 ::.ort::Ortiz,Pete
 
-
 #HotIf FindVarString_Loose(WinGetTitle("A"), "Progress Note Properties")
 :*:.note::OPHTHALMOLOGY/NOTE/SURGICAL
 :*:.inj::OPHTHALMOLOGY  <H&P OPHTHALMOLOGY INJ
