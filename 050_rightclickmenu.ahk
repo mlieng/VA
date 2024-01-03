@@ -184,8 +184,13 @@ findVA(){
     ;mytext :=  EditGetSelectedText()
 
     mytext2 := StrReplace(mytext, "`r`n", "`n")
+    RegExMatch(mytext2, "OD 20/(.{2}) PH", &VA_OD)
+    RegExMatch(mytext2, "OS 20/(.{2}) PH", &VA_OS)
+    ;RegExMatch(mytext2, "abc(.*)123", &SubPat)
+    ;VA_OD[1]
+    ;Send "^V"
+    ;A_Clipboard := mytext2
+    MsgBox VA_OD[1] "," VA_OS[1]
 
-    A_Clipboard := mytext2
-    Send "^V"
 }
 

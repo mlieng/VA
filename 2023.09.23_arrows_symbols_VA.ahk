@@ -203,6 +203,7 @@ simple replacement
 ;attending := "Dr. Robert Janigian MD"
 ;attending := "Dr. Noelle Pruzan MD"
 attending := "Dr. Crystal Zhang MD"
+;attending := "Dr. Brian Savoie, MD"
 
 ::.riv::Rivera,Jorge
 ::.lop::Loporchio,Salvatore
@@ -214,6 +215,7 @@ attending := "Dr. Crystal Zhang MD"
 ::.pru::Pruzan,Noelle
 :*:.gre::Greenberg,Paul
 ::.pau::Paul,Alfred
+::.sav::Savoie,Brian
 
 ::.mar::Marchand,Nicole
 ::.ort::Ortiz,Pete
@@ -548,27 +550,7 @@ MsgBox "The cursor is at X" xpos " Y" ypos
 
 ;********************************************************************* 
 ; programming gui interaction with cprs 
-;********************************************************************* 
-
-/*
---------------------------------------------------------------------------------
- capslock & r: return to clinic
-*ctrl + o: opens orders 
-	capslock & a: add new order (same as doing Ctrl O, then a)
-			i: add imaging order
-			j: add injection order
-	shift + capslock + i: bring up imaging order GUI
-*alt -> ti : opens consent
-	shift + capslock + c: fill in consent form
-
-*ctrl + l: opens labs
-
-
-
-*these are part of normal cprs
---------------------------------------------------------------------------------
-*/
-
+;*********************************************************************
 
 
 Capslock & r::
@@ -602,16 +584,21 @@ Capslock & m::AddNewMedicine()
 		Sleep 1000
 		EnterAnesthesiaOrderDetails()
 		}
+	c:: ClickCardsConsult()
 	e:: ClickEKG()
 	i::
 		{
 		ClickImaging()
 		ImagingGUI()
 		}
-	d:: MouseClick "left", 841, 10 ;exits
-	Backspace:: MouseClick "left", 14, 12 ;goes to previous
+
 	j::ClickInjection()
 	n::ClickNonFormulary()
+
+	d:: MouseClick "left", 841, 10 ;exits
+	x:: MouseClick "left", 841, 10 ;exits
+	Backspace:: MouseClick "left", 14, 12 ;goes to previous
+
 
 #Hotif FindVarString_Loose(WinGetTitle("A"), "Order a Procedure")
 	Capslock & e:: EnterEKGOrderDetails()
@@ -665,23 +652,6 @@ ImagingOptions := Array(
 
 ImagingOptionsNames := GetNames(ImagingOptions)
 
-/* THERE IS PROBABLY a way to automatically do this but can't figure it OUt 
-ImagingOptionsNames := Array(
-	ImagingOptions[1].name,
-	ImagingOptions[2].name,
-	ImagingOptions[3].name,
-	ImagingOptions[4].name,
-	ImagingOptions[5].name,
-	ImagingOptions[6].name,
-	ImagingOptions[7].name,
-	ImagingOptions[8].name,
-	ImagingOptions[9].name,
-	ImagingOptions[10].name
-	)
-
-;"."
-*/
-
 AddNewOrder()
 	{
 		Send "^o"
@@ -698,21 +668,56 @@ AddNewMedicine()
 	}
 
 ClickImaging()
-	{
+	{	WinWait "Order Menu" 
+		WinMove (A_ScreenWidth/2)-(900/2),(A_ScreenHeight/2)-(800/2),900,600
 		MouseClick "left", 683, 37 ; clicks 42 local consults/requests
 		MouseClick "left", 510, 302 ; clicks 34 surgical consult
 		MouseClick "left", 421, 339 ; clicks optometry/ophthalmology imaging services Outpt
 	}
 ClickEKG()
-	{
+	{	WinWait "Order Menu" 
+		WinMove (A_ScreenWidth/2)-(900/2),(A_ScreenHeight/2)-(800/2),900,600
 		MouseClick "left", 683, 37 ; clicks 42 local consults/requests
 		MouseClick "left", 90, 368 ; clicks 14 medical  consult
 		MouseClick "left", 102, 83 ; clicks CARDIOLOGY
 		MouseClick "left", 551, 149 ; clicks EKG w/rhythm strip
 
 	}
-ClickAnesthesia()
+
+ClickCardsConsult()
 	{
+		WinWait "Order Menu" 
+		WinMove (A_ScreenWidth/2)-(900/2),(A_ScreenHeight/2)-(800/2),900,600
+		MouseClick "left", 683, 37 ; clicks 42 local consults/requests
+		MouseClick "left", 181, 376 ; clicks 14 Medical Service
+
+		MouseClick "left", 165, 87 ; clicks 'CARDIOLOGY CONSULTATION'
+		MouseClick "left", 160, 290 ; clicks 'Cardiology eConsult'
+
+		WinWait "Reason for Request: CARDIOLOGY E-CONSULT OUTPT"
+		WinMove (A_ScreenWidth/2)-(900/2),(A_ScreenHeight/2)-(1000/2),783,755
+		MouseClick "left", 11, 39 ; clicks [ ] for 'Chart Review'
+		Send "{tab}"
+		Send "Cataract surgery, pacemaker"
+
+		;KeyWait "Tab"
+		;Mouseclick "left", 676, 700 ;clicks OK
+
+		;same as capslock & f
+
+		;WinWait "Order a Consult"
+		;WinMove ,, 650, 450
+		;MouseClick "left", 414, 60
+		;Send FormatTime(, "M/d/yy")  ; 'It will look like 10/4/23'
+		;MouseClick "left", 604, 403
+
+
+
+	}
+
+ClickAnesthesia()
+	{	WinWait "Order Menu" 
+		WinMove (A_ScreenWidth/2)-(900/2),(A_ScreenHeight/2)-(800/2),900,600
 		MouseClick "left", 683, 37 ; clicks 42 local consults/requests
 		MouseClick "left", 510, 302 ; clicks 34 surgical consult
 		MouseClick "left", 414, 85 ; clicks 'Anesthesia E consult'
@@ -743,6 +748,8 @@ EnterEKGOrderDetails()
 
 ClickNonFormulary()
 	{
+		WinWait "Order Menu" 
+		WinMove (A_ScreenWidth/2)-(900/2),(A_ScreenHeight/2)-(4003/2),900,600
 		MouseClick "left", 741, 31 ;clicks 42 local consults/requests
 		;Send "{Tab 2}"
 		;Send "{Enter}"
@@ -837,26 +844,34 @@ ImagingGUI()
 			{
 				Send "{Enter}"
 
-				MouseClick "left", 657, 487
-				if WinExist("Order a Consult")
-					WinActivate 
-
-				Sleep 500
-				MouseClick "left", 414, 60
-				Send FormatTime(, "M/d/yy")  ; 'It will look like 10/4/23'
-				MouseClick "left", 604, 403
-				MouseClick "left", 574, 401
-				Sleep 500
-				if WinExist("Order Menu")
-					{
-					WinActivate 
-					MouseClick "left", 841, 10						
-					}
+				MouseClick "left", 657, 487 	;clicks 
+				WinWaitClose "Reason for Request: OPTOMETRY/OPHTHALMOLOGY IMAGING SERVICES OUTPT"
+				
+				
+				;if WinExist("Order a Consult")
+				;	WinActivate 
+				; enter date in in "order a consult"
+				WinActivate "Order a Consult"
+				WinWaitActive "Order a Consult"
+				MouseClick "left", 414, 60 		;clicks in date area
+				Send FormatTime(, "M/d/yy")  	; 'It will look like 10/4/23'
+				MouseClick "left", 604, 403 	;closes the window
+				WinWaitClose "Order a Consult"
+				;Sleep 500
+				;if WinExist("Order Menu")
+				;	{
+				;	WinActivate 
+				;	WinWaitActive
+				;	MouseClick "left", 841, 10						
+				;	}
+				WinWaitActive "Order Menu"
+				MouseClick "left", 841, 10					
 			}
 	    ;MsgBox MyText
 	}	
 }
 
+; supporting function for above
 AppendClick(MyText, ImageOption)
 	{
 	MyText := ImageOption.name
@@ -936,11 +951,11 @@ EncounterBiometry()
 	MouseClick "left", 40, 13 	; click 'Visit Type'
 	MouseClick "left", 30, 46 	; click 'Eye codes'
 	MouseClick "left", 195, 46	; click option 'intermediate exam established'
-	MouseClick "left", 477, 249 ; clicks 'not service connected'
+	MouseClick "left", 476, 268 ; clicks 'not service connected'
 	MouseClick "left", 63, 428  ; clicks in textbox for available providers
 	SendWait("Zhang,Crystal")
 	Sleep 500
-	MouseClick "left", 388, 454 ; clicks 'Add' to add provider
+	MouseClick "left", 140, 450 ; clicks 'Add' to add provider
 	MouseClick "left", 359, 559 ; clicks 'Primary' to make attending the primary provider
 
 	MouseClick "left", 168, 9	; click 'Procedures'
