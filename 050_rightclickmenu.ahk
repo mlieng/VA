@@ -171,6 +171,21 @@ cleanOptom2(){
 }
 
 CapsLock & z:: cleanOptom2
-Capslock & f:: FindVA
+Capslock & f:: findVA
 
+findVAwrapper(Item,*){
+    findVA
+}
+
+findVA(){
+        Send "^C"
+    ClipWait(2)
+    mytext := A_Clipboard
+    ;mytext :=  EditGetSelectedText()
+
+    mytext2 := StrReplace(mytext, "`r`n", "`n")
+
+    A_Clipboard := mytext2
+    Send "^V"
+}
 
