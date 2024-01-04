@@ -171,7 +171,9 @@ cleanOptom2(){
 }
 
 CapsLock & z:: cleanOptom2
+#HotIf GetKeyState("Shift")
 Capslock & f:: findVA
+#Hotif
 
 findVAwrapper(Item,*){
     findVA
@@ -184,13 +186,19 @@ findVA(){
     ;mytext :=  EditGetSelectedText()
 
     mytext2 := StrReplace(mytext, "`r`n", "`n")
-    RegExMatch(mytext2, "OD 20/(.{2}) PH", &VA_OD)
-    RegExMatch(mytext2, "OS 20/(.{2}) PH", &VA_OS)
+    ;"OD 20/(.{2}) PH" worked for OD 20/__ PH
+    RegExMatch(mytext2, "OD\:{0,1}\s*20/{0,1}(.{2})(\s*|\,\s*|-\d*\s*|\+\d*\s*)(`n|PH)", &VA_OD)
+    RegExMatch(mytext2, "OS\:{0,1}\s*20/{0,1}(.{2})(\s*|\,\s*|-\d*\s*|\+\d*\s*)(`n|PH)", &VA_OS)
+    ;RegExMatch(mytext2, "OD\:{0,1}\s*20/{0,1}(.{2})(\s*|\,\s*|-\d*\s*|+\d*\s*)(`n|PH)", &VA_OD)
+    ;RegExMatch(mytext2, "OS\:{0,1}\s*20/{0,1}(.{2})(\s*|\,\s*|-\d*\s*|+\d*\s*)(`n|PH)", &VA_OS)
     ;RegExMatch(mytext2, "abc(.*)123", &SubPat)
     ;VA_OD[1]
     ;Send "^V"
     ;A_Clipboard := mytext2
     MsgBox VA_OD[1] "," VA_OS[1]
+    A_Clipboard := VA_OD[1] "," VA_OS[1]
+    ;MsgBox VA_OD[1]
+    ;MsgBox VA_OS[1]
 
 }
 

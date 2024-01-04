@@ -843,19 +843,26 @@ ImagingGUI()
 		if number_chosen = 1
 			{
 				Send "{Enter}"
-
-				MouseClick "left", 657, 487 	;clicks 
-				WinWaitClose "Reason for Request: OPTOMETRY/OPHTHALMOLOGY IMAGING SERVICES OUTPT"
+				WinWaitActive "Reason for Request: OPTOMETRY/OPHTHALMOLOGY IMAGING SERVICES OUTPT"
+				WinMove 100,100, 785,490
+				MouseClick "left", 657, 431	;clicks  ok 
+				;WinWaitClose "Reason for Request: OPTOMETRY/OPHTHALMOLOGY IMAGING SERVICES OUTPT"
 				
 				
 				;if WinExist("Order a Consult")
 				;	WinActivate 
 				; enter date in in "order a consult"
-				WinActivate "Order a Consult"
+				;WinActivate "Order a Consult"
+				;WinWaitActive "Order a Consult"
+
 				WinWaitActive "Order a Consult"
-				MouseClick "left", 414, 60 		;clicks in date area
+				WinMove ,, 640, 414
+				;Send "{CapsLock down}{f down}{CapsLock up}{f up}"
+				MouseClick "left", 422, 71		;clicks in date area
 				Send FormatTime(, "M/d/yy")  	; 'It will look like 10/4/23'
-				MouseClick "left", 604, 403 	;closes the window
+				Send "{tab 7}"
+				Send "{enter}"
+				;MouseClick "left", 626, 402	;closes the window
 				WinWaitClose "Order a Consult"
 				;Sleep 500
 				;if WinExist("Order Menu")
@@ -864,7 +871,7 @@ ImagingGUI()
 				;	WinWaitActive
 				;	MouseClick "left", 841, 10						
 				;	}
-				WinWaitActive "Order Menu"
+				WinActivate "Order Menu"
 				MouseClick "left", 841, 10					
 			}
 	    ;MsgBox MyText
