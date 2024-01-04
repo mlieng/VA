@@ -31,9 +31,10 @@ these abbreviations are part of normal cprs
 (capslock & a -> ....)
 - a: order anesthesia consult
 - c: order cards consult
+- e: add ekg
 - i: add imaging order
 - j: add injection order
-- n: nonformulary
+- n: non-formulary med order
 
 - d: exit
 - x: exit
@@ -48,3 +49,4 @@ these abbreviations are part of normal cprs
 
 	shift + capslock + c: fill in consent form
 			capslock + f: fill in shared timeout
+
