@@ -305,6 +305,7 @@ other utilities
 --------------------------------------------------------------------------------
 */
 
+
 :*:/*::
 	{
 	SendText "
@@ -359,6 +360,14 @@ other utilities
 	Send "{Up 2}"
 	}
 
+:*:.mouse::{ ;takes coordinates from mouse capslock c & pastes after 'Mouseclick "left"'
+	SendText "
+	(
+	MouseClick "left", 
+	)"
+	Send A_Space A_Clipboard
+	} 
+
 
 
 /*
@@ -394,7 +403,7 @@ Replacing arrows with ijkl
 !+j::Send "+{Left}"
 !+l::Send "+{Right}"
 !+u::Send "+{Home}"
-!+o::Send "+^{End}"
+!+o::Send "+{End}"
 !+h::Send "+^{Left}"
 !+SC027::Send "+^{Right}"
 
@@ -1115,19 +1124,6 @@ ShowLabHgbA1c()
 ********************************************************************* 
 
 
-Capslock & Q::
-	{
-		;if WinExist("Encounter Form for ESQ-SP-OPHT-BIOMETRY")
-		;	{
-		;	WinActivate
-		;	MsgBox "Found the window!"
-		;	}
-		if FindVarString_Loose(WinGetTitle("A"), "Encounter Form for ESQ-SP-OPHT-BIOMETRY")
-			MsgBox "True"
-		else 
-			MsgBox "False"
-	}
-*/
 
 Capslock & Q::
 	{
