@@ -29,7 +29,7 @@ ClinicList := [
 	"Glasses: Esq-Sp-Optom Glass Adjust",
 	"Or: Pro-Amb: Surg Or Non-Count",
 	"Pro: Pro-Amb: Surg Or Non-Count",
-	"Optom: Esq-Sp-Optometry New 1"
+	"Optom: Esq-Sp-Optometry New 1",
 	"1n: Esq-Sp-Ophthalmology 1n",
 	"2r: Esq-Sp-Ophthalmology 2r",
 	"2rg: Esq-Sp-Ophthalmology 2rg",
@@ -70,5 +70,3 @@ clinic_chooser()
 	}
 }
 ;clinic_chooser
-
-MENU
