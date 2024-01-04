@@ -8,7 +8,7 @@ Global choice_resident
 Global choice_attending
 Global choice_attending_reverse
 
-g := Gui("-MinimizeBox -MaximizeBox","Note")
+g := Gui("-MinimizeBox -MaximizeBox","Settings for Hotel VA")
 g.SetFont("s10","Consolas")
 g.OnEvent("close",gui_close)
 g.OnEvent("escape",gui_close)
@@ -33,27 +33,35 @@ AttendingList := [
 	"Pruzan, Noelle",
 	"Murphy, Marjorie"]
 
-str_res := "Current Name: " choice_resident
-text_res := g.Add("Text","xm w400", str_res)
+g.Add("Text","xm w100", "`n")
+;str_res := "Current Name: " choice_resident
+g.Add("Text","xm w100", "Current Name: ")
+text_res := g.Add("Text","yp w250", choice_resident)
 
-g.Add("Text","xp w100", "Your name:")
+g.Add("Text","xm w100", "Your name:")
 CtlRes := g.Add("ComboBox","vCB yp w200 h100 r12 Section",ResidentList)
 ; CtlRes := g.Add("ComboBox","vCB +10 yp w200 h100 r5 Section",ResidentList)
 CtlRes.AutoComplete := true
 
+g.Add("Text","xm w100", "`n")
 
-str_att := "Current: " choice_attending
-text_att := g.Add("Text","xm w400", str_att)
+;str_att := "Current: " choice_attending
+g.Add("Text","xm w100", "Current Name: ")
+text_att := g.Add("Text","yp w250", choice_attending)
 
-g.Add("Text","xm w100", "Attending Last Name:") ;xp starts a new row, same location as previous. xm starts new row below all aspects
+g.Add("Text","xm w100", "Attending Name:") ;xp starts a new row, same location as previous. xm starts new row below all aspects
 CtlAtt := g.Add("ComboBox","vCB2 yp w200 h100 r5 Section",AttendingList) ; yp next col
 CtlAtt.AutoComplete := true
+
+g.Add("Text","xm w100", "`n")
 
 Btn := g.Add("Button", "default xm", "Save + Exit")  ; xm puts it at the bottom left corner.
 Btn.OnEvent("Click", gui_close)
 
 Btn2 := g.Add("Button", "default yp", "Save")  ; yp same row as previous
 Btn2.OnEvent("Click", gui_update)
+
+
 
 g.show("")
 
@@ -71,11 +79,9 @@ gui_update(*) {
 	choice_resident := CtlRes.Text
 	choice_attending := CtlAtt.Text
 
-	str_res := "Current Name: " choice_resident
-	text_res.Text := str_res
-
-	str_att := "Current: " choice_attending
-	text_att.Text := str_att
+	;updates the choices
+	text_res.Text := choice_resident
+	text_att.Text := choice_attending
 
 	g.show("")
 	Return Saved
