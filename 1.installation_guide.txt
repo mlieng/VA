@@ -5,3 +5,6 @@
 2. start autohotkey program
 	- NOTE: this needs to be done every time computer reboots
 	- double click '000_RUN_THIS.ahk'
+
+
+3. open 'Readme.md in notepad'
