@@ -4,11 +4,12 @@ See original in
 https://www.autohotkey.com/docs/v2/lib/Menu.htm#Remarks
 */
 
+#INCLUDE DEV_011_GUI_attending.ahk
 
 ; Create the popup menu by adding some items to it.
 MyMenu := Menu()
 MyMenu.Add("Help", help_documentation)
-MyMenu.Add("Settings", MenuHandler)
+MyMenu.Add("Settings", run_settings_GUI)
 MyMenu.Add()  ; Add a separator line.
 MyMenu.Add("Clean Optometry Note", cleanOptom)
 
@@ -23,11 +24,18 @@ MyMenu.Add("My Submenu", Submenu1)
 MyMenu.Add()  ; Add a separator line below the submenu.
 MyMenu.Add("Item 3", MenuHandler)  ; Add another menu item beneath the submenu.
 
+
+;*******************************************************************************
+; supporting functions
+;*******************************************************************************
+
+
 MenuHandler(Item, *) {
     MsgBox("You selected " Item)
 }
 
 ;control plus right click
+;start the menu
 ~^RButton::{
     MouseGetPos &xpos, &ypos 
     ;MouseClick, right, xpos, ypos
@@ -47,9 +55,9 @@ MsgBox "
 
 
 
-;*******************************************************************************
-; edit menu
-;*******************************************************************************
+    ;*******************************************************************************
+    ; edit menu
+    ;*******************************************************************************
 
 
 /*
@@ -187,8 +195,8 @@ findVA(){
 
     mytext2 := StrReplace(mytext, "`r`n", "`n")
     ;"OD 20/(.{2}) PH" worked for OD 20/__ PH
-    RegExMatch(mytext2, "OD\:{0,1}\s*20/{0,1}(.{2})(\s*|\,\s*|-\d*\s*|\+\d*\s*)(`n|PH)", &VA_OD)
-    RegExMatch(mytext2, "OS\:{0,1}\s*20/{0,1}(.{2})(\s*|\,\s*|-\d*\s*|\+\d*\s*)(`n|PH)", &VA_OS)
+    RegExMatch(mytext2, "OD 20/(.{2})(\s*|\,\s*|-\d*\s*|\+\d*\s*)(`n|PH)", &VA_OD)
+    RegExMatch(mytext2, "OS 20/(.{2})(\s*|\,\s*|-\d*\s*|\+\d*\s*)(`n|PH)", &VA_OS)
     ;RegExMatch(mytext2, "OD\:{0,1}\s*20/{0,1}(.{2})(\s*|\,\s*|-\d*\s*|+\d*\s*)(`n|PH)", &VA_OD)
     ;RegExMatch(mytext2, "OS\:{0,1}\s*20/{0,1}(.{2})(\s*|\,\s*|-\d*\s*|+\d*\s*)(`n|PH)", &VA_OS)
     ;RegExMatch(mytext2, "abc(.*)123", &SubPat)

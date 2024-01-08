@@ -282,7 +282,20 @@ no acute distress
 `t moving spontaneously
 )"
 }	
+
+#Hotif WinActive("Login")
+;WinGetTitle("A") "Login"
+:*:doctor::
+:*:user::{
+	Send "user"
+	Sleep 250
+	Send "{Tab}"
+    Sleep 250
+	Send "zeiss2019"
+}
+
 #Hotif
+
 
 /*
 	:*:nad::{
@@ -325,7 +338,7 @@ other utilities
 		(
 	/*
 	--------------------------------------------------------------------------------
-
+99+++++++++++
 	--------------------------------------------------------------------------------
 	*/
 

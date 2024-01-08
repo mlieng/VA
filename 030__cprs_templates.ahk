@@ -52,13 +52,14 @@ Unable to result consult through consult tab
 ::.ora::{
 SendText "
 (
-Intraocular Pressure: ORA  (IOPcc | CH | IOPg) 
-        OD: 1. | . | 1.
-        OS: 1. | . | 1.
+        Intraocular Pressure: 
+            ORA  (IOPcc | CH | IOPg) 
+                OD: 1. | . | 1.
+                OS: 1. | . | 1.
 
-Applanation @ : 
-        OD: 1 mmHg
-        OS: 1 mmHg
+      Applanation @ : 
+                OD: 1 mmHg
+                OS: 1 mmHg
 )"
 
 }
@@ -294,8 +295,8 @@ DISEASE SPECIFIC
     Visual fields:
     Gonioscopy:
     Pachymetry:
-  Drance heme?
-  VF defect:
+  Drance heme? No
+  VF defect: No
 )"
 }	
 
@@ -319,6 +320,50 @@ on lid hygiene, warm compresses
 - preservative free artificial tears 4-6x daily
 )'
 }
+
+::.octm::{
+	SendText "
+(
+OCT Mac :
+  OD: foveal contour intact, no IRF/SRF
+  OS: foveal contour intact, no IRF/SRF 
+
+)"
+}	
+
+::.octr::{
+	SendText "
+(
+OCT RNFL :
+  OD: G, no thinning
+  OS: G, no thinning
+
+)"
+}	
+
+::.hvf::{
+	SendText "
+(
+HVF 24-2 :
+  OD: reliability, FP %, no defects 
+  OS: reliability, FP %, no defects
+
+)"
+}	
+
+
+
+/*
+::.blank::SendRaw {
+	SendText "
+(
+
+)"
+}
+*/
+
+
+
 
 /*
 --------------------------------------------------------------------------------
