@@ -23,13 +23,35 @@ ResidentList := [
 	]
 
 AttendingList := [
+	"Richard Bryan MD",
+	"Ezra Galler MD",
+	"Paul Greenberg MD",
+	"Robert Janigian MD",
+	"Salvatore Loporchio MD",
+	"Marjorie Murphy MD",
+	"Alfred Paul MD",
 	"Noelle Pruzan MD",
-	"Marjorie Murphy MD"
+	"David Rivera MD",
+	"Jorge Rivera MD",
+	"Philip Rizzuto MD",
+	"Brian Savoie MD",
+	"Crystal Zhang MD"
 	]
 
 AttendingList_LastFirst := [
+	"Bryan, Richard",
+	"Galler, Ezra",
+	"Greenberg, Paul",
+	"Janigian, Robert",
+	"Loporchio, Salvatore",
 	"Murphy, Marjorie",
+	"Paul, Alfred",
 	"Pruzan, Noelle",
+	"Rivera, David",
+	"Rivera, Jorge",
+	"Rizzuto, Philip",
+	"Savoie, Brian",
+	"Zhang, Crystal"
 	]
 
 NurseList := [
@@ -72,7 +94,7 @@ run_settings_GUI(*){
 	g.Add("Text","xm w100", "Attending Last Name:") ;xp starts a new row, same location as previous. xm starts new row below all aspects
 	CtlAttR := g.Add("ComboBox","vCB3 yp w200 h100 r5 Section",AttendingList_LastFirst) ; yp next col
 	CtlAttR.AutoComplete := true
-
+	g.Add("Text","xm", "`t(used for filling in CPRS dropdowns (ex. Encounter Forms, etc))")
 
 	;nurse name
 	g.Add("Text","xm w100", "`n")
@@ -108,16 +130,29 @@ run_settings_GUI(*){
 		Global choice_nurse
 
 		Saved_Settings := g.Submit()
-		choice_resident := CtlRes.Text
-		choice_attending := CtlAtt.Text
-		choice_attending_reverse := CtlAttR.Text
-		choice_nurse := CtlNurse.Text
+		;first step changes global settings
+		;second step updates gui
+
+		if not (CtlRes.Text = ""){
+			choice_resident := CtlRes.Text
+			text_res.Text   := choice_resident
+		}
+		if not (CtlAtt.Text = ""){
+			choice_attending := CtlAtt.Text
+			text_att.Text    := choice_attending
+		}
+		if not (CtlAttR.Text = ""){
+			choice_attending_reverse := CtlAttR.Text
+			choice_attending_reverse := StrReplace(choice_attending_reverse, A_Space,"")
+			text_att_rev.Text        := choice_attending_reverse
+		}
+		if not (CtlNurse.Text = ""){
+			choice_nurse    := CtlNurse.Text
+			text_nurse.Text := choice_nurse
+		}
 
 		;updates the choices on GUI
-		text_res.Text := choice_resident
-		text_att.Text := choice_attending
-		text_att_rev.Text := choice_attending_reverse
-		text_nurse.Text := choice_nurse
+				
 
 		;ListVars
 		return Saved_Settings
