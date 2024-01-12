@@ -1,10 +1,12 @@
 #Include "%A_ScriptDir%"
 #INCLUDE "GuiCtlExt.ahk" ;https://github.com/TheArkive/GuiCtlExt_ahk2
 #Include "010__clinic_chooser.ahk"
+#Include "011__GUI_attending.ahk"
 #Include "020__consent.ahk"
 #Include "030__cprs_templates.ahk"
 #Include "031___preop.ahk"
 #Include "031___postop.ahk"
+#Include "050__rightclickmenu.ahk"
 
 ;
 
@@ -202,9 +204,10 @@ simple replacement
 ;attending := "Dr. Salvatore Loporchio MD"
 ;attending := "Dr. Robert Janigian MD"
 ;attending := "Dr. Noelle Pruzan MD"
-attending := "Dr. Crystal Zhang MD"
+;attending := "Dr. Crystal Zhang MD"
 ;attending := "Dr. Brian Savoie, MD"
 
+::.cat::Crystal Zhang MD, David Rivera MD, Ezra Galler MD, Jorge Rivera MD, Noelle Pruzan MD
 ::.riv::Rivera,Jorge
 ::.lop::Loporchio,Salvatore
 ::.riz::Rizzuto,Philip
@@ -999,14 +1002,14 @@ EncounterBiometry()
 
 }
 
-EncounterProc2(attending)
+EncounterProc2(choice_attending_rev)
 {
 	MouseClick "left", 40, 13 	; click 'Visit Type'
 	MouseClick "left", 30, 46 	; click 'Eye codes'
 	MouseClick "left", 195, 46	; click option 'intermediate exam established'
 	MouseClick "left", 477, 249 ; clicks 'not service connected'
 	MouseClick "left", 47, 465  ; clicks in textbox for available providers
-	SendWait(attending)
+	SendWait(choice_attending_rev)
 	Sleep 500
 
 	Send "{Tab}" ;add
@@ -1034,7 +1037,7 @@ EncounterProc2(attending)
 
 }
 
-EncounterPreOp(attending)
+EncounterPreOp(choice_attending_rev)
 {
 	
 	MouseClick "left", 40, 13 	; click 'Visit Type'
@@ -1042,7 +1045,7 @@ EncounterPreOp(attending)
 	MouseClick "left", 195, 46	; click option 'intermediate exam established'
 	MouseClick "left", 477, 249 ; clicks 'not service connected'
 	MouseClick "left", 63, 428  ; clicks in textbox for available providers
-	SendWait(attending)
+	SendWait(choice_attending_rev)
 	Sleep 500
 	MouseClick "left", 388, 454 ; clicks 'Add' to add provider
 	MouseClick "left", 359, 559 ; clicks 'Primary' to make attending the primary provider
@@ -1060,7 +1063,7 @@ EncounterPreOp(attending)
 }
 
 
-EncounterPostOp(attending)
+EncounterPostOp(choice_attending_rev)
 {
 	
 	MouseClick "left", 40, 13 	; click 'Visit Type'
@@ -1068,7 +1071,7 @@ EncounterPostOp(attending)
 	MouseClick "left", 195, 46	; click option 'intermediate exam established'
 	MouseClick "left", 477, 249 ; clicks 'not service connected'
 	MouseClick "left", 63, 428  ; clicks in textbox for available providers
-	SendWait(attending)
+	SendWait(choice_attending_rev)
 	Sleep 500
 	MouseClick "left", 388, 454 ; clicks 'Add' to add provider
 	MouseClick "left", 359, 559 ; clicks 'Primary' to make attending the primary provider

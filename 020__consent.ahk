@@ -3,7 +3,7 @@
 
 /*
 
-;will need to add own name0606
+;will need to add own name
 
 active window Informed Consent - Work - MIcrosoft Edge
 tab
@@ -32,13 +32,13 @@ Greenberg
     		WinActivate
 			WinMove (A_ScreenWidth/2)-(1250/2),(A_ScreenHeight/2)-(950/2),1250,950
 			;WinMove 0,0,1250,950 
-		FillConsent("Salvatore J. Loporchio, MD")
+		FillConsent(choice_attending)
 	}
 
 
 #HotIf
 
-FillConsent(attending)
+FillConsent(choice_attending)
 {
 	WinActivate "Informed Consent"
 	Send "{Tab 3}"
@@ -50,7 +50,7 @@ FillConsent(attending)
 	SendDownUp() ;under supervision of attending
 	Send "{Tab 3}"
 
-	SendWait(attending)
+	SendWait(choice_attending)
 	Sleep 1000
 
 	Send "{Tab 2}"
@@ -122,9 +122,9 @@ Sleep 500
 Send "{tab 2}"
 
 ;MouseClick "left", 67, 647 ;physician
-SendWait(attending)
+SendWait(choice_attending)
 Send "{tab}"
-SendWait("Pete Ortiz")
+SendWait(choice_nurse)
 
 Send "{tab}"
 SendDownUpDown() ; chooses "yes decision making capacity"

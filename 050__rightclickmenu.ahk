@@ -4,7 +4,7 @@ See original in
 https://www.autohotkey.com/docs/v2/lib/Menu.htm#Remarks
 */
 
-#INCLUDE DEV_011_GUI_attending.ahk
+#INCLUDE "000_RUN_THIS.ahk"
 
 ; Create the popup menu by adding some items to it.
 MyMenu := Menu()
@@ -44,6 +44,11 @@ MenuHandler(Item, *) {
 
 
 help_documentation(Item,*){
+    ShowStart("0.README - Notepad", "notepad.exe  --app=file:///S:/SURGICAL/Ophthalmology/AHK_VA_Scripts/0.README.txt")
+}
+
+
+help_documentation2(Item,*){
 MsgBox "
   (
     The first parameter is displayed as the message.
@@ -51,8 +56,6 @@ MsgBox "
     The third parameter determines the type of message box.
   )", "Window Title", "iconi"
 }
-
-
 
 
     ;*******************************************************************************
@@ -195,8 +198,8 @@ findVA(){
 
     mytext2 := StrReplace(mytext, "`r`n", "`n")
     ;"OD 20/(.{2}) PH" worked for OD 20/__ PH
-    RegExMatch(mytext2, "OD 20/(.{2})(\s*|\,\s*|-\d*\s*|\+\d*\s*)(`n|PH)", &VA_OD)
-    RegExMatch(mytext2, "OS 20/(.{2})(\s*|\,\s*|-\d*\s*|\+\d*\s*)(`n|PH)", &VA_OS)
+    RegExMatch(mytext2, "OD 20/(.{2,3})(\s*|\,\s*|-\d*\s*|\+\d*\s*)(`n|PH)", &VA_OD)
+    RegExMatch(mytext2, "OS 20/(.{2,3})(\s*|\,\s*|-\d*\s*|\+\d*\s*)(`n|PH)", &VA_OS)
     ;RegExMatch(mytext2, "OD\:{0,1}\s*20/{0,1}(.{2})(\s*|\,\s*|-\d*\s*|+\d*\s*)(`n|PH)", &VA_OD)
     ;RegExMatch(mytext2, "OS\:{0,1}\s*20/{0,1}(.{2})(\s*|\,\s*|-\d*\s*|+\d*\s*)(`n|PH)", &VA_OS)
     ;RegExMatch(mytext2, "abc(.*)123", &SubPat)
@@ -210,3 +213,37 @@ findVA(){
 
 }
 
+/*
+
+things that work
+
+ 
+     OD 20/20-1
+     OS 20/30+2
+
+
+things that don't work
+
+     OD  20/100-   PH 20/40
+     OS  20/25-2
+     
+                OD: 20/25 PHNI
+                OS: 20/30 PH 25 +2
+
+
+                OD 20/200 PHNI
+                OS 20/200+1 PHNI
+
+
+                OD: 20/25-2 PH 
+                OS: 20/25 PH 
+
+                OD: 20/50 PHNI 
+                OS: 20/30 PHNI
+
+
+
+                OD 20/30+1,
+                OS 20/25-2
+ 
+*/
