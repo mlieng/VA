@@ -233,7 +233,7 @@ SendText "
 The patient was seen and examined and/or discussed with the attending
 physician
 )"
-Send A_space attending
+Send A_space choice_attending
 SendText "
 (
 , who agrees with the management plan.
@@ -256,7 +256,7 @@ SendText "
 The patient was seen and examined and/or discussed with the attending
 physician
 )"
-Send A_space attending
+Send A_space choice_attending
 SendText "
 (
 , who agrees with the management plan.
