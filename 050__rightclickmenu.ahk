@@ -197,9 +197,28 @@ findVA(){
     ;mytext :=  EditGetSelectedText()
 
     mytext2 := StrReplace(mytext, "`r`n", "`n")
+    RegExMatch(mytext2, "OD\:{0,1}\s*20/{0,1}(.{2})(\s*|\,\s*|-\d*\s*|\+\d*\s*)(`n|PH)", &VA_OD)
+    RegExMatch(mytext2, "OS\:{0,1}\s*20/{0,1}(.{2})(\s*|\,\s*|-\d*\s*|\+\d*\s*)(`n|PH)", &VA_OS)
+
+
     ;"OD 20/(.{2}) PH" worked for OD 20/__ PH
-    RegExMatch(mytext2, "OD 20/(.{2,3})(\s*|\,\s*|-\d*\s*|\+\d*\s*)(`n|PH)", &VA_OD)
-    RegExMatch(mytext2, "OS 20/(.{2,3})(\s*|\,\s*|-\d*\s*|\+\d*\s*)(`n|PH)", &VA_OS)
+    ;RegExMatch(mytext2, "OD 20/(.{2,3})(\s*|\,\s*|-\d*\s*|\+\d*\s*)(`n|PH)", &VA_OD)
+    ;RegExMatch(mytext2, "OS 20/(.{2,3})(\s*|\,\s*|-\d*\s*|\+\d*\s*)(`n|PH)", &VA_OS)
+    ;VA_OD := 0
+    ;VA_OS := 0
+    ;if (VA_OD=0)
+    ;    RegExMatch(mytext2, "OD(\s|\s*)20/(.{2,3})(\s*|\,\s*|-\d*\s*|\+\d*\s*)(`n|PH)", &VA_OD)
+    ;if (VA_OS.count!=1)
+    ;if (VA_OS=0)
+    ;    RegExMatch(mytext2, "OS(\s|\s*)20/(.{2,3})(\s*|\,\s*|-\d*\s*|\+\d*\s*)(`n|PH)", &VA_OS)
+    ;if (VA_OD=0)
+    ;    RegExMatch(mytext2, "OD:(\s|\s*)20/(.{2,3})(\s*|\,\s*|-\d*\s*|\+\d*\s*)(`n|PH)", &VA_OD)
+    ;if (VA_OS=0)
+    ;    RegExMatch(mytext2, "OS:(\s|\s*)20/(.{2,3})(\s*|\,\s*|-\d*\s*|\+\d*\s*)(`n|PH)", &VA_OS)
+
+
+    ;RegExMatch(mytext2, "OD\:{0,1}\s*20/{0,1}(.{2})(\s*|\,\s*|-\d*\s*|\+\d*\s*)(`n|PH)", &VA_OD)
+    ;RegExMatch(mytext2, "OS\:{0,1}\s*20/{0,1}(.{2})(\s*|\,\s*|-\d*\s*|\+\d*\s*)(`n|PH)", &VA_OS)
     ;RegExMatch(mytext2, "OD\:{0,1}\s*20/{0,1}(.{2})(\s*|\,\s*|-\d*\s*|+\d*\s*)(`n|PH)", &VA_OD)
     ;RegExMatch(mytext2, "OS\:{0,1}\s*20/{0,1}(.{2})(\s*|\,\s*|-\d*\s*|+\d*\s*)(`n|PH)", &VA_OS)
     ;RegExMatch(mytext2, "abc(.*)123", &SubPat)
@@ -220,6 +239,16 @@ things that work
  
      OD 20/20-1
      OS 20/30+2
+ 
+     OD  20/20-1
+     OS  20/40+2
+
+
+                OD: 20/25-2 PH 
+                OS: 20/25 PH 
+
+                OD:  20/50 PHNI 
+                OS:  20/30 PHNI
 
 
 things that don't work
@@ -234,16 +263,14 @@ things that don't work
                 OD 20/200 PHNI
                 OS 20/200+1 PHNI
 
-
-                OD: 20/25-2 PH 
-                OS: 20/25 PH 
-
-                OD: 20/50 PHNI 
-                OS: 20/30 PHNI
-
-
-
+;HAS THE EXTRA COMMAS
                 OD 20/30+1,
                 OS 20/25-2
+
+                OD: LP PHNI
+                OS: 20/30+2 PHNI
+ 
  
 */
+
+

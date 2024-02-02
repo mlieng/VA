@@ -187,7 +187,7 @@ simple replacement
 :C:tapulse::good TA pulse, no cords nor tenderness
 
 
-;an X makes it escecute instead
+;an X makes it execute instead (to save space)
 ::.ts0:: 
 	{
 	    Send FormatTime(, "M/d/yy h:mm")  ; 'It will look like 10/4/23'
@@ -198,6 +198,12 @@ simple replacement
 :X:.td::Send FormatTime(, "M/d/yy")  ; 'It will look like 10/4/23'
 :X:.td2::Send FormatTime(, "yyyy/MM/dd")  ; 'It will look like 2023/10/04' 
 :X:.today::Send FormatTime(, "MMM d,yyyy")  ; 'It will look like Oct 4,2023'
+
+; https://stackoverflow.com/questions/54845832/add-to-date-or-time-in-autohotkey
+
+dateTomorrow := DateAdd(A_Now, 1, "days")
+:X:.to::Send FormatTime(dateTomorrow, "yyyy/MM/dd")  ; 'It will look like 2023/10/04' 
+:X:.tomorrow::Send FormatTime(dateTomorrow, "MMM d,yyyy")  ; 'It will look like 2023/10/04' 
 
 
 ;attending := "Dr. Alfred Paul MD"
@@ -211,8 +217,8 @@ simple replacement
 ;no space. J rivera
 ;murphy, greenberg, brian 
 ::.cat::Crystal Zhang MD, David Rivera MD, Ezra Galler MD, Jorge Rivera MD, Noelle Pruzan MD
-::.jriv::Rivera,Jorge
-::.driv::Rivera,David
+:*:.jriv::Rivera,Jorge
+:*:.driv::Rivera,David
 ::.gal::Galler,Ezra
 ::.lop::Loporchio,Salvatore
 ::.riz::Rizzuto,Philip
@@ -221,7 +227,7 @@ simple replacement
 ::.mur::Murphy,Marjorie
 ::.zha::Zhang,Crystal
 ::.pru::Pruzan,Noelle
-::.gre::Greenberg,Paul
+:*:.gre::Greenberg,Paul
 ::.pau::Paul,Alfred
 ::.sav::Savoie,Brian
 
@@ -236,6 +242,8 @@ simple replacement
 :*:.bri::BRIEF OPERATIVE NOTE/OPHTHALMOLOGY/SURGICAL
 #Hotif
 
+
+::.=::=============================================================================
 ::.bar::*********************************************************************
 ::.line::--------------------------------------------------------------------------------
 ::.esq::Esq-Sp-Ophth
@@ -300,6 +308,10 @@ no acute distress
 	Send "{Tab}"
     Sleep 250
 	Send "zeiss2019"
+    Sleep 50
+	Send "{Tab}"
+	Send "{Enter}"
+
 }
 
 #Hotif
@@ -459,7 +471,10 @@ Replacing arrows with ijkl
 !+8::Send "+{WheelUp}"
 !+9::Send "+{WheelDown}"
 
-
+;CapsLock & Enter::Send "!{Enter}"
+^Enter::Send "!{Enter}"
++Enter::Send "!{Enter}"
+;!Enter::Send "!{Enter}"
 
 ; Showstart 
 ; --------------------------------------------------------------------
@@ -696,19 +711,22 @@ AddNewOrder()
 	{
 		Send "^o"
 		Sleep 10 ;wait to be processed
-		MouseClick "left", 50, 400
-		Send "a"	
+		MouseClick "left", 10, 400
+		Send "a"
+		WinWait "Order Menu" 
+		WinMove (A_ScreenWidth/2)-(900/2),(A_ScreenHeight/2)-(800/2),900,600	
 	}
 AddNewMedicine()
 	{
 		Send "^o"
 		Sleep 10 ;wait to be processed
-		MouseClick "left", 50, 400
+		MouseClick "left", 10, 400
 		Send "m"	
 	}
 
 ClickImaging()
-	{	WinWait "Order Menu" 
+	{	
+		WinWait "Order Menu" 
 		WinMove (A_ScreenWidth/2)-(900/2),(A_ScreenHeight/2)-(800/2),900,600
 		MouseClick "left", 683, 37 ; clicks 42 local consults/requests
 		MouseClick "left", 510, 302 ; clicks 34 surgical consult
@@ -716,7 +734,6 @@ ClickImaging()
 	}
 ClickEKG()
 	{	WinWait "Order Menu" 
-		WinMove (A_ScreenWidth/2)-(900/2),(A_ScreenHeight/2)-(800/2),900,600
 		MouseClick "left", 683, 37 ; clicks 42 local consults/requests
 		MouseClick "left", 90, 368 ; clicks 14 medical  consult
 		MouseClick "left", 102, 83 ; clicks CARDIOLOGY
@@ -736,9 +753,9 @@ ClickCardsConsult()
 
 		WinWait "Reason for Request: CARDIOLOGY E-CONSULT OUTPT"
 		WinMove (A_ScreenWidth/2)-(900/2),(A_ScreenHeight/2)-(1000/2),783,755
-		MouseClick "left", 11, 39 ; clicks [ ] for 'Chart Review'
-		Send "{tab}"
-		Send "Cataract surgery, pacemaker"
+		;MouseClick "left", 11, 39 ; clicks [ ] for 'Chart Review'
+		;Send "{tab}"
+		;Send "Cataract surgery, pacemaker"
 
 		;KeyWait "Tab"
 		;Mouseclick "left", 676, 700 ;clicks OK
@@ -787,20 +804,14 @@ EnterEKGOrderDetails()
 	}
 
 ClickNonFormulary()
-	{
+	{	
+		MsgBox "clicked N"
 		WinWait "Order Menu" 
-		WinMove (A_ScreenWidth/2)-(900/2),(A_ScreenHeight/2)-(4003/2),900,600
-		MouseClick "left", 741, 31 ;clicks 42 local consults/requests
-		;Send "{Tab 2}"
-		;Send "{Enter}"
-		MouseClick "left", 537, 185 ;clicks 23 pharmacy consult
-		;Send "{Tab 1}"
-		;Send "{Down 9}"
-		;Send "{Enter}"
-		MouseClick "left", 141, 198 ;clicks NFDR EConsult Outpatient
-		;Send "{Down 10}"
-		;Send "{Enter}"
-		Send "{Tab 2}"
+		WinMove (A_ScreenWidth/2)-(900/2),(A_ScreenHeight/2)-(800/2),900,600
+		MouseClick "left", 683, 37 ; clicks 42 local consults/requests
+		MouseClick "left", 513, 185 ;clicks 23 pharmacy consult
+		MouseClick "left", 72, 197 ;clicks NFDR EConsult Outpatient
+		Send "{Tab 2}" ;PLACES CURSOR FOR MEDICATION NAME
 	}
 
 ; https://www.autohotkey.com/docs/v2/howto/WriteHotkeys.htm
@@ -830,10 +841,17 @@ Capslock & e::
 
 #Hotif  FindVarString_Loose(WinGetTitle("A"), "Encounter Form for ESQ-SP-OPHTHALMO POST-OP 3")
 	^e::EncounterPostOp("Pruzan")
-
 #Hotif  FindVarString_Loose(WinGetTitle("A"), "Encounter Form for ESQ-SP-OPHTHALMOLOGY 3 ")
 	;global choice_attending_reverse
 	^e::EncounterOp3(choice_attending_reverse)
+
+
+#Hotif  FindVarString_Loose(WinGetTitle("A"), "Encounter Form")
+	;global choice_attending_reverse
+	^e::{
+		if FindVarString_Loose(WinGetTitle("A"), "ESQ-SP-OPHTHALMOLOGY 2R ")
+			Encounter2R(choice_attending_reverse)
+	}
 #Hotif
 
 ; need to add multiline text/all the options
@@ -1122,13 +1140,40 @@ EncounterOp3(choice_attending_reverse)
 	MouseClick "left", 84, 174  ; click 'GLAUCOMA open angle'
 
 	MouseClick "left", 168, 9	; click 'Procedures'
-	MouseClick "left", 91, 59 ; click 'Image/Photos'
-	MouseClick "left", 281, 52 ; click 'OCT Mac'
-	MouseClick "left", 273, 127 ; click "VF"
+	MouseClick "left", 91, 59   ; click 'Test-Glaucoma'
+	MouseClick "left", 281, 52  ;	click 'OCT RNFL'
+	MouseClick "left", 273, 127 ; 	click "VF"
 
 
 }
 
+Encounter2R(choice_attending_reverse)
+{
+	WinMove ,, 766, 648, "A"
+	;choice_attending_reverse := StrReplace(choice_attending_reverse, A_Space,"")
+	MouseClick "left", 40, 13 	; click 'Visit Type'
+	MouseClick "left", 30, 46 	; click 'Eye codes'
+	MouseClick "left", 195, 46	; click option 'intermediate exam established'
+	MouseClick "left", 477, 249 ; clicks 'not service connected'
+
+	MouseClick "left", 63, 428  ; clicks in textbox for available providers
+	SendWait(choice_attending_reverse)
+	Sleep 500
+	MouseClick "left", 388, 454 ; clicks 'Add' to add provider
+	MouseClick "left", 359, 559 ; clicks 'Primary' to make attending the primary provider
+
+	MouseClick "left", 168, 9	; click 'Procedures'
+	MouseClick "left", 61, 42   ; 	click 'Image/Photos'
+	MouseClick "left", 216, 83  ; 	click 'OCT Mac'
+
+	MouseClick "left", 71, 9 	; click 'Diagnoses'
+	MouseClick "left", 101, 217	; 	click 'Retina-Macula'
+
+}
+
+
+;T2 diabetes without complications 
+; procedures: diabetic eye exam bilateral
 
 
 

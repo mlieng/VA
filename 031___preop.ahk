@@ -131,7 +131,7 @@ EXAM:
 
 		Equal, round and reactive to light.
  
-		Afferent Pupillary Defect:
+		Afferent Pupillary Defect: No
  
 	SLE:
 		L/L: no bleph
@@ -163,19 +163,21 @@ OD:
 OS:
  
 
+BIOMICROSCOPY
  
 Refraction options discussed with patient.
-Target Refraction:
+Target Refraction: PLANO
  
-Intraocular Lens (IOL) Formula:
-
 IOL OPTIONS:
-Posterior Chamber IOL (SN60WF):
+Posterior Chamber IOL (CC60WF): 
 Ciliary Sulcus IOL (MA60AC):
-Anterior Chamber IOL (MTA4UO):
-TORIC IOL:
+Anterior Chamber IOL (MTA***UO):
+Toric: N/A
  
-Pupil size after max dilation:
+Pupil size after max dilation: 
+  OD: mm
+  OS: mm
+ 
 =============================================================================
  
 HIGH-RISK CHARACTERISTICS FOR SURGICAL COMPLICATIONS
@@ -261,6 +263,40 @@ the provider. The patient elected to proceed with cataract surgery.
 The Veteran was given the following pre-operative instructions.
 Aspirin/NSAIDs/anticoagulants:
  
+Continue taking all aspirin and aspirin like products (Ibuprofen, Aleve,
+Motrin, Advil)
+ 
+Diabetic Related Instructions:
+ 
+Take half a dose of insulin the morning of surgery if fasting blood sugar is
+>150, Take no insulin if fasting blood sugar is <150, Do not take oral diabetic
+medication on the day of procedure, Resume diabetic medication after surgery
+ 
+ 
+Continue all other medications as prescribed
+ 
+Medication Reconciliation completed/Reviewed with Veteran
+ 
+Do not eat anything after midnight the night before surgery.
+Clear liquids are permitted up until 2 hours before scheduled
+surgery arrival time.
+ 
+A driver (family, friend or medical transport) is required the
+day of surgery. Driving is not permitted for 24 hrs after sedation.
+
+ 
+)"
+}	
+
+
+; iol calculation - holladay-2, barrett, hill RBF, hoffer-q, SRK-T, Other
+
+
+/*
+  
+The Veteran was given the following pre-operative instructions.
+Aspirin/NSAIDs/anticoagulants:
+ 
 ( )Continue taking all aspirin and aspirin like products (Ibuprofen, Aleve, 
 	Motrin, Advil), 
 ( )Continue taking blood thinners (Coumadin, Eliquis, Xarelto,Plavix), 
@@ -292,12 +328,43 @@ surgery arrival time.
  
 A driver (family, friend or medical transport) is required the
 day of surgery. Driving is not permitted for 24 hrs after sedation.
- 
- 
 
- 
+*/
+
+
+::.4b::{
+	SendText "
+( 
+
+For cataract surgery -  eye - on :
+ Pre-op:
+On arrival, please place one drop of each of the following medications in
+the surgical eye q5 min x3
+1.  Cyclogyl 1%
+2.  Phenylephrine 2.5%
+3.  Tropicamide 1%
+4. Vigamox in OR
+ Post-op:
+1. D/C IV, d/c home per 4B protocol
+2. Keep hard eye shield and/or patch on while in recovery room
+3. When patient gets home, take off shield and patch
+4. Start one drop of the following eyedrops to the operated eye until
+post-op check tomorrow
+- Prednisolone Acetate 1% (white cap) Q2H. YOU MUST SHAKE this drop.
+- Acular (gray cap) Q2H
+- Vigamox (tan cap in a flat bottle) Q2H
+ **Space eye drops by at least 5 minutes**
+5. Tape the hard shield over eye at bedtime for 1 week
+6. No bending, lifting or straining (light activity)
+7. Follow up tomorrow at Eagle Square Eye Clinic as scheduled
+8. Call VAMC (273-7100) and page ophthalmology with any severe pain,
+nausea, vomiting, discharge, or any other concerns
+9. Tylenol PRN pain
+10. Keep the Brimonidine drop with your other drops but do not use unless
+instructed.
+
+
 )"
 }	
 
 
-; iol calculation - holladay-2, barrett, hill RBF, hoffer-q, SRK-T, Other

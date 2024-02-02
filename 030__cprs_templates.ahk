@@ -162,6 +162,55 @@ vasculature: normal caliber and appearance
 }	
 
 
+
+::.ee::{
+SendText "
+(
+
+EYE EXAMINATION
+         Lids, lashes:
+                OD: wnl
+                OS: wnl
+ 
+         Conjunctiva:
+                OD: W&q
+                OS: w&q
+         Cornea:
+                OD: clear
+                OS: clear
+         AC:
+                OD: d&q
+                OS: d&q
+         Iris:
+                OD: R&R
+                OS: R&R
+         Lens:
+                OD: PCIOL
+                OS: PCIOL
+ 
+ 
+FUNDUS EXAMINATION (78D and 20D lenses):
+ 
+         Vitreous:
+                OD: clear
+                OS: PVD
+         C/D Ratio:
+                OD: 0.5
+                OS: 0.6
+         Disc Appearance:
+                OD: p/s/f
+                OS: p/s/f
+         Macula:
+                OD: flat no heme
+                OS: flat no heme
+         Vessels:
+                OD: normal caliber
+                OS: normal caliber
+         Periphery:
+                OD: no rt/rd
+                OS: no rt/rd
+)"
+}
 ::.cc::{
 	SendText "
 	(
@@ -289,12 +338,12 @@ DISEASE SPECIFIC
   Tgoal:
   Treatments:
   Tests:
-    Last DFE:
-    Fundus photos:
-    RNFL OCT:
-    Visual fields:
-    Gonioscopy:
-    Pachymetry:
+			Last DFE:
+    	Fundus photos: 
+    	RNFL OCT: (see results section)
+    	Visual fields: (see results section)
+    	Gonioscopy:
+    	Pachymetry:
   Drance heme? No
   VF defect: No
 )"

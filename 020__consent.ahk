@@ -32,18 +32,19 @@ Greenberg
     		WinActivate
 			WinMove (A_ScreenWidth/2)-(1250/2),(A_ScreenHeight/2)-(950/2),1250,950
 			;WinMove 0,0,1250,950 
-		FillConsent(choice_attending)
+		FillConsent()
 	}
 
 
 #HotIf
 
-FillConsent(choice_attending)
+FillConsent()
 {
 	WinActivate "Informed Consent"
 	Send "{Tab 3}"
 
-	SendWait("Monica K Lieng, MD")
+	;SendWait("Monica K Lieng, MD")
+	SendWait(choice_resident)
 
 	Send "{Tab 2}"
 	
