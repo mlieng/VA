@@ -11,6 +11,7 @@ Global clinic_choice
 ClinicList := [
 	"Cornea: Esq Sp Opht Cornea",
 	"Biometry: Esq-Sp-Opht-Biometry",
+	"Glauc: Esq Sp Opht-Glaucoma",
 	"Glaucoma: Esq-Sp-Opht-Glaucoma",
 	"Surgical Glaucoma: Esq-Sp-Ophth Surgical Glaucoma",
 	"Econsult: Esq-Sp-Ophthal E-Consult",
@@ -22,17 +23,25 @@ ClinicList := [
 	"Laser: Esq-Sp-Ophthalmolgy Laser",
 	"Op1n: Esq-Sp-Ophthalmology 1n",
 	"Op2r: Esq-Sp-Ophthalmology 2",
+	"Op2rg: Esq Sp Ophthalmology 2rg",
 	"Op2rg: Esq-Sp-Ophthalmology 2rg",
+	"Op3: Esq Sp Ophthalmology 3",
 	"Op3: Esq-Sp-Ophthalmology 3",
 	"Plastic: Esq-Sp-Ophthalmology Plast I",
 	"Uveitis: Esq-Sp-Ophthalmology Uveitis",
 	"Glasses: Esq-Sp-Optom Glass Adjust",
 	"Or: Pro-Amb: Surg Or Non-Count",
 	"Pro: Pro-Amb: Surg Or Non-Count",
-	"Optom: Esq-Sp-Optometry New 1",
+	"Optom:Esq-Sp-Optometry General 1"
+	"Optometry: Esq-Sp-Optometry New 1",
+	"Refr: Esq-Sp-Optometry Refraction",
+	"ORet: Esq-Sp-Optometry Retina",
+	"Low:Esq-Visual Imp-Low Vision"
 	"1n: Esq-Sp-Ophthalmology 1n",
 	"2r: Esq-Sp-Ophthalmology 2r",
+	"2rg: Esq Sp Ophthalmology 2rg",
 	"2rg: Esq-Sp-Ophthalmology 2rg",
+	"3: Esq Sp Ophthalmology 3",
 	"3: Esq-Sp-Ophthalmology 3"
 	]
 
