@@ -26,7 +26,7 @@ Loporchio
 Greenberg
 */
 
-#HotIf GetKeyState("Shift")
+;#HotIf GetKeyState("Shift")
 	Capslock & c:: {
 		if WinExist("Informed Consent")
     		WinActivate
@@ -36,7 +36,7 @@ Greenberg
 	}
 
 
-#HotIf
+;#HotIf
 
 FillConsent()
 {

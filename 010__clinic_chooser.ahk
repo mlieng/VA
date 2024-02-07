@@ -11,7 +11,7 @@ Global clinic_choice
 ClinicList := [
 	"Cornea: Esq Sp Opht Cornea",
 	"Biometry: Esq-Sp-Opht-Biometry",
-	"Glauc: Esq Sp Opht-Glaucoma",
+	"Glauc: Esq Sp Opht Glaucoma",
 	"Glaucoma: Esq-Sp-Opht-Glaucoma",
 	"Surgical Glaucoma: Esq-Sp-Ophth Surgical Glaucoma",
 	"Econsult: Esq-Sp-Ophthal E-Consult",

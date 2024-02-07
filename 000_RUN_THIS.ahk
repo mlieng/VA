@@ -162,12 +162,15 @@ simple replacement
 :C:iso::in the setting of
 :C:onh::ONH (optic nerve head)
 ::.noh:: No past macular degeneration, surgery, trauma, blindess, RD, glaucoma
-::.nfh::No blindness, AMD, glaucooma
+::.nfh:: No blindness, AMD, glaucooma
 :C:pt::patient
 ::phni::PHNI
 :C:pvd::PVD
 ::.at::artificial tears
-::pfat::preservative free artificial tears
+:C:pfat::preservative free artificial tears
+::latan::latanoprost
+::.latan::latanoprost ("Green cap")
+::.cosopt:: dorzolamide-timolol (Cosopt)
 ::.mrd::MRD1: mm, MRD2: mm
 ::rtc::RTC
 
@@ -182,7 +185,8 @@ simple replacement
 
 
 :C:cnv::CNV (choroidal neovascular membranes)
-::rbaic::R/B/A outlined, informed consent obtained
+::.rbaic::R/B/A outlined, informed consent obtained
+
 :C:ttp::tenderness to palpation
 :C:tapulse::good TA pulse, no cords nor tenderness
 
@@ -202,8 +206,9 @@ simple replacement
 ; https://stackoverflow.com/questions/54845832/add-to-date-or-time-in-autohotkey
 
 dateTomorrow := DateAdd(A_Now, 1, "days")
+:X:.to::Send FormatTime(dateTomorrow, "M/d/yy")  ; 'It will look like 10/4/23'
 :X:.to::Send FormatTime(dateTomorrow, "yyyy/MM/dd")  ; 'It will look like 2023/10/04' 
-:X:.tomorrow::Send FormatTime(dateTomorrow, "MMM d,yyyy")  ; 'It will look like 2023/10/04' 
+:X:.tomorrow::Send FormatTime(dateTomorrow, "MMM d,yyyy")  ; 'It will look like Oct 4,2023'
 
 
 ;attending := "Dr. Alfred Paul MD"
@@ -214,8 +219,9 @@ dateTomorrow := DateAdd(A_Now, 1, "days")
 ;attending := "Dr. Brian Savoie, MD"
 
 
-;no space. J rivera
-;murphy, greenberg, brian 
+;no space. J rivera, murphy, greenberg, brian 
+; requires second choice: 
+
 ::.cat::Crystal Zhang MD, David Rivera MD, Ezra Galler MD, Jorge Rivera MD, Noelle Pruzan MD
 :*:.jriv::Rivera,Jorge
 :*:.driv::Rivera,David
@@ -235,6 +241,8 @@ dateTomorrow := DateAdd(A_Now, 1, "days")
 ::.ort::Ortiz,Pete
 
 #HotIf FindVarString_Loose(WinGetTitle("A"), "Progress Note Properties")
+:*:ophth::ophthalmology
+:*:cat::cataract
 :*:.note::OPHTHALMOLOGY/NOTE/SURGICAL
 :*:.inj::OPHTHALMOLOGY  <H&P OPHTHALMOLOGY INJ
 :*:.int::BRIEF OPERATIVE (INTRAOCULAR INJECTION)/OPHTH/SURG
@@ -564,6 +572,7 @@ SendText "
 ; general commands
 ;********************************************************************* 
 
+#HotIf GetKeyState("Shift")
 ; get window coordinates
 Capslock & c::
 {
@@ -593,6 +602,7 @@ Capslock & e::
 	A_Clipboard := W ", " H
 	return
 }
+#HotIf
 
 /*
 Capslock & c::
@@ -656,7 +666,7 @@ Capslock & m::AddNewMedicine()
 
 
 #Hotif FindVarString_Loose(WinGetTitle("A"), "Order a Procedure")
-	Capslock & e:: EnterEKGOrderDetails()
+	;Capslock & e:: EnterEKGOrderDetails()
 #Hotif FindVarString_Loose(WinGetTitle("A"), "Order a Consult")
 	Capslock & f:: 
 	{
@@ -733,12 +743,23 @@ ClickImaging()
 		MouseClick "left", 421, 339 ; clicks optometry/ophthalmology imaging services Outpt
 	}
 ClickEKG()
-	{	WinWait "Order Menu" 
+	{	
+		WinWait "Order Menu" 
+		WinMove (A_ScreenWidth/2)-(900/2),(A_ScreenHeight/2)-(800/2),900,600
 		MouseClick "left", 683, 37 ; clicks 42 local consults/requests
 		MouseClick "left", 90, 368 ; clicks 14 medical  consult
 		MouseClick "left", 102, 83 ; clicks CARDIOLOGY
 		MouseClick "left", 551, 149 ; clicks EKG w/rhythm strip
 
+
+		;enter EKG order details
+		WinWait "Order a Procedure" 
+		Send "Preop EKG for anesthesia; for cataract surgery"
+		MouseClick "left", 239, 92 ; clicks date
+		Send FormatTime(, "M/d/yy")
+		Sleep 50
+		Send "{Tab 4}"
+		Send "{Down 2}"	
 	}
 
 ClickCardsConsult()
@@ -792,8 +813,8 @@ EnterAnesthesiaOrderDetails()
 			Send "Cataract Extraction and intraocular lens placement,  eye"
 			Send "{Left 4}"
 	}
-	
-EnterEKGOrderDetails()
+/*
+ EnterEKGOrderDetails()
 	{
 			Send "Preop EKG for anesthesia; for cataract surgery"
 			MouseClick "left", 239, 92 ; clicks date
@@ -802,6 +823,9 @@ EnterEKGOrderDetails()
 			Send "{Tab 4}"
 			Send "{Down 2}"	
 	}
+*/
+
+
 
 ClickNonFormulary()
 	{	
@@ -814,9 +838,12 @@ ClickNonFormulary()
 		Send "{Tab 2}" ;PLACES CURSOR FOR MEDICATION NAME
 	}
 
+
+
+
 ; https://www.autohotkey.com/docs/v2/howto/WriteHotkeys.htm
-#HotIf GetKeyState("Shift")
-Capslock & i:: ImagingGUI()
+;#HotIf GetKeyState("Shift")
+;Capslock & i:: ImagingGUI()
 Capslock & e:: 
 	{
 	if FindVarString_Loose(WinGetTitle("A"), "Encounter Form for ESQ-SP-OPHT-BIOMETRY")
@@ -830,7 +857,7 @@ Capslock & e::
 	}
 
 
-#Hotif FindVarString_Loose(WinGetTitle("A"), "Encounter Form for ESQ-SP-OPHTHALMO PROCEDRE 2")
+;#Hotif FindVarString_Loose(WinGetTitle("A"), "Encounter Form for ESQ-SP-OPHTHALMO PROCEDRE 2")
 	^e::EncounterProc2("Loporchio,S")		
 
 #Hotif FindVarString_Loose(WinGetTitle("A"), "Encounter Form for ESQ-SP-OPHT-BIOMETRY")

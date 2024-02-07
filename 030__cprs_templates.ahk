@@ -53,9 +53,9 @@ Unable to result consult through consult tab
 SendText "
 (
         Intraocular Pressure: 
-            ORA  (IOPcc | CH | IOPg) 
-                OD: 1. | . | 1.
-                OS: 1. | . | 1.
+            ORA  (IOPcc / CH / IOPg) 
+                OD: 1. / . / 1. (WS )
+                OS: 1. / . / 1. (WS )
 
       Applanation @ : 
                 OD: 1 mmHg
