@@ -191,32 +191,18 @@ findVAwrapper(Item,*){
 }
 
 findVA(){
-        Send "^C"
+    Send "^C"
     ClipWait(2)
     mytext := A_Clipboard
-    ;mytext :=  EditGetSelectedText()
-
     mytext2 := StrReplace(mytext, "`r`n", "`n")
-    RegExMatch(mytext2, "OD\:{0,1}\s*20/{0,1}(.{2})(\s*|\,\s*|-\d*\s*|\+\d*\s*)(`n|PH)", &VA_OD)
-    RegExMatch(mytext2, "OS\:{0,1}\s*20/{0,1}(.{2})(\s*|\,\s*|-\d*\s*|\+\d*\s*)(`n|PH)", &VA_OS)
 
+    RegExMatch(mytext2, "OD\:{0,1}\s*20/(?<od>[a-zA-Z0-9]{2,3})(\s*|\,\s*|-\d*\s*|\+\d*\s*)(`n|PH)", &VA_OD)
+    RegExMatch(mytext2, "OS\:{0,1}\s*20/(?<os>[a-zA-Z0-9]{2,3})(\s*|\,\s*|-\d*\s*|\+\d*\s*)(`n|PH)", &VA_OS)
 
-    ;"OD 20/(.{2}) PH" worked for OD 20/__ PH
-    ;RegExMatch(mytext2, "OD 20/(.{2,3})(\s*|\,\s*|-\d*\s*|\+\d*\s*)(`n|PH)", &VA_OD)
-    ;RegExMatch(mytext2, "OS 20/(.{2,3})(\s*|\,\s*|-\d*\s*|\+\d*\s*)(`n|PH)", &VA_OS)
-    ;VA_OD := 0
-    ;VA_OS := 0
-    ;if (VA_OD=0)
-    ;    RegExMatch(mytext2, "OD(\s|\s*)20/(.{2,3})(\s*|\,\s*|-\d*\s*|\+\d*\s*)(`n|PH)", &VA_OD)
-    ;if (VA_OS.count!=1)
-    ;if (VA_OS=0)
-    ;    RegExMatch(mytext2, "OS(\s|\s*)20/(.{2,3})(\s*|\,\s*|-\d*\s*|\+\d*\s*)(`n|PH)", &VA_OS)
-    ;if (VA_OD=0)
-    ;    RegExMatch(mytext2, "OD:(\s|\s*)20/(.{2,3})(\s*|\,\s*|-\d*\s*|\+\d*\s*)(`n|PH)", &VA_OD)
-    ;if (VA_OS=0)
-    ;    RegExMatch(mytext2, "OS:(\s|\s*)20/(.{2,3})(\s*|\,\s*|-\d*\s*|\+\d*\s*)(`n|PH)", &VA_OS)
-
-
+    if(VA_OD.Count=0) 
+        VA_OD[1]=000
+    if(VA_OD.Count=0) 
+        VA_OS[1]=000
     ;RegExMatch(mytext2, "OD\:{0,1}\s*20/{0,1}(.{2})(\s*|\,\s*|-\d*\s*|\+\d*\s*)(`n|PH)", &VA_OD)
     ;RegExMatch(mytext2, "OS\:{0,1}\s*20/{0,1}(.{2})(\s*|\,\s*|-\d*\s*|\+\d*\s*)(`n|PH)", &VA_OS)
     ;RegExMatch(mytext2, "OD\:{0,1}\s*20/{0,1}(.{2})(\s*|\,\s*|-\d*\s*|+\d*\s*)(`n|PH)", &VA_OD)
@@ -227,9 +213,6 @@ findVA(){
     ;A_Clipboard := mytext2
     MsgBox VA_OD[1] "," VA_OS[1]
     A_Clipboard := VA_OD[1] "," VA_OS[1]
-    ;MsgBox VA_OD[1]
-    ;MsgBox VA_OS[1]
-
 }
 
 /*
@@ -239,6 +222,9 @@ things that work
  
      OD 20/20-1
      OS 20/30+2
+ 
+    OD  20/20-1
+     OS  20/30+2
  
      OD  20/20-1
      OS  20/40+2
@@ -251,13 +237,15 @@ things that work
                 OS:  20/30 PHNI
 
 
+     
+                OD: 20/25 PHNI
+                OS: 20/30 PH 25 +2
+
 things that don't work
 
      OD  20/100-   PH 20/40
      OS  20/25-2
-     
-                OD: 20/25 PHNI
-                OS: 20/30 PH 25 +2
+
 
 
                 OD 20/200 PHNI
@@ -270,7 +258,4 @@ things that don't work
                 OD: LP PHNI
                 OS: 20/30+2 PHNI
  
- 
-*/
-
-
+ */
