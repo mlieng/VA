@@ -12,6 +12,7 @@ MyMenu.Add("Help", help_documentation)
 MyMenu.Add("Settings", run_settings_GUI)
 MyMenu.Add()  ; Add a separator line.
 MyMenu.Add("Clean Optometry Note", cleanOptom)
+MyMenu.Add("Extract Visual Acuity", findVAwrapper)
 
 ; Create another menu destined to become a submenu of the above menu.
 Submenu1 := Menu()
@@ -76,6 +77,8 @@ https://images.datacamp.com/image/upload/v1665049611/Marketing/Blog/Regular_Expr
 cleanOptom(Item, *){
  cleanOptom2
 }
+
+
 
 cleanOptom2(){
     Send "^C"

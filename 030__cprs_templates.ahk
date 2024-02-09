@@ -38,7 +38,7 @@ chart review and are intended to be used in the next visit
 	)"
 }
 
-::.consult::{
+::.consult2::{
 	SendText "
 (
 `t`t`tOPHTHALMOLOGY CONSULT
@@ -540,7 +540,7 @@ the provider. The patient elected to proceed with cataract surgery.
 }
 
 
-::.consult2::{
+::.consult::{
 	SendText "
 (
 
