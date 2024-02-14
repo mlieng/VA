@@ -436,13 +436,15 @@ HISTORY OF PRESENT ILLNESS:
 Patient is a *** yo referred for cataract referral OU. Patient reports
 blurred vision OU and difficulty with glare and night driving.
 
-- Heart stent? Pacemaker?	[ ]No [ ] Yes:
-- Difficulty lying flat>30min		[ ]No [ ] Yes:
-- Issues with surgery before		[ ]No [ ] Yes:
-- Eye surgery history 		[ ]No [ ] Yes:
-- Eye trauma history (IFIS)	[ ]No [ ] Yes:	
-- On alpha-blocker? 		[ ]No [ ] Yes:
-- Oral steroids 		[ ]No [ ] Yes:
+- Heart stent? Pacemaker?			[ ]No [ ] Yes:
+- Difficulty lying flat>30min			[ ]No [ ] Yes:
+- Issues with surgery before			[ ]No [ ] Yes:
+- Eye surgery history 				[ ]No [ ] Yes:
+- History of refractive surgery? (PRK/RK/LASIK) [ ]No [ ] Yes: 
+- Eye trauma history (IFIS)			[ ]No [ ] Yes:	
+- On alpha-blocker? 				[ ]No [ ] Yes:
+- Oral steroids 				[ ]No [ ] Yes:
+- Measured pupil size (Malyugin Ring/Hooks?)	[ ]No [ ] Yes:
 
  
 ********************************************************************
