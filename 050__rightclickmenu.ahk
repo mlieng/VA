@@ -1,4 +1,5 @@
 
+
 /*
 See original in 
 https://www.autohotkey.com/docs/v2/lib/Menu.htm#Remarks
@@ -8,11 +9,11 @@ https://www.autohotkey.com/docs/v2/lib/Menu.htm#Remarks
 
 ; Create the popup menu by adding some items to it.
 MyMenu := Menu()
-MyMenu.Add("Help", help_documentation)
-MyMenu.Add("Settings", run_settings_GUI)
+MyMenu.Add("&Help", help_documentation)
+MyMenu.Add("&Settings", run_settings_GUI)
 MyMenu.Add()  ; Add a separator line.
-MyMenu.Add("Clean Optometry Note", cleanOptom)
-MyMenu.Add("Extract Visual Acuity", findVAwrapper)
+MyMenu.Add("&Clean Optometry Note", cleanOptom)
+MyMenu.Add("&Extract Visual Acuity", findVA)
 
 ; Create another menu destined to become a submenu of the above menu.
 Submenu1 := Menu()
@@ -23,8 +24,8 @@ Submenu1.Add("Item B", MenuHandler)
 MyMenu.Add("My Submenu", Submenu1)
 
 MyMenu.Add()  ; Add a separator line below the submenu.
-MyMenu.Add("Item 3", MenuHandler)  ; Add another menu item beneath the submenu.
-
+MyMenu.Add("&Timeout", fillTimeout)  ; Add another menu item beneath the submenu.
+MyMenu.Add("&Injection Consent", FillConsent)  ; Add another menu item beneath the submenu.
 
 ;*******************************************************************************
 ; supporting functions
@@ -33,10 +34,15 @@ MyMenu.Add("Item 3", MenuHandler)  ; Add another menu item beneath the submenu.
 
 MenuHandler(Item, *) {
     MsgBox("You selected " Item)
+    ;if Item ="&Timeout"
+    ;   fillTimeout()
+    ;else if Item ="&Injection Consent"
+    ;    FillConsent()
 }
 
 ;control plus right click
 ;start the menu
+#Z::
 ~^RButton::{
     MouseGetPos &xpos, &ypos 
     ;MouseClick, right, xpos, ypos
@@ -45,7 +51,7 @@ MenuHandler(Item, *) {
 
 
 help_documentation(Item,*){
-    ShowStart("0.README - Notepad", "notepad.exe  --app=file:///S:/SURGICAL/Ophthalmology/AHK_VA_Scripts/0.README.txt")
+    ShowStart("0.README - Notepad", "notepad.exe  --app=file:///S:/SURGICAL/Ophthalmology/AHK_VA_Scripts/0.README.md")
 }
 
 
@@ -74,13 +80,13 @@ mytext2 := RegExReplace(mytext2, "m)(\r\n|\r|\n){2}(?=(\s+)OS)", "`n")
 https://images.datacamp.com/image/upload/v1665049611/Marketing/Blog/Regular_Expressions_Cheat_Sheet.pdfhttps://www.rexegg.com/regex-quickstart.html
 */
 
-cleanOptom(Item, *){
- cleanOptom2
-}
+;cleanOptom(Item, *){
+; cleanOptom2
+;}
 
 
 
-cleanOptom2(){
+cleanOptom(*){
     Send "^C"
     ClipWait(2)
     mytext := A_Clipboard
@@ -184,16 +190,16 @@ cleanOptom2(){
     Send "^V"
 }
 
-CapsLock & z:: cleanOptom2
+CapsLock & z:: cleanOptom
 #HotIf GetKeyState("Shift")
 Capslock & f:: findVA
 #Hotif
 
-findVAwrapper(Item,*){
-    findVA
-}
+;findVAwrapper(Item,*){
+;    findVA
+;}
 
-findVA(){
+findVA(*){
     Send "^C"
     ClipWait(2)
     mytext := A_Clipboard
@@ -204,7 +210,7 @@ findVA(){
 
     if(VA_OD.Count=0) 
         VA_OD[1]=000
-    if(VA_OD.Count=0) 
+    if(VA_OS.Count=0) 
         VA_OS[1]=000
     ;RegExMatch(mytext2, "OD\:{0,1}\s*20/{0,1}(.{2})(\s*|\,\s*|-\d*\s*|\+\d*\s*)(`n|PH)", &VA_OD)
     ;RegExMatch(mytext2, "OS\:{0,1}\s*20/{0,1}(.{2})(\s*|\,\s*|-\d*\s*|\+\d*\s*)(`n|PH)", &VA_OS)

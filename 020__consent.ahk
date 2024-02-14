@@ -26,21 +26,17 @@ Loporchio
 Greenberg
 */
 
-;#HotIf GetKeyState("Shift")
-	Capslock & c:: {
-		if WinExist("Informed Consent")
-    		WinActivate
-			WinMove (A_ScreenWidth/2)-(1250/2),(A_ScreenHeight/2)-(950/2),1250,950
-			;WinMove 0,0,1250,950 
-		FillConsent()
-	}
+#HotIf GetKeyState("Shift") & FindVarString_Loose(WinGetTitle("A"), "Informed Consent")
+	Capslock & c:: FillConsent()
 
 
 ;#HotIf
 
-FillConsent()
-{
-	WinActivate "Informed Consent"
+FillConsent(*){
+	if WinExist("Informed Consent")
+	WinActivate
+	WinMove (A_ScreenWidth/2)-(1250/2),(A_ScreenHeight/2)-(950/2),1250,950
+	
 	Send "{Tab 3}"
 
 	;SendWait("Monica K Lieng, MD")
@@ -84,8 +80,11 @@ FillConsent()
 
 
 #HotIf FindVarString_Loose(WinGetTitle("A"), "Informed Consent")
-Capslock & f::
-{
+Capslock & f::fillTimeout()
+
+
+
+fillTimeout(*){
 if WinExist("Informed Consent")
 	WinActivate
 WinMove (A_ScreenWidth/2)-(1250/2),(A_ScreenHeight/2)-(950/2),1250,950
