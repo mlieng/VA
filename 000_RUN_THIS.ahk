@@ -2,6 +2,7 @@
 #INCLUDE "GuiCtlExt.ahk" ;https://github.com/TheArkive/GuiCtlExt_ahk2
 #Include "010__clinic_chooser.ahk"
 #Include "011__GUI_attending.ahk"
+#Include "012__encounter.ahk"
 #Include "020__consent.ahk"
 #Include "030__cprs_templates.ahk"
 #Include "031___preop.ahk"
@@ -269,6 +270,7 @@ if in the 'patient selection window'
 
 	^s::
 		{
+		WinMove ,, 800, 600, "A"
 		MouseClick "left", 774, 269
 		;WinActivate "Save Patient List Settings"
 		Sleep 500
@@ -278,10 +280,12 @@ if in the 'patient selection window'
 
 	:*:esq::
 		{
+		WinMove ,, 800, 600, "A"
 		clinic_chooser()
 		}
 	^o::
 	{
+		WinMove ,, 800, 600, "A"
 		MouseClick "left", 35, 124
 		clinic_chooser()
 	}
@@ -604,6 +608,13 @@ Capslock & e::
 }
 #HotIf
 
+Capslock & w::
+{
+	MsgBox "The active window is '" WinGetTitle("A") "'."
+	A_Clipboard := WinGetTitle("A")
+	return
+}
+
 /*
 Capslock & c::
 {
@@ -613,11 +624,14 @@ MsgBox "The cursor is at X" xpos " Y" ypos
 }
 */
 
+
+
+
 ;********************************************************************* 
 ; programming gui interaction with cprs 
 ;*********************************************************************
 
-
+^+r::
 Capslock & r::
 	/* 
 	FOR RETURN TO CLINIC
@@ -639,7 +653,9 @@ Capslock & r::
 	  MouseClick "left", 353, 135
 	  MouseClick "left", 353, 135
 	}
+^+a::
 Capslock & a::AddNewOrder()
+^+m::
 Capslock & m::AddNewMedicine()
 
 #Hotif FindVarString_Loose(WinGetTitle("A"), "Order Menu")
@@ -841,46 +857,6 @@ ClickNonFormulary()
 
 
 
-; https://www.autohotkey.com/docs/v2/howto/WriteHotkeys.htm
-;#HotIf GetKeyState("Shift")
-;Capslock & i:: ImagingGUI()
-Capslock & e:: 
-	{
-	if FindVarString_Loose(WinGetTitle("A"), "Encounter Form for ESQ-SP-OPHT-BIOMETRY")
-		EncounterBiometry("Zhang")
-	if FindVarString_Loose(WinGetTitle("A"), "Encounter Form for ESQ-SP-OPHTHALMO PROCEDRE 2")
-		EncounterProc2("Loporchio")
-	if FindVarString_Loose(WinGetTitle("A"), "Encounter Form for ESQ-SP-OPHTHALMO PRE-OP 3")
-		EncounterPreop("Pruzan")
-	if FindVarString_Loose(WinGetTitle("A"), "Encounter Form for ESQ-SP-OPHTHALMO POST-OP 3")
-		EncounterPostOp("Pruzan")
-	}
-
-
-;#Hotif FindVarString_Loose(WinGetTitle("A"), "Encounter Form for ESQ-SP-OPHTHALMO PROCEDRE 2")
-	^e::EncounterProc2("Loporchio,S")		
-
-#Hotif FindVarString_Loose(WinGetTitle("A"), "Encounter Form for ESQ-SP-OPHT-BIOMETRY")
-	^e::EncounterBiometry(choice_attending_reverse)
-
-#Hotif FindVarString_Loose(WinGetTitle("A"), "Encounter Form for ESQ-SP-OPHTHALMO PRE-OP 3")
-	^e::EncounterPreOp("Pruzan")
-
-#Hotif  FindVarString_Loose(WinGetTitle("A"), "Encounter Form for ESQ-SP-OPHTHALMO POST-OP 3")
-	^e::EncounterPostOp("Pruzan")
-#Hotif  FindVarString_Loose(WinGetTitle("A"), "Encounter Form for ESQ-SP-OPHTHALMOLOGY 3 ")
-	;global choice_attending_reverse
-	^e::EncounterOp3(choice_attending_reverse)
-
-
-#Hotif  FindVarString_Loose(WinGetTitle("A"), "Encounter Form")
-	;global choice_attending_reverse
-	^e::{
-		if FindVarString_Loose(WinGetTitle("A"), "ESQ-SP-OPHTHALMOLOGY 2R ")
-			Encounter2R(choice_attending_reverse)
-	}
-#Hotif
-
 ; need to add multiline text/all the options
 
 ImagingGUI()
@@ -1037,172 +1013,6 @@ Capslock & s::
 
 
 
-; encounter form
-; ********************************************************************* 
-
-
-EncounterBiometry(choice_attending_reverse)
-{	
-	choice_attending_reverse := StrReplace(choice_attending_reverse, A_Space,"")
-	MouseClick "left", 40, 13 	; click 'Visit Type'
-	MouseClick "left", 30, 46 	; click 'Eye codes'
-	MouseClick "left", 195, 46	; click option 'intermediate exam established'
-	MouseClick "left", 476, 268 ; clicks 'not service connected'
-	MouseClick "left", 63, 428  ; clicks in textbox for available providers
-	SendWait(choice_attending_reverse)
-	Sleep 500
-	MouseClick "left", 140, 450 ; clicks 'Add' to add provider
-	MouseClick "left", 359, 559 ; clicks 'Primary' to make attending the primary provider
-
-	MouseClick "left", 168, 9	; click 'Procedures'
-	MouseClick "left", 91, 46 ; click 'Image/Photos'
-	MouseClick "left", 218, 82 ; click 'OCT Mac'
-
-	MouseClick "left", 71, 9 	; click 'Diagnoses'
-	MouseClick "left", 103, 153 ; click 'LENS/CORNEA/POSTOP'
-	MouseClick "left", 266, 95 	; click "Cataract nuclear bilateral"
-
-	;will need to enter both, l, or r
-
-}
-
-EncounterProc2(choice_attending_reverse)
-{
-	MouseClick "left", 40, 13 	; click 'Visit Type'
-	MouseClick "left", 30, 46 	; click 'Eye codes'
-	MouseClick "left", 195, 46	; click option 'intermediate exam established'
-	MouseClick "left", 477, 249 ; clicks 'not service connected'
-	MouseClick "left", 47, 465  ; clicks in textbox for available providers
-	SendWait(choice_attending_reverse)
-	Sleep 500
-
-	Send "{Tab}" ;add
-	Send "{Enter}"
-
-	Send "{Tab 2}" ;make attending primary provider
-	Send "{Enter}"
-
-	;MouseClick "left", 388, 454 ; clicks 'Add' to add provider
-	;MouseClick "left", 359, 559 ; clicks 'Primary' to make attending the primary provider
-
-	MouseClick "left", 168, 9	; click 'Procedures'
-	MouseClick "left",  91, 125 ; click 'InjectionCodes'
-	MouseClick "left", 216, 34 ; click 'Intravitreal Eye Injection'
-	MouseClick "left", 91, 46 ; click 'Image/Photos'
-	MouseClick "left", 218, 82 ; click 'OCT Mac'
-	;MouseClick "left", 122, 136	; click 'Proc-inj vegf'
-
-	; need to program in the different procedure injectionis
-	;Sleep 5000
-
-	MouseClick "left", 71, 9 	; click 'Diagnoses'
-	MouseClick "left", 101, 217	; click 'Retina'
-
-
-}
-
-EncounterPreOp(choice_attending_reverse)
-{
-	
-	MouseClick "left", 40, 13 	; click 'Visit Type'
-	MouseClick "left", 30, 46 	; click 'Eye codes'
-	MouseClick "left", 195, 46	; click option 'intermediate exam established'
-	MouseClick "left", 477, 249 ; clicks 'not service connected'
-	MouseClick "left", 63, 428  ; clicks in textbox for available providers
-	SendWait(choice_attending_reverse)
-	Sleep 500
-	MouseClick "left", 388, 454 ; clicks 'Add' to add provider
-	MouseClick "left", 359, 559 ; clicks 'Primary' to make attending the primary provider
-
-	MouseClick "left", 168, 9	; click 'Procedures'
-	;MouseClick "left", 85, 46   ; click 'Image/Photos'
-	MouseClick "left", 57, 84   ; click 'test-other'
-	MouseClick "left", 216, 99  ; click "ophthalmic biometry"
-
-	MouseClick "left", 71, 9 	; click 'Diagnoses'
-	MouseClick "left", 103, 153 ; click 'LENS/CORNEA/POSTOP'
-
-	MouseClick "left", 264, 244  ; click 'combined form right eye'
-	MouseClick "left", 267, 258  ; click 'combined form left eye'
-}
-
-
-EncounterPostOp(choice_attending_reverse)
-{
-	
-	MouseClick "left", 40, 13 	; click 'Visit Type'
-	MouseClick "left", 30, 46 	; click 'Eye codes'
-	MouseClick "left", 195, 46	; click option 'intermediate exam established'
-	MouseClick "left", 477, 249 ; clicks 'not service connected'
-	MouseClick "left", 63, 428  ; clicks in textbox for available providers
-	SendWait(choice_attending_reverse)
-	Sleep 500
-	MouseClick "left", 388, 454 ; clicks 'Add' to add provider
-	MouseClick "left", 359, 559 ; clicks 'Primary' to make attending the primary provider
-
-	MouseClick "left", 71, 9 	; click 'Diagnoses'
-	MouseClick "left", 103, 153 ; click 'LENS/CORNEA/POSTOP'
-
-	MouseClick "left", 265, 340  ; click 'post op form right eye'
-	MouseClick "left", 267, 354  ; click 'post op form left eye'
-
-
-}
-
-EncounterOp3(choice_attending_reverse)
-{
-	WinMove ,, 766, 648, "A"
-	;choice_attending_reverse := StrReplace(choice_attending_reverse, A_Space,"")
-	MouseClick "left", 40, 13 	; click 'Visit Type'
-	MouseClick "left", 30, 46 	; click 'Eye codes'
-	MouseClick "left", 195, 46	; click option 'intermediate exam established'
-	MouseClick "left", 477, 249 ; clicks 'not service connected'
-	MouseClick "left", 63, 428  ; clicks in textbox for available providers
-	SendWait(choice_attending_reverse)
-	Sleep 500
-	MouseClick "left", 388, 454 ; clicks 'Add' to add provider
-	MouseClick "left", 359, 559 ; clicks 'Primary' to make attending the primary provider
-
-	MouseClick "left", 71, 9 	; click 'Diagnoses'
-	MouseClick "left", 84, 174  ; click 'GLAUCOMA open angle'
-
-	MouseClick "left", 168, 9	; click 'Procedures'
-	MouseClick "left", 91, 59   ; click 'Test-Glaucoma'
-	MouseClick "left", 281, 52  ;	click 'OCT RNFL'
-	MouseClick "left", 273, 127 ; 	click "VF"
-
-
-}
-
-Encounter2R(choice_attending_reverse)
-{
-	WinMove ,, 766, 648, "A"
-	;choice_attending_reverse := StrReplace(choice_attending_reverse, A_Space,"")
-	MouseClick "left", 40, 13 	; click 'Visit Type'
-	MouseClick "left", 30, 46 	; click 'Eye codes'
-	MouseClick "left", 195, 46	; click option 'intermediate exam established'
-	MouseClick "left", 477, 249 ; clicks 'not service connected'
-
-	MouseClick "left", 63, 428  ; clicks in textbox for available providers
-	SendWait(choice_attending_reverse)
-	Sleep 500
-	MouseClick "left", 388, 454 ; clicks 'Add' to add provider
-	MouseClick "left", 359, 559 ; clicks 'Primary' to make attending the primary provider
-
-	MouseClick "left", 168, 9	; click 'Procedures'
-	MouseClick "left", 61, 42   ; 	click 'Image/Photos'
-	MouseClick "left", 216, 83  ; 	click 'OCT Mac'
-
-	MouseClick "left", 71, 9 	; click 'Diagnoses'
-	MouseClick "left", 101, 217	; 	click 'Retina-Macula'
-
-}
-
-
-;T2 diabetes without complications 
-; procedures: diabetic eye exam bilateral
-
-
 
 /*
 --------------------------------------------------------------------------------
@@ -1221,7 +1031,11 @@ CAPSLOCK DOESN'T WORK AS WELL
 
 
 #HotIf FindVarString_Loose(WinGetTitle("A"), "VistA CPRS")
+^+h::
 Capslock & h:: ShowLabHgbA1c()
+^+e::
+Capslock & e:: updateNotetime()
+
 #HotIf
 
 ShowLabHgbA1c()
@@ -1246,6 +1060,26 @@ ShowLabHgbA1c()
 - image reports> Radiology Imaging Local Only
 - labs > labs > Cumulative
 - labs > graphing
+
+/*
+--------------------------------------------------------------------------------
+UPDATE note time
+--------------------------------------------------------------------------------
+*/
+
+
+
+
+updateNotetime(){
+	WinMove ,, 1074, 1040, "A"
+	Send "{Click 1019, 133}" 
+	WinWait "Progress Note Properties"
+	Send "{Click 278, 332}"	; click date/time
+	Send "{n}" 				; types 'n' for now
+	Send "{Click 641, 19}"		; click 
+}
+
+
 
 
 
