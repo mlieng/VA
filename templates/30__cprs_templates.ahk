@@ -49,7 +49,7 @@ Unable to result consult through consult tab
 )"
 }	
 
-::.ora::{
+::.ora1::{
 SendText "
 (
         Intraocular Pressure: 
@@ -63,6 +63,22 @@ SendText "
 )"
 
 }
+
+::.ora::{
+SendText "
+(
+        ORA
+	   	OD  IOPcc  - CH  - IOPg   (WS )
+		OS  IOPcc  - CH  - IOPg   (WS )
+
+         Goldmann
+                OD  mmHg
+                OS  mmHg
+ 
+ )"
+
+}
+
 
 
 
@@ -182,8 +198,8 @@ EYE EXAMINATION
                 OD: d&q
                 OS: d&q
          Iris:
-                OD: R&R
-                OS: R&R
+                OD: -NVI
+                OS: -NVI
          Lens:
                 OD: PCIOL
                 OS: PCIOL
@@ -392,12 +408,12 @@ DISEASE SPECIFIC
   Tgoal:
   Treatments:
   Tests:
-	Last DFE: 
-    	Fundus photos: 
-    	RNFL OCT: (see results section)
-    	Visual fields: (see results section)
-    	Gonioscopy: 
-    	Pachymetry: 
+	-Last DFE: 
+    	-Fundus photos: 
+    	-RNFL OCT: (see results section)
+    	-Visual fields: (see results section)
+    	-Gonioscopy: 
+    	-Pachymetry: 
   Drance heme, ever? No
   VF defect: No
 )"
@@ -467,7 +483,7 @@ Send "{up 2}{Home}{right 5}"
 	
 
 ::.hvf::
-::.hvf2::{
+::.hvf::{
 	SendText  Format("
 (
 HVF 24-2 ({1}):
@@ -588,6 +604,154 @@ EXAMINATION:
 
 *********************************************************************
 OCT Mac (9/6/24):
+  OD: FC intact, (-) IRF/SRF
+  OS: FC intact, (-) IRF/SRF
+
+FC = foveal contour, GA = geographic atrophy,
+IRF = intraretinal fluid, SRF = subretinal fluid
+ 
+*********************************************************************
+IMPRESSION/PLAN: 
+
+#Cataract OU
+- visually significant
+- motivated to pursue surgery
+- plan for OD > OS***; plan for plano (distance vision)
+
+- last EKG:
+- order for EKG placed
+
+- no significant cardiac history, no cardiology referral indicated
+- given history of *** cardiac referral placed
+- no h/o diabetes, not on GLP-1
+- has diabetes, not on GLP-1
+
+Other eye issues
+----------------
+
+********************************************************************* 
+ 
+The patient was informed that cataract surgery is elective surgery and that
+if cataract surgery was not performed, the visual acuity in the eye would
+continue to gradually decrease from progression of the cataract. The patient
+was reassured this was a reversible form of visual loss and that cataract
+surgery could always be done later at a time of the patient's choosing.
+ 
+The cataract surgical procedure was explained to the patient, including
+anesthesia options. The risks and benefits of and alternatives to cataract
+surgery were reviewed at length with the patient, including but not limited
+to infection [endophthalmitis]; cystoid macular edema; retinal detachment;
+bullous keratopathy; zonular/posterior capsular rupture; vitreous loss,
+vitreous hemorrhage; suprachoroidal hemorrhage; iris trauma; retained lens
+fragments; ptosis, and need for additional surgery. It was explained that
+many of these and other complications may develop during surgery, weeks or
+even years later, and could result in poor vision, loss of vision, or loss
+of eye, and that risks are greater with prior eye injury or surgery. The
+patient was informed that certain comorbidities and high-risk characteristics
+present may influence or alter the expected surgical techniques and/or
+outcomes of the procedure. The patient was informed that while surgery
+often reduces the need for glasses, most patients use glasses for some or
+all activities.
+ 
+It was explained to the patient that an ophthalmology resident would be
+participating in the cataract surgery under the close supervision of the
+attending physician. The patient voiced an understanding of this and was
+in agreement with this plan. The patient was also informed of the need to
+understand and respond to instructions and communicate with the team as
+necessary during the cataract surgery.
+ 
+Any patient barriers to learning were identified and considered during the
+discussion. The patient voiced an understanding of the procedure, risks and
+benefits discussed above and all the patient's questions were addressed by
+the provider. The patient elected to proceed with cataract surgery.
+
+*********************************************************************
+
+PATIENT EDUCATION/COUNSELING:
+
+The disease process(es) and implications thoroughly discussed with the patient.
+After all the patients questions were answered, the patient voiced an
+understanding of and was in agreement with the management plan.
+
+All ocular medications reconciled.
+
+	)"
+}
+
+::.biom0::{ 
+
+SendText "
+	(
+BIOMETRY PRE OP
+
+
+CHIEF COMPLAINT: Cataracts OU
+ 
+*********************************************************************
+HISTORY OF PRESENT ILLNESS:
+ 
+Patient is a *** yo referred for cataract referral OU. Patient reports
+blurred vision OU and difficulty with glare and night driving.
+
+- Heart stent? Pacemaker?		[ ]No [ ] Yes:
+- Difficulty lying flat>30min	[ ]No [ ] Yes:
+- Issues with surgery before	[ ]No [ ] Yes:
+- Eye surgery history 		[ ]No [ ] Yes:
+- History of refractive surgery? 	[ ]No [ ] Yes: 
+	(PRK/RK/LASIK) 
+- Eye trauma history (IFIS)		[ ]No [ ] Yes:	
+- On alpha-blocker? 			[ ]No [ ] Yes:
+- Oral steroids 			[ ]No [ ] Yes:
+ 
+********************************************************************
+PAST OCULAR HISTORY:
+#visually significant cataracts
+*********************************************************************
+CURRENT EYE MEDICATIONS:
+None
+*********************************************************************
+
+EXAMINATION:
+ 
+	VISUAL ACUITY: ()SC ()CC
+		OD: 20/ PHNI
+		OS: 20/ PHNI
+
+	PAM:
+		OD: 
+		OS:
+
+	Intraocular Pressure: tonopen  
+		OD: 1 mmHg
+		OS: 1 mmHg
+
+	SLE:
+		L/L: no bleph
+		S,C: white and quiet OU
+		K: clear, no guttae OU
+		I: flat OU, dilates to: 
+		AC: deep & quiet
+		L:  
+			OD:
+			OS:
+		AV: clear 
+	 
+	DFE OU:
+		vit: *** PVD
+		Disc: flat s/p/f
+		CD: 
+			OD:  
+			OS: 
+		Macula: foveal reflex intact
+		Vessels: no hemorrhages OU
+		Periphery: no holes/tears OU
+	 
+	Last MRx (date):
+		OD:
+		OS: 
+
+*********************************************************************
+OCT Mac (***):
   OD: FC intact, (-) IRF/SRF
   OS: FC intact, (-) IRF/SRF
 

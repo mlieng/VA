@@ -22,6 +22,19 @@ Pupil size after max dilation:
 }	
 
 
+
+/*
+Decreased quality of visual function that interferes with desired activities
+of living, 
+Bothersome glare that interferes with desired activities, 
+Inability to drive, 
+Symptomatic anisometropia, 
+Diminished peripheral vision, 
+Lens dislocation into anterior chamber, 
+Obscured view of fundus impeding diagnosis/treatment of other eye disease:
+*/
+
+
 ::.preop1::{
 	SendText "
 (
@@ -216,7 +229,8 @@ PLANNED ANESTHESIA: MAC
 LOCAL ANESTHESIA: Topical
 
 <choose 1>***
-PLANNED CPT CODES(S): Cataract Surgery (routine 66984),
+PLANNED CPT CODES(S): Cataract Surgery (routine 66984), Cataract Surgery (complex 66982)
+PLANNED CPT CODES(S): Cataract Surgery (routine 66984)
 PLANNED CPT CODES(S): Cataract Surgery (complex 66982)
  
 #***
@@ -391,11 +405,11 @@ day of surgery. Driving is not permitted for 24 hrs after sedation.
 	SendText "
 ( 
 
-For cataract surgery -  eye - on :
+For cataract surgery - *** eye - on ***:
  Pre-op:
 On arrival, please place one drop of each of the following medications in
 the surgical eye q5 min x3
-1.  Cyclogyl 1%
+1.  Cyclogyl 1% or 2%
 2.  Phenylephrine 2.5%
 3.  Tropicamide 1%
 4. Vigamox in OR
@@ -408,6 +422,7 @@ post-op check tomorrow
 - Prednisolone Acetate 1% (white cap) Q2H. YOU MUST SHAKE this drop.
 - Acular (gray cap) Q2H
 - Vigamox (tan cap in a flat bottle) Q2H
+- Brimonidine (purple cap) BID
  **Space eye drops by at least 5 minutes**
 5. Tape the hard shield over eye at bedtime for 1 week
 6. No bending, lifting or straining (light activity)
@@ -417,7 +432,6 @@ nausea, vomiting, discharge, or any other concerns
 9. Tylenol PRN pain
 10. Keep the Brimonidine drop with your other drops but do not use unless
 instructed.
-
 
 )"
 }	

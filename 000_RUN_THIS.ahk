@@ -4,199 +4,22 @@
 #Include "011__GUI_attending.ahk"
 #Include "012__encounter.ahk"
 #Include "020__newnote.ahk"
-#Include "030__cprs_templates.ahk"
 #Include "031___preop.ahk"
 #Include "031___postop.ahk"
 #Include "040__consent.ahk"
 #Include "050__rightclickmenu.ahk"
-
+#Include "templates\00__phrases.ahk"
+#Include "templates\30__cprs_templates.ahk"
+#Include "templates\41___preop.ahk"
+#Include "templates\42___postop.ahk"
 ;
 
 /*
 UPDATES
-2023/09/20 
-2023/09/23 -autocorrected
-2023/10/03 - started developing consent
-2023/10/04 - addded abbreviation list, dates, choosing encounter types
-2023/10/05 - text wrapping (see below)
-2023/10/07 - figure out how to do a hotstring/hotkey
-2023/11/03 - add F2/F3  for sublime
-2023/12/15 - 
 
+see docs/updats
 
-[ ] clicking of injections
-[x] needs adding the attending expansion 
-[x] re format text for indentation for text wrapping
-[ ] shortcuts to see 
-	[x] Hba1c specifically!
-		- labs > worksheet > enter hgb a1c, enter. tab 6
-	[ ] blood pressure Reports > CLinical Reports>  Vital Signs
-	[ ] image reports> Radiology Imaging Local Only
-	[ ] labs > labs > Cumaltive
-	[ ] labs > graphing
-[ ] re-route ctrl L, ctrl e, ctrl r 
-[x] create a file to create a bunch of text files for pre-charting too hard
-[x] create a settings GUI. (tools?)
-[x] create help screen
-[x] ADD NONFORMULARY ON ORDERS
-[ ] hotstring expander https://github.com/henrystern/hotstring_hints
-[x] auto processing optometry note
-
-[ ] auto extract name + birthdate
-[ ] auto extract IOP
-[ ] auto extract past ocular history
-
-- format indent 6, 7 
-
-2023/10/05
-- install package control
-	- https://packagecontrol.io/installation
-	- ctrl + shift + p
-	- type `install package control`, press `enter`
-- install wrap plus (https://github.com/ehuss/Sublime-Wrap-Plus)
-	- Bring up the Command Palette (CommandShiftP on OS X, CtrlShiftP on Linux/Windows).
-	- Select `package control: install package`
-	- type `wrap plus`
-- restart sublime
-
-- setting up on an individual file
-	- View > Wordwrap
-	- View > Wordwrap 80
-	- highlight text
-	- Alt + q 
-- setting up word wrapping for all text files
-	- make sure bottom write = "txt"
-	- Preference > settings > syntax specific
-	- insert the following and click save
-
-		// These settings override both User and Default settings for the Plain text syntax
-		{
-		// Calculates indentation automatically when pressing enter
-		"auto_indent": false,
-
-	    // Disables horizontal scrolling if enabled.
-	    // May be set to true, false, or "auto", where it will be disabled for
-	    // source code, and otherwise enabled.
-	    "word_wrap": "true",
-
-		// Set to a value other than 0 to force wrapping at that column rather than
-		// the window width. See "wrap_width_style" for extra options.
-		"wrap_width": 80,
-		// Columns in which to display vertical rulers. You can also pair the column
-		// with a ruler style (See "ruler_style"), eg: [[80, "solid"]]
-		"rulers": [[80, "solid"]],
-		}
 */
-
-
-/*
-;autodictionary
-
-simple replacement
-	https://unicode-table.com/en/; ➝, 🠕 , 🠗,⭠, α,β,γ,
-	https://www.arrowsymbol.com/triangle-arrows-symbols
-	putting the star does an instant replace
-	https://graphemica.com/unicode/characters/page/35
-*/
-
-::.r::{U+279D} 			;➝ {U+279D}
-::.ra::➝				;➝
-::.l::{U+2B60} 			;⭠ 
-::.bi::{U+2B64}			;⭤
-::.u::⭡					;⭡ {U+2B61} 
-::.uu::⇈ 				;
-::.incr::⇑	 			;⭡
-::.d::⭣					;⭣ {U+2B63}
-::.decr::⇓				;⭣ 
-::.dd::⇊
-::.primary::1°
-::.secondary::2° 
-::.tertiary::3° 
-::.neutrophil::Nφ
-::.macrophage::Mφ
-::.none::🚫
-
-:*:.event::{U+21D2} 	;⇒
-:*:.leadsto::{U+21D2} 	;⇒
-:*:.degC::{U+2103} 		;℃
-:*:.degF::{U+2109} 		;℉
-::.deg::{U+00B0} 		;° 
-:*:.alpha::{U+03B1} 	;α
-:*:.beta::{U+03B2} 		;β
-:*:.gamma::{U+03B3} 	;γ
-::.delta::{U+0394} 		;Δ
-::.deltalower::{U+03B4} ;δ
-::.pi::%>% 				;%>% 
-::.um::μm 				;μm
-::.ul::μl      			;μl
-:*:.psi::φ				;φ
-::.female::♀			;U+2640 ♀️ ○ U+25CB
-::.male::♂  			;U+2642 ♂️△	U+25B3
-
-::aka::AKA
-
-::optom::optometry
-::ophtho::ophthalmology
-::neur::neurology
-::fluoro::fluorescein
-::rapd::RAPD
-::oct::OCT
-::ou::OU
-::od::OD
-::os::OS
-;::left::LEFT
-;::right::RIGHT
-::crao::CRAO
-::brao::BRAO
-::crvo::CRVO
-::brvo::BRVO
-::wamd::wAMD
-::damd::dAMD
-::npdr::NPDR
-::pdr::PDR
-
-::amd::AMD
-::cme::CME
-::cidme::CI-DME 
-::.cc::CHIEF COMPLAINT: 
-::.hpi::HISTORY OF PRESENT ILLNESS: 
-::.ohx::OCULAR HISTORY:
-;::iva::IVA
-;::ive::IVE
-;::ivl::IVL
-:C:iso::in the setting of
-:C:onh::ONH (optic nerve head)
-::.noh:: No past macular degeneration, surgery, trauma, blindess, RD, glaucoma
-::.nfh:: No blindness, AMD, glaucooma
-:C:pt::patient
-::phni::PHNI
-:C:pvd::PVD
-::.at::artificial tears
-:C:pfat::preservative free artificial tears
-::latan::latanoprost
-::.latan::latanoprost ("Green cap")
-::.cosopt:: dorzolamide-timolol (Cosopt)
-::.mrd::MRD1: mm, MRD2: mm
-::rtc::RTC
-::shp::See H&P
-::.rba::R/B/A outlined, informed consent obtained, IV given today.
-::.re::right eye
-::.le::left eye
-
-; the C makes it caps lock sensitive
-
-:C:tid::3 times daily
-:C:bid::2 times daily
-:C:qid::4 times daily 
-::oclock::o'clock
-;'
-
-
-:C:cnv::CNV (choroidal neovascular membranes)
-::.rb::R/B/A outlined, informed consent obtained
-
-:C:ttp::tenderness to palpation
-:C:tapulse::good TA pulse, no cords nor tenderness
 
 
 ;an X makes it execute instead (to save space)
@@ -230,30 +53,10 @@ dateTomorrow := DateAdd(A_Now, 1, "days")
 ;no space. J rivera, murphy, greenberg, brian 
 ; requires second choice: 
 
-::.cat::Crystal Zhang MD, David Rivera MD, Ezra Galler MD, Jorge Rivera MD, Noelle Pruzan MD
-:*:.jriv::Rivera,Jorge
-:*:.driv::Rivera,David
-::.gal::Galler,Ezra
-::.lop::Loporchio,Salvatore
-::.riz::Rizzuto,Philip
-::.bry::Bryan,Richard
-::.jan::Janigian,Robert
-::.mur::Murphy,Marjorie
-::.zha::Zhang,Crystal
-::.pru::Pruzan,Noelle
-:*:.gre::Greenberg,Paul
-::.pau::Paul,Alfred
-::.sav::Savoie,Brian
-
-::.mar::Marchand,Nicole
-::.ort::Ortiz,Pete
-
-
-
 ::.=::=============================================================================
 ::.bar::*********************************************************************
 ::.line::--------------------------------------------------------------------------------
-::.esq::Esq-Sp-Ophth
+
 
 #HotIf FindVarString_Loose(WinGetTitle("A"), "Return To Clinic")
 	:*:es::
@@ -518,54 +321,6 @@ Capslock & d::ShowStart("Dragon Medical One", "C:\Program Files (x86)\Nuance\Dra
 ^+SPACE::
 {
 WinSetAlwaysOnTop -1, "A"
-}
-
-
-; VA phrases
-; --------------------------------------------------------------------
-
-::.eomi::{
-SendText "
-	(
-	Prism cover testing sc: 
-        Primary gaze: ortho
-        RIGHT gaze: ortho
-        LEFT gaze: ortho
-        RIGHT head tilt: ortho
-        LEFT head tilt: ortho
-	)"
-}
-
-::odos::{
-SendText "
-	(
-	  OD:
-	  OS:
-	)"
-}
-
-::.odos1::{
-SendText "
-	(
-	`tOD:
-	`tOS:
-	)"
-}
-
-::.odos2::{
-SendText "
-	(
-	`t`tOD:
-	`t`tOS:
-	)"
-}
-
-::.odos::{
-SendText "
-	(
-	`t`t`tOD:
-	`t`t`tOS:
-	)"
 }
 
 
