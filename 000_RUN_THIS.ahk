@@ -4,8 +4,6 @@
 #Include "011__GUI_attending.ahk"
 #Include "012__encounter.ahk"
 #Include "020__newnote.ahk"
-#Include "031___preop.ahk"
-#Include "031___postop.ahk"
 #Include "040__consent.ahk"
 #Include "050__rightclickmenu.ahk"
 #Include "templates\00__phrases.ahk"

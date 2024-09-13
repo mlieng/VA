@@ -525,7 +525,16 @@ FULL NOTE TEMPLATES
 --------------------------------------------------------------------------------
 */
 
-
+/*
+Decreased quality of visual function that interferes with desired activities
+of living, 
+Bothersome glare that interferes with desired activities, 
+Inability to drive, 
+Symptomatic anisometropia, 
+Diminished peripheral vision, 
+Lens dislocation into anterior chamber, 
+Obscured view of fundus impeding diagnosis/treatment of other eye disease:
+*/
 
 ::.biom::
 ::.biometry::{ 
@@ -547,7 +556,7 @@ blurred vision OU and difficulty with glare and night driving.
 - Difficulty lying flat>30min		[ ]No [ ] Yes:
 - Issues with surgery before		[ ]No [ ] Yes:
 - Eye surgery history 			[ ]No [ ] Yes:
-- History of refractive surgery? 	[ ]No [ ] Yes: 
+- H/o of refractive surgery? 	[ ]No [ ] Yes: 
 	(PRK/RK/LASIK) 
 - Eye trauma history (IFIS)		[ ]No [ ] Yes:	
 - On alpha-blocker? 			[ ]No [ ] Yes:
@@ -693,15 +702,15 @@ HISTORY OF PRESENT ILLNESS:
 Patient is a *** yo referred for cataract referral OU. Patient reports
 blurred vision OU and difficulty with glare and night driving.
 
-- Heart stent? Pacemaker?		[ ]No [ ] Yes:
-- Difficulty lying flat>30min	[ ]No [ ] Yes:
-- Issues with surgery before	[ ]No [ ] Yes:
+- Heart stent? Pacemaker?	[ ]No [ ] Yes:
+- Difficulty lying flat>30min		[ ]No [ ] Yes:
+- Issues with surgery before		[ ]No [ ] Yes:
 - Eye surgery history 		[ ]No [ ] Yes:
-- History of refractive surgery? 	[ ]No [ ] Yes: 
+- H/o refractive surgery? 	[ ]No [ ] Yes: 
 	(PRK/RK/LASIK) 
-- Eye trauma history (IFIS)		[ ]No [ ] Yes:	
-- On alpha-blocker? 			[ ]No [ ] Yes:
-- Oral steroids 			[ ]No [ ] Yes:
+- Eye trauma history (IFIS)	[ ]No [ ] Yes:	
+- On alpha-blocker? 		[ ]No [ ] Yes:
+- Oral steroids 		[ ]No [ ] Yes:
  
 ********************************************************************
 PAST OCULAR HISTORY:

@@ -86,7 +86,7 @@ MenuHandler(Item, *) {
 
 
 help_documentation(Item,*){
-    ShowStart("0.README - Notepad", "notepad.exe  --app=file:///S:/SURGICAL/Ophthalmology/AHK_VA_Scripts/0.README.md")
+    ShowStart("VA AHK", "C:\Program Files\Google\Chrome\Application\chrome.exe  --app=https://mlieng.github.io/VA/")
 }
 
 
