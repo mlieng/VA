@@ -1,7 +1,7 @@
 ---
-title: Tips, Warnings, and Dangers
-author: Tao He
-date: 2022-06-30
+title: MOREEEEE Tips, Warnings, and Dangers
+author: ML
+date: 2024-09-50
 category: Jekyll
 layout: post
 ---
