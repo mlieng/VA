@@ -27,6 +27,11 @@ layout: post
 [x] auto processing optometry note
 
 [ ] auto extract name + birthdate
+
+LASTNAME,FIRSTNAME MI; 1234567890 000-00-0000 mmm d,yyyy
+
+10 digit MRN
+
 [ ] auto extract IOP
 [ ] auto extract past ocular history
 - format indent 6, 7 
