@@ -13,6 +13,8 @@ url:              'https://mlieng.github.io'
 baseurl:          '/VA'
 rss:              RSS
 
+# for some reason it interacts with having two sights with the gitbook, so deleted the other one for now
+
 # bootstrap: use the remote theme for the site itself
 remote_theme: sighingnow/jekyll-gitbook
 
@@ -58,8 +60,8 @@ collections:
     permalink: /:collection/:path/
 
 ordered_collections:
-  - posts
   - pages
+  - posts
   - others
 
 page_width: 800px

@@ -2,7 +2,7 @@
 title: MOREEEEE Tips, Warnings, and Dangers
 author: ML
 date: 2024-09-12
-category: Jekyll
+category: J2
 layout: post
 ---
 
@@ -47,7 +47,7 @@ Using a `{: .block-warning}` attribute:
 > before continuing, as we'll be making use of features like these.
 {: .block-warning }
 
-### Dangers
+### Dangersd
 
 Using a `{: .block-danger}` attribute:
 

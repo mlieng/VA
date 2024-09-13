@@ -1,5 +1,5 @@
 ---
-title: Desi
+title: Commands
 author: Tao He
 date: 2022-02-06
 category: Jekyll
@@ -7,25 +7,78 @@ layout: post
 + cover: /assets/jekyll-gitbook/dinosaur.gif
 ---
 
-Tage.
-his is an draft p
+# Default CPRS
+---------------
+these abbreviations are part of normal cprs
 
-# header 1
+* alt -> fn: new patient	
+* alt -> ti : opens consent
+* ctrl + m: opens meds tab
+* ctrl + n: opens notes tab
+* ctrl + o: opens orders tab
+* ctrl + l: opens labs tab
 
-Make Jelly site have a GitBook look!
 
-## Demo
+# Notes Tab
+-----------
+(ctrl + n)
 
-This is my new page
 
-### Additional header
+# Orders Tab
+------------
+(ctrl + o; the following can be done on any tab)
+- capslock & r: 'Return to clinic' 		(same as doing  Ctrl O, then r)
+- capslock & a: 'Add New Order' 		(same as doing Ctrl O, then a)
+- capslock & m: order 'Meds, Outpatient'
 
-```
-this is some codeee
-```
+- shift + capslock + i: bring up imaging order GUI
 
-### Additional header 3
 
-## h2
+## Add new orders
+-----------------
+(capslock & a -> ....)
+- a: order anesthesia consult
+- c: order cards consult
+- e: add ekg
+- i: add imaging order
+- j: add injection order
+- n: non-formulary med order
 
-### h3
+- d: exit
+- x: exit
+- backspace: goes to previous
+
+
+- capslock & f: fills on order details such as date
+
+## Consent
+----------
+(alt -> ti opens consent window)
+
+	shift + capslock + c: fill in consent form
+			capslock + f: fill in shared timeout
+
+
+
+# Other utilities
+-----------------
+
+Keyboard as arrow keys
+
+	alt + i: up
+	alt + k: down
+	alt + j: left
+	alt + l: right
+
+	alt + h: next word
+	alt + ; previous word
+
+	alt + u: beginning of line (equivalent of {home} button)
+	alt + o: end of line  (equivalent of {end} button)
+
+adding shift to the above key combo highlights
+
+	ex. alt + shift + ; : highlights word to right
+	ex. alt + shift + o : highlights until end of line 
+
+
