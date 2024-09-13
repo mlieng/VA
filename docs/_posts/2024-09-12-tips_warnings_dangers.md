@@ -1,7 +1,7 @@
 ---
 title: MOREEEEE Tips, Warnings, and Dangers
 author: ML
-date: 2024-09-50
+date: 2024-09-12
 category: Jekyll
 layout: post
 ---
