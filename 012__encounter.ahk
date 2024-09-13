@@ -105,7 +105,7 @@ click_newPatient(){
 	choice_attending_reverse2 := StrReplace(choice_attending_reverse, A_Space,"")
 	Send "{Click 49 429}"	; clicks textbox for available providers
 
-	if choice_attending_reverse="Attending"{
+	if choice_attending_reverse="NAME"{
 		MsgBox("default ATTENDING")
 	} 
 	else if choice_attending_reverse~="Paul,"{
@@ -143,7 +143,7 @@ click_newPatient(){
 
 	enc_title := StrUpper(WinGetTitle("A"))
 
-	if enc_title~="OP|Ophthalmology" and enc_title~="3"{
+	if enc_title~="OPHTHALMOLOGY 3"{
 
 		Send "{Click 71 9}"  	; click 'Diagnoses'
 		Send "{Click 84 174}"   ; click 'GLAUCOMA open angle'
@@ -156,6 +156,21 @@ click_newPatient(){
 		Send "{Click 273 127}"  ; click "VF"
 
 	}
+
+	if enc_title~="GLAUCOMA"{
+
+		Send "{Click 71 9}"  	; click 'Diagnoses'
+		Send "{Click 84 174}"   ; click 'GLAUCOMA open angle'
+		Send "{Click 365 188}"	; click mod right eye
+		Send "{Click 365 207}"	; click mod left eye
+		
+		Send "{Click 168 9}" 	; click 'Procedures'
+		Send "{Click 91 59}"    ; click 'Test-Glaucoma'
+		Send "{Click 281 52}"   ; click 'OCT RNFL'
+		Send "{Click 273 127}"  ; click "VF"
+
+	}
+
 	if enc_title~="BIOMETRY"{
 		MouseClick "left", 168, 9	; click 'Procedures'
 		MouseClick "left", 91, 46 ; click 'Image/Photos'
@@ -166,7 +181,7 @@ click_newPatient(){
 		MouseClick "left", 266, 95 	; click "Cataract nuclear bilateral"
 
 	}
-	if enc_title~="PROC" and enc_title~="2" {
+	if enc_title~="PROCEDURE 2"{
 		MouseClick "left", 168, 9	; click 'Procedures'
 		MouseClick "left",  91, 125 ; click 'InjectionCodes'
 		MouseClick "left", 216, 34 ; click 'Intravitreal Eye Injection'
@@ -211,7 +226,7 @@ click_newPatient(){
 		MouseClick "left", 265, 340  ; click 'post op form right eye'
 		MouseClick "left", 267, 354  ; click 'post op form left eye'
 		}
-	if enc_title~="OP|Ophthalmology" and enc_title~="2R"{
+	if enc_title~="OPHTHALMOLOGY 2"{
 		MouseClick "left", 168, 9	; click 'Procedures'
 		MouseClick "left", 61, 42   ; 	click 'Image/Photos'
 		MouseClick "left", 216, 83  ; 	click 'OCT Mac'

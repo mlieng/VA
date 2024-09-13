@@ -1,29 +1,5 @@
 
-
-
 /*
-
-;will need to add own name
-
-active window Informed Consent - Work - MIcrosoft Edge
-tab
-Lieng
-wait
-tab (to add button)
-enter
-
-tab x 3
-down
-up
-
-tab 
-loporchio
-wait
-*/
-
-/*
-Loporchio
-Greenberg
 */
 
 #HotIf GetKeyState("Shift") & FindVarString_Loose(WinGetTitle("A"), "Informed Consent")
@@ -36,7 +12,11 @@ FillConsent(*){
 	if WinExist("Informed Consent")
 	WinActivate
 	WinMove (A_ScreenWidth/2)-(1250/2),(A_ScreenHeight/2)-(950/2),1250,950
-	
+
+	if choice_attending~="ATTENDING"{
+		throw Error("Need to enter attending name in settings", -1)
+	} 
+
 	Send "{Tab 3}"
 
 	;SendWait("Monica K Lieng, MD")
@@ -82,9 +62,14 @@ FillConsent(*){
 #HotIf FindVarString_Loose(WinGetTitle("A"), "Informed Consent")
 Capslock & f::fillTimeout()
 
+#HotIf
 
 
 fillTimeout(*){
+if choice_attending~="ATTENDING"{
+		throw Error("Need to enter attending name in settings", -1)
+	} 
+	
 if WinExist("Informed Consent")
 	WinActivate
 WinMove (A_ScreenWidth/2)-(1250/2),(A_ScreenHeight/2)-(950/2),1250,950
@@ -136,7 +121,7 @@ MouseClick "left", 96, 657
 
 
 }
-#HotIf
+
 
 
 
@@ -145,47 +130,6 @@ EyeInjSide := Array(
 	{abbr:"OS, os, l, left", name:"LEFT Eye Injection"},
 	{abbr:"OU, ou, b, botH", name:"BOTH - RIGHT and LEFT Eye Injections"}
 )
-
-
-/*
-
-;Capslock & q::EyeInjSideGui()
-
-; working on this!!!
-
-EyeInjSideGui()
-{
-	MyGui := Gui()
-	
-	AbbrNameGuide := PrintAbbrNames(EyeInjSide)
-	
-	ArrNames := GetNames(EyeInjSide)
-	ArrAbbr := GetAbbr(EyeInjSide)
-	MyGui.Add("ComboBox", "r3 w350 vInjSideChoice", ArrNames)
-
-	Btn := MyGui.Add("Button", "default xm", "OK")  ; xm puts it at the bottom left corner.
-	Btn.OnEvent("Click", ProcessUserInput)
-	MyGui.OnEvent("Close", ProcessUserInput)
-	MyGui.OnEvent("Escape", ProcessUserInput)
-
-	MyGui.Add("Text",,AbbrNameGuide)
-
-	MyGui.Show()
-
-		ProcessUserInput(*)
-		{
-	    Saved := MyGui.Submit()  ; Save the contents of named controls into an object.
-	    ;MsgBox("You entered:`n '" Saved.InjSideChoice "'")
-	    A_Clipboard := Saved.InjSideChoice
-	    return A_Clipboard
-
-		}	
-}
-
-
-
-*/
-
 
 
 

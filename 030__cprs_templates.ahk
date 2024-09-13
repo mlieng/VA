@@ -220,6 +220,7 @@ CHIEF COMPLAINT
 PAST OCULAR HX
 
 OCULAR MEDS
+
 ********************************************************************* 
 
 	)"
@@ -255,6 +256,28 @@ OCULAR MEDS
 	)"
 }	
 
+::.end::{ ; in one function
+end_text := Format(
+"
+(
+	
+The patient was seen and examined and/or discussed with the attending
+physician Dr. {1}, who agrees with the management plan.
+ 
+*********************************************************************
+PATIENT EDUCATION/COUNSELING:
+The disease process(es) and implications thoroughly discussed with the 
+patient. After all the patients questions were answered, the patient voiced 
+an understanding of and was in agreement with the management plan.
+ 
+All ocular medications reconciled.
+)", 
+        choice_attending)
+
+Send end_text
+
+}
+
 
 ::.end1::{
 
@@ -275,7 +298,7 @@ All ocular medications reconciled.
 )"
 	}
 
-::.end::{
+::.end2::{
 
 SendText "
 (
@@ -298,29 +321,60 @@ All ocular medications reconciled.
 )"
 	}
 
-::.endp::{
 
-SendText "
+;MyKey := "Shift"
+;Send "{" MyKey " down}"  
+
+
+write_end_text(){
+end_text := Format(
+"
 (
 The patient was seen and examined and/or discussed with the attending
-physician
-)"
-Send A_space choice_attending
-SendText "
-(
-, who agrees with the management plan.
+physician Dr. {1}, who agrees with the management plan.
  
 *********************************************************************
 PATIENT EDUCATION/COUNSELING:
-  The risks, benefits and alternatives of the injection procedure were
-reviewed with patient at length. All the patient's questions were answered
-and the patient voiced an understanding of the above. The patient elected to
-proceed with the planned injection and written informed consent was obtained.
-
+The disease process(es) and implications thoroughly discussed with the 
+patient. After all the patients questions were answered, the patient voiced 
+an understanding of and was in agreement with the management plan.
+ 
 All ocular medications reconciled.
+)", 
+        choice_attending)
 
-)"
-	}
+Return end_text	
+}
+
+::.end3:: { ; in a callable function
+end_text := write_end_text()
+Send end_text
+}
+
+:X:.end4:: Send write_end_text() 
+
+::.end5::{ ; in one function
+end_text := Format(
+"
+(
+The patient was seen and examined and/or discussed with the attending
+physician Dr. {1}, who agrees with the management plan.
+ 
+*********************************************************************
+PATIENT EDUCATION/COUNSELING:
+The disease process(es) and implications thoroughly discussed with the 
+patient. After all the patients questions were answered, the patient voiced 
+an understanding of and was in agreement with the management plan.
+ 
+All ocular medications reconciled.
+)", 
+        choice_attending)
+
+Send end_text
+
+}
+
+
 
 /*
 --------------------------------------------------------------------------------
@@ -338,18 +392,31 @@ DISEASE SPECIFIC
   Tgoal:
   Treatments:
   Tests:
-			Last DFE:
+	Last DFE: 
     	Fundus photos: 
     	RNFL OCT: (see results section)
     	Visual fields: (see results section)
-    	Gonioscopy:
-    	Pachymetry:
-  Drance heme? No
+    	Gonioscopy: 
+    	Pachymetry: 
+  Drance heme, ever? No
   VF defect: No
 )"
 }	
 
 ::.des::{
+SendText Format('
+(
+#Dry eye syndrome OU
+- first noted on {1}
+- teary eyes, PEE on exam, MGD OU
+- last educated patient on {1} on lid hygiene, warm compresses
+- preservative free artificial tears 4-6x daily
+)',
+FormatTime(, "M/d/yy")
+)
+}
+
+::.des1::{
 SendText '
 (
 #Dry eye syndrome OU
@@ -370,37 +437,61 @@ on lid hygiene, warm compresses
 )'
 }
 
+;********************************************************************* 
 ::.octm::{
-	SendText "
+	SendText Format("
 (
-OCT Mac :
-  OD: foveal contour intact, no IRF/SRF
-  OS: foveal contour intact, no IRF/SRF 
+OCT Mac ({1}):
+  OD: FC intact, (-) IRF/SRF
+  OS: FC intact, (-) IRF/SRF
 
-)"
+ FC = foveal contour, GA = geographic atrophy, 
+ IRF = intraretinal fluid, SRF = subretinal fluid
+
+)", 
+	FormatTime(, "M/d/yy"))
+Send "{up 2}{End}"
 }	
 
 ::.octr::{
-	SendText "
+	SendText  Format("
 (
-OCT RNFL :
+OCT RNFL ({1}):
   OD: G, no thinning
   OS: G, no thinning
 
-)"
+)", 
+	FormatTime(, "M/d/yy"))
+Send "{up 2}{Home}{right 5}"	
 }	
+	
 
-::.hvf::{
-	SendText "
+::.hvf::
+::.hvf2::{
+	SendText  Format("
 (
-HVF 24-2 :
+HVF 24-2 ({1}):
   OD: reliability, FP %, no defects 
   OS: reliability, FP %, no defects
 
-)"
+)", 
+FormatTime(, "M/d/yy"))
+Send "{up 2}{Home}{right 3}"
 }	
+	
+::.hvf3::{
+	SendText  Format("
+(
+HVF 30-2 ({1}) :
+  OD: reliability, FP %, no defects 
+  OS: reliability, FP %, no defects
 
-
+)", 
+FormatTime(, "M/d/yy"))
+Send "{up 2}{Home}{right 3}"
+}	
+	
+;********************************************************************* 
 
 /*
 ::.blank::SendRaw {
@@ -412,8 +503,6 @@ HVF 24-2 :
 */
 
 
-
-
 /*
 --------------------------------------------------------------------------------
 FULL NOTE TEMPLATES
@@ -421,8 +510,10 @@ FULL NOTE TEMPLATES
 */
 
 
+
 ::.biom::
-::.biometry::{
+::.biometry::{ 
+
 SendText "
 	(
 BIOMETRY PRE OP
@@ -436,16 +527,17 @@ HISTORY OF PRESENT ILLNESS:
 Patient is a *** yo referred for cataract referral OU. Patient reports
 blurred vision OU and difficulty with glare and night driving.
 
-- Heart stent? Pacemaker?			[ ]No [ ] Yes:
-- Difficulty lying flat>30min			[ ]No [ ] Yes:
-- Issues with surgery before			[ ]No [ ] Yes:
-- Eye surgery history 				[ ]No [ ] Yes:
-- History of refractive surgery? (PRK/RK/LASIK) [ ]No [ ] Yes: 
-- Eye trauma history (IFIS)			[ ]No [ ] Yes:	
-- On alpha-blocker? 				[ ]No [ ] Yes:
-- Oral steroids 				[ ]No [ ] Yes:
-- Measured pupil size (Malyugin Ring/Hooks?)	[ ]No [ ] Yes:
-
+- Heart stent? Pacemaker?		[ ]No [ ] Yes:
+- Difficulty lying flat>30min		[ ]No [ ] Yes:
+- Issues with surgery before		[ ]No [ ] Yes:
+- Eye surgery history 			[ ]No [ ] Yes:
+- History of refractive surgery? 	[ ]No [ ] Yes: 
+	(PRK/RK/LASIK) 
+- Eye trauma history (IFIS)		[ ]No [ ] Yes:	
+- On alpha-blocker? 			[ ]No [ ] Yes:
+- Oral steroids 			[ ]No [ ] Yes:
+- Measured pupil size 	[ ]No [ ] Yes:
+	(Malyugin Ring/Hooks?)
  
 ********************************************************************
 PAST OCULAR HISTORY:
@@ -460,18 +552,28 @@ EXAMINATION:
 	VISUAL ACUITY: ()SC ()CC
 		OD: 20/ PHNI
 		OS: 20/ PHNI
+
+	PAM:
+		OD: 
+		OS:
 	 
+	Last MRx (date):
+		OD:
+		OS: 
+
 	Intraocular Pressure: tonopen  
 		OD: 1 mmHg
 		OS: 1 mmHg
 
 	SLE:
 		L/L: no bleph
-		S,C: white and quiet 
-		K: clear, no guttae
-		I: no NVI 
+		S,C: white and quiet OU
+		K: clear, no guttae OU
+		I: flat OU, dilates to: 
 		AC: deep & quiet
 		L: ***4+ NS 
+			OD:
+			OS:
 		AV: clear 
 	 
 	DFE OU:
@@ -481,13 +583,16 @@ EXAMINATION:
 			OD:  
 			OS: 
 		Macula: foveal reflex intact
-		Vessels: no hemorrhages
-		Periphery: no holes/tears
+		Vessels: no hemorrhages OU
+		Periphery: no holes/tears OU
 
 *********************************************************************
-Mac OCT
-	OD: foveal contour intact, no IRF/SRF
-	OS: foveal contour intact, no IRF/SRF 
+OCT Mac (9/6/24):
+  OD: FC intact, (-) IRF/SRF
+  OS: FC intact, (-) IRF/SRF
+
+FC = foveal contour, GA = geographic atrophy,
+IRF = intraretinal fluid, SRF = subretinal fluid
  
 *********************************************************************
 IMPRESSION/PLAN: 
@@ -499,8 +604,16 @@ IMPRESSION/PLAN:
 
 - last EKG:
 - order for EKG placed
+
 - no significant cardiac history, no cardiology referral indicated
 - given history of *** cardiac referral placed
+- no h/o diabetes, not on GLP-1
+- has diabetes, not on GLP-1
+
+Other eye issues
+----------------
+
+********************************************************************* 
  
 The patient was informed that cataract surgery is elective surgery and that
 if cataract surgery was not performed, the visual acuity in the eye would
@@ -536,7 +649,15 @@ discussion. The patient voiced an understanding of the procedure, risks and
 benefits discussed above and all the patient's questions were addressed by
 the provider. The patient elected to proceed with cataract surgery.
 
+*********************************************************************
 
+PATIENT EDUCATION/COUNSELING:
+
+The disease process(es) and implications thoroughly discussed with the patient.
+After all the patients questions were answered, the patient voiced an
+understanding of and was in agreement with the management plan.
+
+All ocular medications reconciled.
 
 	)"
 }

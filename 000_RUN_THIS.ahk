@@ -3,10 +3,11 @@
 #Include "010__clinic_chooser.ahk"
 #Include "011__GUI_attending.ahk"
 #Include "012__encounter.ahk"
-#Include "020__consent.ahk"
+#Include "020__newnote.ahk"
 #Include "030__cprs_templates.ahk"
 #Include "031___preop.ahk"
 #Include "031___postop.ahk"
+#Include "040__consent.ahk"
 #Include "050__rightclickmenu.ahk"
 
 ;
@@ -24,7 +25,7 @@ UPDATES
 
 
 [ ] clicking of injections
-[ ] needs adding the attending expansion 
+[x] needs adding the attending expansion 
 [x] re format text for indentation for text wrapping
 [ ] shortcuts to see 
 	[x] Hba1c specifically!
@@ -35,13 +36,15 @@ UPDATES
 	[ ] labs > graphing
 [ ] re-route ctrl L, ctrl e, ctrl r 
 [x] create a file to create a bunch of text files for pre-charting too hard
-[ ] create a settings GUI. (tools?)
-[ ] create help screen
-[ ] ADD NONFORMULARY ON ORDERS
+[x] create a settings GUI. (tools?)
+[x] create help screen
+[x] ADD NONFORMULARY ON ORDERS
 [ ] hotstring expander https://github.com/henrystern/hotstring_hints
-[ ] auto processing optometry note
+[x] auto processing optometry note
 
-
+[ ] auto extract name + birthdate
+[ ] auto extract IOP
+[ ] auto extract past ocular history
 
 - format indent 6, 7 
 
@@ -157,6 +160,7 @@ simple replacement
 ::cidme::CI-DME 
 ::.cc::CHIEF COMPLAINT: 
 ::.hpi::HISTORY OF PRESENT ILLNESS: 
+::.ohx::OCULAR HISTORY:
 ;::iva::IVA
 ;::ive::IVE
 ;::ivl::IVL
@@ -174,7 +178,10 @@ simple replacement
 ::.cosopt:: dorzolamide-timolol (Cosopt)
 ::.mrd::MRD1: mm, MRD2: mm
 ::rtc::RTC
-
+::shp::See H&P
+::.rba::R/B/A outlined, informed consent obtained, IV given today.
+::.re::right eye
+::.le::left eye
 
 ; the C makes it caps lock sensitive
 
@@ -186,7 +193,7 @@ simple replacement
 
 
 :C:cnv::CNV (choroidal neovascular membranes)
-::.rbaic::R/B/A outlined, informed consent obtained
+::.rb::R/B/A outlined, informed consent obtained
 
 :C:ttp::tenderness to palpation
 :C:tapulse::good TA pulse, no cords nor tenderness
@@ -241,15 +248,6 @@ dateTomorrow := DateAdd(A_Now, 1, "days")
 ::.mar::Marchand,Nicole
 ::.ort::Ortiz,Pete
 
-#HotIf FindVarString_Loose(WinGetTitle("A"), "Progress Note Properties")
-:*:ophth::ophthalmology
-:*:cat::cataract
-:*:.note::OPHTHALMOLOGY/NOTE/SURGICAL
-:*:.inj::OPHTHALMOLOGY  <H&P OPHTHALMOLOGY INJ
-:*:.int::BRIEF OPERATIVE (INTRAOCULAR INJECTION)/OPHTH/SURG
-:*:.binj::BRIEF OPERATIVE (INTRAOCULAR INJECTION)/OPHTH/SURG
-:*:.bri::BRIEF OPERATIVE NOTE/OPHTHALMOLOGY/SURGICAL
-#Hotif
 
 
 ::.=::=============================================================================
@@ -298,7 +296,7 @@ if in the 'patient selection window'
 #Hotif FindVarString_Loose(WinGetTitle("A"), "Epic")
 	Capslock & F::F2
 	F3::F2
-#HotIf FindVarString_Loose(WinGetTitle("A"), "H&P OPHTHALMOLOGY CATARACT")
+#HotIf FindVarString_Loose(WinGetTitle("A"), "H&P OPHTHALMOLOGY")
 	:*:nad::{
 	SendText "
 (
@@ -370,7 +368,7 @@ other utilities
 		(
 	/*
 	--------------------------------------------------------------------------------
-99+++++++++++
+
 	--------------------------------------------------------------------------------
 	*/
 
@@ -578,13 +576,17 @@ SendText "
 
 #HotIf GetKeyState("Shift")
 ; get window coordinates
+^+C::
 Capslock & c::
 {
 	;https://www.autohotkey.com/docs/v2/lib/A_Clipboard.htm
 	A_Clipboard := "" ; empties clipboard
 	MouseGetPos &xpos, &ypos 
 	MsgBox "The cursor is at X" xpos " Y" ypos
-	A_Clipboard := xpos ", " ypos
+	;A_Clipboard := xpos ", " ypos
+	A_Clipboard :=Format("Send `"{Click {1} {2}}`"", xpos, ypos)
+	;A_Clipboard := "Send `"{ Click" xpos " " ypos "}"""
+	;A_Clipboard := Format("Send ""{Click {1} {2}}""", xpos, ypos)
 	;MsgBox "The cursor is at " A_Clipboard
 	;return
 }
@@ -603,7 +605,8 @@ Capslock & e::
 	A_Clipboard := "" ; empties clipboard
 	WinGetPos &X, &Y, &W, &H, "A"
 	MsgBox "The active window is at " X "," Y "`n and its size is " W "x" H
-	A_Clipboard := W ", " H
+	;A_Clipboard :=  W ", " H 
+	A_Clipboard := "Winmove ,, " W ", " H ", `"A`""
 	return
 }
 #HotIf
@@ -657,6 +660,11 @@ Capslock & r::
 Capslock & a::AddNewOrder()
 ^+m::
 Capslock & m::AddNewMedicine()
+
+^+4::
+^+t::
+Capslock & 4::
+Capslock & t::AddTextOrder()
 
 #Hotif FindVarString_Loose(WinGetTitle("A"), "Order Menu")
 	a::
@@ -732,6 +740,28 @@ ImagingOptions := Array(
 	)
 
 ImagingOptionsNames := GetNames(ImagingOptions)
+
+AddTextOrder()
+	{
+		Send "^o"
+		Sleep 10 ;wait to be processed
+		MouseClick "left", 10, 400
+		Send "t"
+		WinWait "Word Processing Order" 
+		WinMove (A_ScreenWidth/2)-(900/2),(A_ScreenHeight/2)-(800/2),900,600
+
+			SendText "
+			(
+			For cataract surgery -  eye - on :
+			 Pre-op: 
+				)"
+		Sleep 10 ;wait to be processed\
+		MouseClick "left", 333, 40
+		Sleep 100 ;wait to be processed\
+		;Send "{tab 2}"
+		;Send "{.4b}{space}"
+
+	}
 
 AddNewOrder()
 	{
@@ -821,9 +851,11 @@ EnterAnesthesiaOrderDetails()
 	{
 			MouseClick "left", 102, 319 ;clicks diagnosis
 			Sleep 50
+			WinWait "ANESTHESIA E" 
 			Send "Age related cataract"
 			Send "{Tab}"
 			Send "MAC"
+			Sleep 50
 			MouseClick "left", 239, 92 ; clicks date
 			Sleep 50
 			Send "Cataract Extraction and intraocular lens placement,  eye"
@@ -924,19 +956,19 @@ ImagingGUI()
 				;Send "{CapsLock down}{f down}{CapsLock up}{f up}"
 				MouseClick "left", 422, 71		;clicks in date area
 				Send FormatTime(, "M/d/yy")  	; 'It will look like 10/4/23'
-				Send "{tab 7}"
-				Send "{enter}"
-				;MouseClick "left", 626, 402	;closes the window
-				WinWaitClose "Order a Consult"
-				;Sleep 500
-				;if WinExist("Order Menu")
-				;	{
-				;	WinActivate 
-				;	WinWaitActive
-				;	MouseClick "left", 841, 10						
-				;	}
-				WinActivate "Order Menu"
-				MouseClick "left", 841, 10					
+				Send "{tab 6}"
+				;Send "{enter}"
+					;MouseClick "left", 626, 402	;closes the window
+				;WinWaitClose "Order a Consult"
+					;Sleep 500
+					;if WinExist("Order Menu")
+					;	{
+					;	WinActivate 
+					;	WinWaitActive
+					;	MouseClick "left", 841, 10						
+					;	}
+				;WinActivate "Order Menu"
+				;MouseClick "left", 841, 10					
 			}
 	    ;MsgBox MyText
 	}	
@@ -1033,6 +1065,7 @@ CAPSLOCK DOESN'T WORK AS WELL
 #HotIf FindVarString_Loose(WinGetTitle("A"), "VistA CPRS")
 ^+h::
 Capslock & h:: ShowLabHgbA1c()
+;^+c::
 ^+e::
 Capslock & e:: updateNotetime()
 
@@ -1064,12 +1097,6 @@ ShowLabHgbA1c()
 /*
 --------------------------------------------------------------------------------
 UPDATE note time
---------------------------------------------------------------------------------
-*/
-
-
-
-
 updateNotetime(){
 	WinMove ,, 1074, 1040, "A"
 	Send "{Click 1019, 133}" 
@@ -1078,6 +1105,29 @@ updateNotetime(){
 	Send "{n}" 				; types 'n' for now
 	Send "{Click 641, 19}"		; click 
 }
+--------------------------------------------------------------------------------
+*/
+
+
+
+
+
+
+updateNotetime(){ ; eliminates need for choosing where to click
+	;Send "{^+c}"
+	Send "{Ctrl down}{Shift down}{c}{CTRL up}{Shift up}"
+	WinWait "Progress Note Properties"
+	Sleep 10
+	Send "{tab 3}"	; click date/time
+	Send "{n}" 				; types 'n' for now
+	Sleep 10
+	Send "{tab 5}{Enter}"		; clicks ok
+}
+
+
+
+
+
 
 
 

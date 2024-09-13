@@ -8,18 +8,21 @@ Global g
 choice_resident := "RESIDENT NAME"
 choice_attending := "ATTENDING NAME"
 choice_attending_reverse := "NAME, ATTENDING"
-choice_nurse := "Peter Ortiz"
+choice_nurse := "Nicole Marchand"
 
 ResidentList := [
-	"Althea Alquitran MD",
-	"Franklin Jeng MD",
 	"Matthew Hogan MD, MPH",
-	"Monica K Lieng MD, PhD",
-	"Nita Bhat MD",
-	"Nicholas Janigian MD",
-	"Purvi Shah MD",
 	"Palmer Feibelman MD",
-	"Shaunt Fereshetian MD"
+	"Shaunt Fereshetian MD",
+	"Althea Alquitran MD",
+	"Monica K Lieng MD, PhD",
+	"Nicholas Janigian MD",
+	"Keir Johnson MD",
+	"Paris Hanson MD",
+	"Sophia Song MD",
+	"Andrew Barton MD",
+	"Jessica Eskander MD",
+	"Loubna Radwan MD"
 	]
 
 AttendingList := [
@@ -29,6 +32,7 @@ AttendingList := [
 	"Robert Janigian MD",
 	"Salvatore Loporchio MD",
 	"Marjorie Murphy MD",
+	"Namrata Nandakumar MD",
 	"Alfred Paul MD",
 	"Noelle Pruzan MD",
 	"David Rivera MD",
@@ -45,6 +49,7 @@ AttendingList_LastFirst := [
 	"Janigian, Robert",
 	"Loporchio, Salvatore",
 	"Murphy, Marjorie",
+	"Nandakumar,Namrata",
 	"Paul, Alfred",
 	"Pruzan, Noelle",
 	"Rivera, David",
@@ -56,7 +61,10 @@ AttendingList_LastFirst := [
 
 NurseList := [
 	"Peter Ortiz",
-	"Nicole Marchand"
+	"Nicole Marchand",
+	"Sarah",
+	"Rebecca",
+	"Victoria Vigorito"
 
 ]
 

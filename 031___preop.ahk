@@ -216,7 +216,7 @@ PLANNED ANESTHESIA: MAC
 LOCAL ANESTHESIA: Topical
 
 <choose 1>***
-PLANNED CPT CODES(S): Cataract Surgery (routine 66984)
+PLANNED CPT CODES(S): Cataract Surgery (routine 66984),
 PLANNED CPT CODES(S): Cataract Surgery (complex 66982)
  
 #***
@@ -258,6 +258,70 @@ discussion. The patient voiced an understanding of the procedure, risks and
 benefits discussed above and all the patient’s questions were addressed by
 the provider. The patient elected to proceed with cataract surgery.
  
+
+ 
+)"
+}	
+
+::.preop-glauc::{
+	SendText "
+(
+
+GLAUCOMA PROCEDURE:
+Option one: The iStent® procedure and its risks, benefits and
+alternatives was explained led to the patient at length. The
+discussion included but was not limited to: the procedure offered
+a good chance to lower the eye pressure when successfully implanted,
+but it may not necessarily stabilize the glaucoma; in some cases,
+the iStent may not function well at all, even though it was properly
+placed; in addition, complications can develop days, months or years
+after the surgery and that further medical and/or surgical treatment
+may be necessary to manage these complications; and, as with any
+intraocular surgery, there may be loss of vision, blindness, loss of
+the eye, as well as hemorrhage, infection and injury to the eye.
+ 
+Option two: The trabeculectomy with anti-metabolites procedure
+and its risks, benefits and alternatives was explained to the patient
+at length. The discussion included but was not limited to: failure to
+control eye pressure, with the need for additional medical and/or surgical
+treatment (early or late); early or late increase in intraocular pressure;
+hypotony; corneal and/or scleral thinning or perforation; infection;
+ciliochoroidal detachment; chronic inflammation; and, as with any
+intraocular surgery, loss of vision, blindness, loss of the eye, as well
+as hemorrhage, infection and injury to the eye.
+ 
+Option three: The glaucoma drainage device procedure and its risks,
+benefits and alternatives was explained to the patient at length. The
+discussion included but was not limited to: failure to control eye
+pressure, with the need for additional medical and/or surgical treatment
+(early or late); early or late increase in intraocular pressure;
+hypotony; conjunctival thinning and/or erosion with possible extrusion of
+the drainage device; corneal edema; corneal and/or scleral thinning or
+perforation; infection; ciliochoroidal detachment; chronic inflammation;
+and, as with any intraocular surgery, loss of vision, blindness, loss of
+the eye, as well as hemorrhage, infection and injury to the eye.
+ 
+It was explained to the patient that an ophthalmology resident would be
+participating in the combined cataract-glaucoma surgery under the close
+supervision of the attending physician. The patient voiced an understanding
+of this and was in agreement with this plan. The patient was also informed
+of the need to understand and respond to instructions and communicate with
+the team as necessary during the cataract surgery.
+ 
+Any patient barriers to learning were identified and considered during the
+discussion. The patient voiced an understanding of the procedure, risks
+and benefits discussed above and all the patient’s questions were addressed
+by the provider. The patient elected to proceed with the planned combined
+cataract-glaucoma surgery.
+
+)"
+}		
+
+; iol calculation - holladay-2, barrett, hill RBF, hoffer-q, SRK-T, Other
+
+
+/*
+
 ============================================================================
  
 The Veteran was given the following pre-operative instructions.
@@ -284,15 +348,6 @@ surgery arrival time.
 A driver (family, friend or medical transport) is required the
 day of surgery. Driving is not permitted for 24 hrs after sedation.
 
- 
-)"
-}	
-
-
-; iol calculation - holladay-2, barrett, hill RBF, hoffer-q, SRK-T, Other
-
-
-/*
   
 The Veteran was given the following pre-operative instructions.
 Aspirin/NSAIDs/anticoagulants:

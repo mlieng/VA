@@ -21,22 +21,23 @@ ClinicList := [
 	"Proc2: Esq Sp Ophthalmo Procedure 2",
 	"Ret: Esq-Sp-Ophthalmo Res Ret",
 	"Laser: Esq Sp Ophthalmology Laser",
-	"Op1n:Esq Sp Ophthalmology 1n",
+	"Op1n: Esq Sp Ophthalmology 1n",
 	"Op2r: Esq Sp Ophthalmology 2",
 	"Op2rg: Esq Sp Ophthalmology 2rg",
 	"Op3: Esq Sp Ophthalmology 3",
 	"Plastic: Esq Sp Ophthalmology Plast I",
-	"Plastproc: Esq Sp Oph Plastics Procedures" 
+	"Plastproc: Esq Sp Oph Plastics Procedures",
 	"Uveitis: Esq Sp Ophthalmology Uveitis",
 
-	"Or: Pro-Amb: Surg Or Non-Count",
-	"Pro: Pro-Amb: Surg Or Non-Count",
+	"Or: Pro-Amb Surg Or Non-Count",
+	"Pro: Pro-Amb Surg Or Non-Count",
 	"Glasses: Esq-Sp-Optom Glass Adjust",
-	"Optom:Esq-Sp-Optometry General 1"
+	"Optom: Esq-Sp-Optometry General 1",
 	"Optometry: Esq-Sp-Optometry New 1",
 	"Refr: Esq-Sp-Optometry Refraction",
 	"ORet: Esq-Sp-Optometry Retina",
-	"Low:Esq-Visual Imp-Low Vision"
+	"Low: Esq-Visual Imp-Low Vision",
+
 	"1n: Esq Sp Ophthalmology 1n",
 	"2r: Esq Sp Ophthalmology 2r",
 	"2rg: Esq Sp Ophthalmology 2rg",

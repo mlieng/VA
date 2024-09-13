@@ -7,6 +7,40 @@ https://www.autohotkey.com/docs/v2/lib/Menu.htm#Remarks
 
 #INCLUDE "000_RUN_THIS.ahk"
 
+/*
+
+UtilMenu := Menu()
+MyMenu.Add("&Cursor", getCursorCoords)
+MyMenu.Add("&Window", getWindowCoords)
+
+~Capslock & RButton::{
+    MouseGetPos &xpos, &ypos 
+    ;MouseClick, right, xpos, ypos
+    UtilMenu.Show()  ; i.e. press the Win-Z hotkey to show the menu.
+}
+
+getCursorCoords(Item,*){
+{
+    ;https://www.autohotkey.com/docs/v2/lib/A_Clipboard.htm
+    A_Clipboard := "" ; empties clipboard
+    MouseGetPos &xpos, &ypos 
+    MsgBox "The cursor is at X" xpos " Y" ypos
+    ;A_Clipboard := xpos ", " ypos
+    A_Clipboard :=Format("Send `"{Click {1} {2}}`"", xpos, ypos)
+    ;A_Clipboard := "Send `"{ Click" xpos " " ypos "}"""
+    ;A_Clipboard := Format("Send ""{Click {1} {2}}""", xpos, ypos)
+    ;MsgBox "The cursor is at " A_Clipboard
+
+}
+
+getWindowCoords(Item,*){
+    MsgBox "The active window is '" WinGetTitle("A") "'."
+    A_Clipboard := WinGetTitle("A")
+}
+*/
+
+
+
 ; Create the popup menu by adding some items to it.
 MyMenu := Menu()
 MyMenu.Add("&Help", help_documentation)
@@ -14,6 +48,7 @@ MyMenu.Add("&Settings", run_settings_GUI)
 MyMenu.Add()  ; Add a separator line.
 MyMenu.Add("&Clean Optometry Note", cleanOptom)
 MyMenu.Add("&Extract Visual Acuity", findVA)
+MyMenu.Add("&PasteNote", pasteNote)
 
 ; Create another menu destined to become a submenu of the above menu.
 Submenu1 := Menu()
@@ -21,7 +56,7 @@ Submenu1.Add("Item A", MenuHandler)
 Submenu1.Add("Item B", MenuHandler)
 
 ; Create a submenu in the first menu (a right-arrow indicator). When the user selects it, the second menu is displayed.
-MyMenu.Add("My Submenu", Submenu1)
+MyMenu.Add("My Submen&u", Submenu1)
 
 MyMenu.Add()  ; Add a separator line below the submenu.
 MyMenu.Add("&Timeout", fillTimeout)  ; Add another menu item beneath the submenu.
@@ -84,11 +119,29 @@ https://images.datacamp.com/image/upload/v1665049611/Marketing/Blog/Regular_Expr
 ; cleanOptom2
 ;}
 
+pasteNote(*){
+    newNote := cleanNote2()
+    SendText newNote
+    Sleep 5 
+    SendText "`n`n"
+    end_text := write_end_text() 
+    ;Send newNote ;"{enter 2}" end_text
+    SendText end_text
+}
 
+cleanNote2(*){
+   text_ := A_Clipboard
+   text_ := StrReplace(text_, "`r`n`n", "")
+   text_ := StrReplace(text_, "(X) ", "", 0)  ;0/1 case sensitive   
+   text_ := StrReplace(text_, "Deep and Quiet","d&q")
+   text_ := StrReplace(text_, "Normal and flat without neovascularization","(-)NVI")
+   text_ := StrReplace(text_, "Sharp,pink,flat","s/p/f")
+   return text_
+}
 
 cleanOptom(*){
-    Send "^C"
-    ClipWait(2)
+    ;Send "^C"
+    ;ClipWait(2)
     mytext := A_Clipboard
     ;mytext :=  EditGetSelectedText()
 
@@ -169,6 +222,7 @@ cleanOptom(*){
     mytext2 := StrReplace(mytext2, "OD (x)", "OD")
     mytext2 := StrReplace(mytext2, "OS (x)", "OS")
     mytext2 := StrReplace(mytext2, "Funduscopic Examination", "DFE")
+    mytext2 := StrReplace(mytext2, "Other:")
 
     ;replaces any extra space before "OD with just one tab"
     ;mytext2 := RegExReplace(mytext2, "^\s+(.*)OD", "`t$1OD")
@@ -187,7 +241,8 @@ cleanOptom(*){
     ;WinActivate("Untitled - Notepad")
 
     A_Clipboard := mytext2
-    Send "^V"
+    ;Return A_Clipboard
+    Send "^v"
 }
 
 CapsLock & z:: cleanOptom
@@ -200,8 +255,8 @@ Capslock & f:: findVA
 ;}
 
 findVA(*){
-    Send "^C"
-    ClipWait(2)
+    ;Send "^c"
+    ;ClipWait(2)
     mytext := A_Clipboard
     mytext2 := StrReplace(mytext, "`r`n", "`n")
 
@@ -220,8 +275,9 @@ findVA(*){
     ;VA_OD[1]
     ;Send "^V"
     ;A_Clipboard := mytext2
-    MsgBox VA_OD[1] "," VA_OS[1]
+    ;MsgBox VA_OD[1] "," VA_OS[1]
     A_Clipboard := VA_OD[1] "," VA_OS[1]
+    Send "^{v}"
 }
 
 /*
