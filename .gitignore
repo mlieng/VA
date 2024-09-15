@@ -7,3 +7,5 @@ sublime_merge - Shortcut
 AHK_VA_Scripts - Shortcut
 
 dev/
+_site/
+.DS_Store

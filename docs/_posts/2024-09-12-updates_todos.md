@@ -1,43 +1,51 @@
 ---
-title: Updates and To-Dos
+title: Updates & To-Dos
 author: ML
 date: 2024-09-12
 category: posts
 layout: post
 ---
 
+
 # To-Dos
 
-[ ] clicking of injections
-[x] needs adding the attending expansion 
-[x] re format text for indentation for text wrapping
-[ ] shortcuts to see 
-	[x] Hba1c specifically!
+- [ ] clicking of injections
+- [x] needs adding the attending expansion 
+- [x] re format text for indentation for text wrapping
+- [ ] shortcuts to see 
+	- [x] Hba1c specifically!
 		- labs > worksheet > enter hgb a1c, enter. tab 6
-	[ ] blood pressure Reports > CLinical Reports>  Vital Signs
-	[ ] image reports> Radiology Imaging Local Only
-	[ ] labs > labs > Cumaltive
-	[ ] labs > graphing
-[ ] re-route ctrl L, ctrl e, ctrl r 
-[x] create a file to create a bunch of text files for pre-charting too hard
-[x] create a settings GUI. (tools?)
-[x] create help screen
-[x] ADD NONFORMULARY ON ORDERS
-[ ] hotstring expander https://github.com/henrystern/hotstring_hints
-[x] auto processing optometry note
+	- [ ] blood pressure Reports > CLinical Reports>  Vital Signs
+	- [ ] image reports> Radiology Imaging Local Only
+	- [ ] labs > labs > Cumaltive
+	- [ ] labs > graphing
+- [ ] re-route ctrl L, ctrl e, ctrl r 
+- [x] create a file to create a bunch of text files for pre-charting too hard
+- [x] create a settings GUI. (tools?)
+- [x] create help screen
+- [x] ADD NONFORMULARY ON ORDERS
+- [ ] hotstring expander [https://github.com/henrystern/hotstring_hints](https://github.com/henrystern/hotstring_hints)
+- [x] auto processing optometry note
 
-[ ] auto extract name + birthdate
+- [ ] auto extract name + birthdate
 
+```
 LASTNAME,FIRSTNAME MI; 1234567890 000-00-0000 mmm d,yyyy
 
 10 digit MRN
-
-[ ] auto extract IOP
-[ ] auto extract past ocular history
+```
+- [ ] auto extract IOP
+- [ ] auto extract past ocular history
 - format indent 6, 7 
 
 
 # Updates
+
+## 2024
+
+
+
+## 2023
 
 * 2023/09/20 
 * 2023/09/23 -autocorrected

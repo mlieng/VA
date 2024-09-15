@@ -87,6 +87,11 @@ simple replacement
 ::latan::latanoprost
 ::.latan::latanoprost ("Green cap")
 ::.cosopt:: dorzolamide-timolol (Cosopt)
+
+::.brim::
+:*:brimo::
+brimonidine
+
 ::.mrd::MRD1: mm, MRD2: mm
 ::rtc::RTC
 ::shp::See H&P
