@@ -9,6 +9,12 @@ Global clinic_choice
 
 
 ClinicList := [
+
+	"1n: Esq Sp Ophthalmology 1n",
+	"2r: Esq Sp Ophthalmology 2r",
+	"2rg: Esq Sp Ophthalmology 2rg",
+	"3: Esq Sp Ophthalmology 3",
+
 	"Cornea: Esq Sp Opht Cornea",
 	"Biometry: Esq Sp Opht Biometry",
 	"Glauc: Esq Sp Opht Glaucoma",
@@ -30,19 +36,21 @@ ClinicList := [
 	"Pproc: Esq Sp Oph Plastics Procedures",
 	"Uveitis: Esq Sp Ophthalmology Uveitis",
 
+<<<<<<< HEAD
 	"Or: Pro-Amb Surg Or Non-Count",
 	"Pro: Pro-Amb Surg Or Non-Count",
 	"Glasses: Esq Sp Optom Glass Adjust",
+=======
+	"Or: Pro Amb Surg Or Non-Count",
+	"Pro: Pro Amb Surg Or Non-Count",
+	"Glasses: Esq Sp-Optom Glass Adjust",
+>>>>>>> github/master
 	"Optom: Esq Sp Optometry General 1",
 	"Optometry: Esq Sp Optometry New 1",
 	"Refr: Esq Sp Optometry Refraction",
 	"ORet: Esq Sp Optometry Retina",
 	"Low: Esq Visual Imp Low Vision",
 
-	"1n: Esq Sp Ophthalmology 1n",
-	"2r: Esq Sp Ophthalmology 2r",
-	"2rg: Esq Sp Ophthalmology 2rg",
-	"3: Esq Sp Ophthalmology 3",
 	]
 
 clinic_chooser()
