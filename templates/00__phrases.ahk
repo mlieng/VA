@@ -45,6 +45,7 @@ simple replacement
 ::.neutrophil::Nφ
 ::.macrophage::Mφ
 ::.none::🚫
+::.box::☐
 
 ;the star makes it so you do not need to press "space"
 :*:.event::{U+21D2} 	;⇒

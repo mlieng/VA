@@ -37,6 +37,12 @@ LASTNAME,FIRSTNAME MI; 1234567890 000-00-0000 mmm d,yyyy
 - format indent 6, 7 
 
 
+[ ] update the imaging selection (so that have option of exiting or not)
+[ ] fill the reason for surgery (cataract extraction)
+[ ] on filling out consent, make it so that you don't have to click button at beginning
+[ ] autocomplete the clinic name without typing esq
+
+
 # Updates
 
 * 2023/09/20 

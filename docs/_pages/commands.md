@@ -53,7 +53,7 @@ these abbreviations are part of normal cprs
 
 ## Consent
 ----------
-(alt -> ti opens consent window)
+(alt -> tw opens consent window)
 
 	shift + capslock + c: fill in consent form
 			capslock + f: fill in shared timeout

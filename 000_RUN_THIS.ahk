@@ -77,7 +77,7 @@ if in the 'patient selection window'
 		Send "{tab}"
 		}
 
-	:*:esq::
+	:*C:esq::
 		{
 		WinMove ,, 800, 600, "A"
 		clinic_chooser()
@@ -88,7 +88,27 @@ if in the 'patient selection window'
 		MouseClick "left", 35, 124
 		clinic_chooser()
 	}
-	:*:pro::Pro-Amb Surg Or Non-Count
+	:*C:Esq::Esq Sp O
+	:*:or::Pro-Amb Surg Or Non-Count
+	::pro::Pro-Amb Surg Or Non-Count
+	:*:corn::Esq Sp Opht Cornea
+	:*:biom::Esq Sp Opht Biometry
+	:*:gla::Esq Sp Opht Glaucoma
+	:*:sgla::Esq Sp Ophth Surgical Glaucoma
+	:*:pos::Esq Sp Ophthalm Postop 3
+	:*:pre::Esq Sp Ophthalmo Preop 3
+	:*:proc2::Esq Sp Ophthalmo Procedure 2
+	:*:2p::Esq Sp Ophthalmo Procedure 2
+	:*:1n::Esq Sp Ophthalmology 1n
+	:*:2r::Esq Sp Ophthalmology 2r
+	:*:op3::Esq Sp Ophthalmology 3
+	:*:2rg::Esq Sp Ophthalmology 2rg
+	:*:las::Esq Sp Ophthalmology Laser
+	:*:pla::Esq Sp Ophthalmology Plast I
+	:*:ppro::Esq Sp Oph Plastics Procedures
+	:*:uv::Esq Sp Ophthalmology Uveitis
+
+
 
 #HotIf
 
@@ -151,8 +171,7 @@ other utilities
 
 
 :*:/*::
-	{
-	SendText "
+	{SendText "
 		(
 	/*
 
@@ -164,8 +183,7 @@ other utilities
 	;"
 
 :*:.title::
-	{
-	SendText "
+	{SendText "
 		(
 	/*
 	--------------------------------------------------------------------------------
@@ -178,8 +196,7 @@ other utilities
 	}
 
 :*:.titleo::
-	{
-	SendText "
+	{SendText "
 		(
 	/*
 	********************************************************************************
@@ -193,8 +210,7 @@ other utilities
 
 
 :*:.orange::
-	{
-	SendText "
+	{SendText "
 		(
 	;*******************************************************************************
 	;
@@ -211,7 +227,6 @@ other utilities
 	)"
 	Send A_Space A_Clipboard
 	} 
-
 
 
 /*
