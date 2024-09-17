@@ -106,6 +106,8 @@
 .book.color-theme-1 .book-body .page-wrapper .page-inner section.normal blockquote {
   border-color: inherit;
 }
+
+/*657b83*/
 .book.color-theme-1 .book-body .page-wrapper .page-inner section.normal pre,
 .book.color-theme-1 .book-body .page-wrapper .page-inner section.normal code {
   background: #fdf6e3;

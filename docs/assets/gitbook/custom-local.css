@@ -3,3 +3,57 @@
  * Its purpose is for users of the theme to be able to add css rules from a blank file
  *   these get simply added to the ones already active in the layout.
  */
+
+p > code,
+li > code,
+dd > code,
+td > code,
+ code {
+	font-family:monospace,serif;
+	font-size:1em;
+	color: blue;
+	background-color: black;
+}
+pre {
+    background: #f4f4f4;
+    border: 1px solid #ddd;
+    border-left: 3px solid #f36d33;
+    color: #666;
+    page-break-inside: avoid;
+    font-family: monospace;
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 1.6em;
+    max-width: 100%;
+    overflow: auto;
+    padding: 1em 1.5em;
+    display: block;
+    word-wrap: break-word;
+}
+
+h1 { 
+	color: #143278;
+ }
+
+h1:before {
+    content: "";
+    margin-right: 0px;
+}
+
+h2 { 
+	color: #3a63c2;
+ }
+
+h2:before {
+    content: "\203A";
+    margin-right: 6px;
+}
+
+h3 { 
+	color: #7e8cab;
+ }
+
+h3:before {
+    content: "\00BB";
+    margin-right: 6px;
+}

@@ -9,16 +9,19 @@ This is a guide to using shortcuts created by ML and creating your own dot phras
 
 ## Installation
 
-1. install Autohotkey
+1. go to the `Autohotkey folder`
+	- 
+
+2. install Autohotkey
 	- double click 'AutoHotkey_2.0.7_setup'
 	- install for current user (installing for all users not allowed)
 
-2. start autohotkey program
+3. start autohotkey program
 	- NOTE: this needs to be done every time computer reboots
 	- double click '000_RUN_THIS.ahk'
 
 
-3. `ctrl + <right click>` , `help`
+4. `ctrl + <right click>` , `help`
 	or go to (https://mlieng.github.io/VA/)[https://mlieng.github.io/VA/]
 
 

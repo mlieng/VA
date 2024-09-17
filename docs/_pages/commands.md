@@ -70,8 +70,7 @@ these abbreviations are part of normal cprs
 
 > ##### TIP
 >
-> This guide is last tested with @napi-rs/canvas^0.1.20, so make sure you have
-> this or a similar version after installation.
+> If this does not work...
 {: .block-tip }
 
 
