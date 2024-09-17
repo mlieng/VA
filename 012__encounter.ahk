@@ -147,13 +147,13 @@ click_newPatient(){
 
 		Send "{Click 71 9}"  	; click 'Diagnoses'
 		Send "{Click 84 174}"   ; click 'GLAUCOMA open angle'
-		Send "{Click 365 188}"	; click mod right eye
-		Send "{Click 365 207}"	; click mod left eye
+		Send "{Click 365 188}"	; 	click mod right eye
+		Send "{Click 365 207}"	; 	click mod left eye
 		
 		Send "{Click 168 9}" 	; click 'Procedures'
 		Send "{Click 91 59}"    ; click 'Test-Glaucoma'
-		Send "{Click 281 52}"   ; click 'OCT RNFL'
-		Send "{Click 273 127}"  ; click "VF"
+		Send "{Click 281 52}"   ; 	click 'OCT RNFL'
+		Send "{Click 273 127}"  ; 	click "VF"
 
 	}
 
@@ -161,13 +161,13 @@ click_newPatient(){
 
 		Send "{Click 71 9}"  	; click 'Diagnoses'
 		Send "{Click 84 174}"   ; click 'GLAUCOMA open angle'
-		Send "{Click 365 188}"	; click mod right eye
-		Send "{Click 365 207}"	; click mod left eye
+		Send "{Click 365 188}"	; 	click mod right eye
+		Send "{Click 365 207}"	; 	click mod left eye
 		
 		Send "{Click 168 9}" 	; click 'Procedures'
 		Send "{Click 91 59}"    ; click 'Test-Glaucoma'
-		Send "{Click 281 52}"   ; click 'OCT RNFL'
-		Send "{Click 273 127}"  ; click "VF"
+		Send "{Click 281 52}"   ; 	click 'OCT RNFL'
+		Send "{Click 273 127}"  ; 	click "VF"
 
 	}
 
@@ -204,27 +204,20 @@ click_newPatient(){
 
 		MouseClick "left", 71, 9 	; click 'Diagnoses'
 		MouseClick "left", 103, 153 ; click 'LENS/CORNEA/POSTOP'
-
-		MouseClick "left", 264, 244  ; click 'combined form right eye'
-		MouseClick "left", 267, 258  ; click 'combined form left eye'
+		MouseClick "left", 264, 244 ;   click 'combined form right eye'
+		MouseClick "left", 267, 258 ;   click 'combined form left eye'
 
 	}
 	if enc_title~="POSTOP|POST-OP" and enc_title~="3"{
-		;MouseClick "left", 40, 13 	; click 'Visit Type'
-		;MouseClick "left", 30, 46 	; click 'Eye codes'
-		;MouseClick "left", 195, 46	; click option 'intermediate exam established'
-		;MouseClick "left", 477, 249 ; clicks 'not service connected'
-		;MouseClick "left", 63, 428  ; clicks in textbox for available providers
-		;SendWait(choice_attending_reverse)
-		;Sleep 500
-		;MouseClick "left", 388, 454 ; clicks 'Add' to add provider
-		;MouseClick "left", 359, 559 ; clicks 'Primary' to make attending the primary provider
+		MouseClick "left", 33, 8 	; click 'Visit Type'
+		MouseClick "left", 30, 46 	; click 'Eye codes'
+		MouseClick "left", 195, 111 ; click post-op follow-up visit 
+		click_ResTeachingModifier()
 
 		MouseClick "left", 71, 9 	; click 'Diagnoses'
 		MouseClick "left", 103, 153 ; click 'LENS/CORNEA/POSTOP'
-
-		MouseClick "left", 265, 340  ; click 'post op form right eye'
-		MouseClick "left", 267, 354  ; click 'post op form left eye'
+		MouseClick "left", 265, 340 ;   click 'post op form right eye'
+		MouseClick "left", 267, 354 ;   click 'post op form left eye'
 		}
 	if enc_title~="OPHTHALMOLOGY 2"{
 		MouseClick "left", 168, 9	; click 'Procedures'

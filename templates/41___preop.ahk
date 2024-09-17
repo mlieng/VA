@@ -1,3 +1,18 @@
+/*
+Dulaglutide (Trulicity)
+Exenatide (Byetta)
+Exenatide extended-release (Bydureon)
+Liraglutide (Victoza)
+Lixisenatide (Adlyxin)
+Semaglutide (Ozempic)
+Semaglutide tablet (Rybelsus)
+Tirzepatide (Mounjaro)
+
+omidria/malyugin - for alpha-1a antag
+trypan  - if corneal scars etc/difficult to see
+
+
+*/
 
 
 ::.iol::{

@@ -1,48 +1,5 @@
 
 
-/*
-new note
-
-Click new note (CTRL+SHIFT+N)
-
- 707, 653; Resize window 
-
- 168, 17; click progress note title
-OPHTHALMOLOGY/NOTE/SURGICAL (T) ;paste
-	; wait a second
-
-366, 33; CLICK the option
-
-tab
-; if "not a consult title"
-tab 6
-Send attending revers ;insert attending name
-
-tab 2, enter ;clicks ok
-
-	- if paul need to do the extra click
-
-
-FOR ENTERING BLANK NOTE
-tab 3, enter ; clicks ok (to make a blank note)
-
-	FOR ENTERING TEMPLATE
-	win active Template: OPHTHALMOLOGY/NOTE/SURGICAL (T)
-	800, 490, win size
-	11, 41
-
-	tab 2  to higlhight "feeling safe"
-	497, 407 to click to change to yes
-
-
-	676, 438 to press OK
-;
-Send clipboard
-SEND .end
-
-
-*/
-
 #HotIf FindVarString_Loose(WinGetTitle("A"), "Progress Note Properties")
 ^n::
 ^+n::enterProgNoteProperties()
@@ -116,7 +73,7 @@ enterProgNoteProperties(note_type := choice_clinic_note_type){
 	WinWait "Template"
 	if FindVarString_Loose(WinGetTitle("A"), "OPHTHALMOLOGY INJECTION PROCEDURE/SURG (T)"){
 	;if InStr(WinGetTitle("A"), "OPHTHALMOLOGY INJECTION PROCEDURE/SURG (T)"){
-		Send "{Tab}{Enter}" 
+		Send "{Tab 2}{Enter}" 
 	} else if FindVarString_Loose(WinGetTitle("A"), "OPHTHALMOLOGY/NOTE/SURGICAL"){
 		Send "{Tab 3}{Enter}" 
 	}
@@ -124,3 +81,48 @@ enterProgNoteProperties(note_type := choice_clinic_note_type){
 
 
 }
+
+
+
+/*
+new note
+
+Click new note (CTRL+SHIFT+N)
+
+ 707, 653; Resize window 
+
+ 168, 17; click progress note title
+OPHTHALMOLOGY/NOTE/SURGICAL (T) ;paste
+	; wait a second
+
+366, 33; CLICK the option
+
+tab
+; if "not a consult title"
+tab 6
+Send attending revers ;insert attending name
+
+tab 2, enter ;clicks ok
+
+	- if paul need to do the extra click
+
+
+FOR ENTERING BLANK NOTE
+tab 3, enter ; clicks ok (to make a blank note)
+
+	FOR ENTERING TEMPLATE
+	win active Template: OPHTHALMOLOGY/NOTE/SURGICAL (T)
+	800, 490, win size
+	11, 41
+
+	tab 2  to higlhight "feeling safe"
+	497, 407 to click to change to yes
+
+
+	676, 438 to press OK
+;
+Send clipboard
+SEND .end
+
+
+*/

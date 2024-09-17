@@ -65,18 +65,23 @@ these abbreviations are part of normal cprs
 - `x`: exit
 - `backspace`: goes to previous
 
-
 - `capslock + f`:  fills on order details such as date
+
+## Consent
+----------
+(alt -> tw opens consent window)
 
 > ##### TIP
 >
+<<<<<<< HEAD
 > If this does not work...
+=======
+> Things to look out for
+>>>>>>> origin/master
 {: .block-tip }
 
-
-# Consent
-----------
-(`alt` ⟶  `ti` opens consent window)
+	shift + capslock + c: fill in consent form
+			capslock + f: fill in shared timeout
 
 |Hotkeys		| Order Type 		|same as doing...|
 |:-:|:-:|:-:|
