@@ -19,6 +19,34 @@ see docs/updats
 
 */
 
+;stackoverflow question 45642727 ahk class window matching
+#1::WinGetClass("A") 
+
+#2::
+{
+	MsgBox "The active window's class is " WinGetClass("A")
+	A_Clipboard := WinGetClass("A")
+	return
+}
+
+
+/*
+
+
+While True{
+	WinWaitActive abc-def-123 ahk_class 32770
+	Send y
+}
+
+While True{
+	WinWaitActive ahk_class 
+	Send y
+}
+
+*/
+
+
+
 
 ;an X makes it execute instead (to save space)
 ::.ts0:: 
@@ -38,14 +66,6 @@ dateTomorrow := DateAdd(A_Now, 1, "days")
 :X:.to::Send FormatTime(dateTomorrow, "M/d/yy")  ; 'It will look like 10/4/23'
 :X:.to::Send FormatTime(dateTomorrow, "yyyy/MM/dd")  ; 'It will look like 2023/10/04' 
 :X:.tomorrow::Send FormatTime(dateTomorrow, "MMM d,yyyy")  ; 'It will look like Oct 4,2023'
-
-
-;attending := "Dr. Alfred Paul MD"
-;attending := "Dr. Salvatore Loporchio MD"
-;attending := "Dr. Robert Janigian MD"
-;attending := "Dr. Noelle Pruzan MD"
-;attending := "Dr. Crystal Zhang MD"
-;attending := "Dr. Brian Savoie, MD"
 
 
 ;no space. J rivera, murphy, greenberg, brian 
@@ -322,6 +342,7 @@ Capslock & g::ShowStart("Week Calculator", "C:\Program Files\Google\Chrome\Appli
 ;^g::ShowStart("Google Calendar", "C:\Program Files\Google\Chrome\Application\chrome.exe  --app=https://www.google.com/calendar/render?pli=1")
 Capslock & b::ShowStart("VitalSource Bookshelf: The Wills Eye Manual", "C:\Program Files\Google\Chrome\Application\chrome.exe  --app=https://bookshelf.vitalsource.com/#/")
 Capslock & k::ShowStart("Title page", "C:\Program Files\Google\Chrome\Application\chrome.exe  --app=file:///C:/Users/VHAPROLiengM/OneDrive%20-%20Department%20of%20Veterans%20Affairs/Kanski%E2%80%99s%20Clinical%20Ophthalmology.%20A%20Systematic%20Approach%20by%20John%20F.%20Salmon%20(z-lib.org).pdf")
+Capslock & s::ShowStart("Surgical calendar", "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe  --app=https://dvagov.sharepoint.com/:x:/r/sites/VHAPROSur/eye/_layouts/15/Doc.aspx?sourcedoc=%7B441E4889-1731-449A-ACCF-CB5492E0C46E%7D&file=Surgical%20calendar.xlsx&action=default&mobileredirect=true")
 
 Capslock & v::ShowStart("VistA CPRS", "\\v01.med.va.gov\apps\GUI\Clinical\CPRS\Production\CPRS32Cv515_2\CPRSChart.exe ")
 ; s=vista.providence.med.va.gov p=19218 SHOWRPCS SHOWCERTS
@@ -386,6 +407,8 @@ Capslock & w::
 	return
 }
 
+
+
 /*
 Capslock & c::
 {
@@ -446,14 +469,15 @@ Capslock & t::AddTextOrder()
 	i::
 		{
 		ClickImaging()
+		WinWait "Reason for Request: OPTOMETRY/OPHTHALMOLOGY IMAGING SERVICES OUTPT"
 		ImagingGUI()
 		}
 
 	j::ClickInjection()
 	n::ClickNonFormulary()
 
-	d:: MouseClick "left", 841, 10 ;exits
-	x:: MouseClick "left", 841, 10 ;exits
+	d:: ExitOrderMenu()
+	x:: ExitOrderMenu()
 	Backspace:: MouseClick "left", 14, 12 ;goes to previous
 
 
@@ -509,6 +533,13 @@ ImagingOptions := Array(
 
 ImagingOptionsNames := GetNames(ImagingOptions)
 
+ExitOrderMenu()
+	{
+		if WinExist("Order Menu")
+			WinActivate 
+		MouseClick "left", 841, 10 ;exits
+	}
+
 AddTextOrder()
 	{
 		Send "^o"
@@ -534,7 +565,7 @@ AddTextOrder()
 AddNewOrder()
 	{
 		Send "^o"
-		Sleep 10 ;wait to be processed
+		Sleep 20 ;wait to be processed
 		MouseClick "left", 10, 400
 		Send "a"
 		WinWait "Order Menu" 
@@ -588,6 +619,7 @@ ClickCardsConsult()
 
 		WinWait "Reason for Request: CARDIOLOGY E-CONSULT OUTPT"
 		WinMove (A_ScreenWidth/2)-(900/2),(A_ScreenHeight/2)-(1000/2),783,755
+		
 		;MouseClick "left", 11, 39 ; clicks [ ] for 'Chart Review'
 		;Send "{tab}"
 		;Send "Cataract surgery, pacemaker"
@@ -725,7 +757,7 @@ ImagingGUI()
 				MouseClick "left", 422, 71		;clicks in date area
 				Send FormatTime(, "M/d/yy")  	; 'It will look like 10/4/23'
 				Send "{tab 6}"
-				;Send "{enter}"
+				Send "{enter}"
 					;MouseClick "left", 626, 402	;closes the window
 				;WinWaitClose "Order a Consult"
 					;Sleep 500
@@ -785,7 +817,7 @@ ClickCoordsFromObject(coords)
 	{
 	MouseClick "left", coords.x, coords.y 
 	}
-
+/*
 Capslock & s::
 {
 	NewArray := []
@@ -808,6 +840,9 @@ Capslock & s::
 	   MsgBox "Color number " A_Index " is " A_LoopField
 	}
 }
+*/
+
+
 
 
 

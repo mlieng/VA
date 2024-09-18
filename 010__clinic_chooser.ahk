@@ -36,15 +36,10 @@ ClinicList := [
 	"Pproc: Esq Sp Oph Plastics Procedures",
 	"Uveitis: Esq Sp Ophthalmology Uveitis",
 
-<<<<<<< HEAD
 	"Or: Pro-Amb Surg Or Non-Count",
 	"Pro: Pro-Amb Surg Or Non-Count",
 	"Glasses: Esq Sp Optom Glass Adjust",
-=======
-	"Or: Pro Amb Surg Or Non-Count",
-	"Pro: Pro Amb Surg Or Non-Count",
-	"Glasses: Esq Sp-Optom Glass Adjust",
->>>>>>> github/master
+
 	"Optom: Esq Sp Optometry General 1",
 	"Optometry: Esq Sp Optometry New 1",
 	"Refr: Esq Sp Optometry Refraction",

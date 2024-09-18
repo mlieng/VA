@@ -89,9 +89,8 @@ simple replacement
 ::.latan::latanoprost ("Green cap")
 ::.cosopt:: dorzolamide-timolol (Cosopt)
 
-::.brim::
-:*:brimo::
-brimonidine
+::.brim::brimonidine
+:*:brimo::brimonidine
 
 ::.mrd::MRD1: mm, MRD2: mm
 ::rtc::RTC
@@ -117,6 +116,8 @@ brimonidine
 :C:ttp::tenderness to palpation
 :C:tapulse::good TA pulse, no cords nor tenderness
 
+;no space. J rivera, murphy, greenberg, brian 
+; requires second choice: 
 
 ::.cat::Crystal Zhang MD, David Rivera MD, Ezra Galler MD, Jorge Rivera MD, Noelle Pruzan MD
 :*:.jriv::Rivera,Jorge
