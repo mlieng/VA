@@ -46,7 +46,7 @@ MyMenu := Menu()
 MyMenu.Add("&Help", help_documentation)
 MyMenu.Add("&Settings", run_settings_GUI)
 MyMenu.Add()  ; Add a separator line.
-MyMenu.Add("&Clean Optometry Note", cleanOptom)
+MyMenu.Add("&Clean Note", cleanNote)
 MyMenu.Add("&Extract Visual Acuity", findVA)
 MyMenu.Add("&PasteNote", pasteNote)
 
@@ -86,7 +86,7 @@ MenuHandler(Item, *) {
 
 
 help_documentation(Item,*){
-    ShowStart("VA AHK", "C:\Program Files\Google\Chrome\Application\chrome.exe  --app=https://mlieng.github.io/VA/")
+    ShowStart("VA AHK", "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe  --app=https://mlieng.github.io/VA/")
 }
 
 
@@ -109,14 +109,14 @@ MsgBox "
  place a \ to escape the ()
 
 ;replaces the line before OS 
-mytext2 := RegExReplace(mytext2, "m)(\r\n|\r|\n){2}( *)OS", "`n`t`tOS")
+text_ := RegExReplace(text_, "m)(\r\n|\r|\n){2}( *)OS", "`n`t`tOS")
 ; looks ahead  so that don't have to manually put spaces and OS back
-mytext2 := RegExReplace(mytext2, "m)(\r\n|\r|\n){2}(?=(\s+)OS)", "`n")
+text_ := RegExReplace(text_, "m)(\r\n|\r|\n){2}(?=(\s+)OS)", "`n")
 https://images.datacamp.com/image/upload/v1665049611/Marketing/Blog/Regular_Expressions_Cheat_Sheet.pdfhttps://www.rexegg.com/regex-quickstart.html
 */
 
-;cleanOptom(Item, *){
-; cleanOptom2
+;cleanNote(Item, *){
+; cleanNote2
 ;}
 
 pasteNote(*){
@@ -139,113 +139,150 @@ cleanNote2(*){
    return text_
 }
 
-cleanOptom(*){
+cleanNote(*){
     ;Send "^C"
     ;ClipWait(2)
     mytext := A_Clipboard
     ;mytext :=  EditGetSelectedText()
 
-    mytext2 := StrReplace(mytext, "`r`n`n", "")
+    text_ := StrReplace(mytext, "`r`n`n", "")
     ;removes the default answer
     
-    mytext2 := RegExReplace(mytext2, "m)\( \) White and Quiet(\r\n|\r|\n)\s+", "") 
-    mytext2 := RegExReplace(mytext2, "m)\( \) Clear(\r\n|\r|\n)\s+", "") 
-    mytext2 := RegExReplace(mytext2, "m)\( \) Normal(\r\n|\r|\n)\s+", "") 
-    mytext2 := RegExReplace(mytext2, "m)\( \) Normal without edema, lipid, or hemes.(\r\n|\r|\n)\s+", "") 
+    text_ := RegExReplace(text_, "m)\( \) White and Quiet(\r\n|\r|\n)\s+", "") 
+    text_ := RegExReplace(text_, "m)\( \) Clear(\r\n|\r|\n)\s+", "") 
+    text_ := RegExReplace(text_, "m)\( \) Normal(\r\n|\r|\n)\s+", "") 
+    text_ := RegExReplace(text_, "m)\( \) Normal without edema, lipid, or hemes.(\r\n|\r|\n)\s+", "") 
 
     ;replaces Other and deletes the following line
-    mytext2 := RegExReplace(mytext2, "m)(\r\n|\r|\n)  +\( \) Other(.+)(\r\n|\r|\n)", "")
+    text_ := RegExReplace(text_, "m)(\r\n|\r|\n)  +\( \) Other(.+)(\r\n|\r|\n)", "")
    
     ; deletes empty line before OS
-    mytext2 := RegExReplace(mytext2, "m)(\r\n|\r|\n)\s+(\r\n|\r|\n)(?=(\s+)OS)", "`n")
+    text_ := RegExReplace(text_, "m)(\r\n|\r|\n)\s+(\r\n|\r|\n)(?=(\s+)OS)", "`n")
 
     ; delete extra line before OD
-    mytext2 := RegExReplace(mytext2, "m)(\r\n|\r|\n)\s+(\r\n|\r|\n)(?=(\s+)(Lids|Conj|Cornea|Iris|Lens|Angles||Ant\.)(.*))", "`n")   
-    mytext2 := RegExReplace(mytext2, "m)(\r\n|\r|\n)\s+(\r\n|\r|\n)(?=(\s+)(Vitreous|Disc\sMargin|Cup|Rim|Macula|Vasc|Background|Periphery))(.*)", "`n")   
+    text_ := RegExReplace(text_, "m)(\r\n|\r|\n)\s+(\r\n|\r|\n)(?=(\s+)(Lids|Conj|Cornea|Iris|Lens|Angles||Ant\.)(.*))", "`n")   
+    text_ := RegExReplace(text_, "m)(\r\n|\r|\n)\s+(\r\n|\r|\n)(?=(\s+)(Vitreous|Disc\sMargin|Cup|Rim|Macula|Vasc|Background|Periphery))(.*)", "`n")   
 
     ; add extra line before OD
-    mytext2 := RegExReplace(mytext2, "(.*)Lids/Lashes:",    "`n$1Lids/Lashes:")    
-    mytext2 := RegExReplace(mytext2, "(.*)Conjunctiva:",    "`n$1Conjunctiva:")
-    mytext2 := RegExReplace(mytext2, "(.*)Cornea:",         "`n$1Cornea:")
-    mytext2 := RegExReplace(mytext2, "(.*)Iris:",           "`n$1Iris:")
-    mytext2 := RegExReplace(mytext2, "(.*)Lens:",           "`n$1Lens:")
-    mytext2 := RegExReplace(mytext2, "(.*)Ant. Chamber:",  "`n$1Ant. Chamber:")
-    mytext2 := RegExReplace(mytext2, "(.*)Angles:",         "`n$1Angles:")
-    mytext2 := RegExReplace(mytext2, "(.*)Vitreous:",        "`n$1Vitreous:")
-    ;mytext2 := RegExReplace(mytext2, "(.*)Vitreous:",        "`n$1Vitreous:")
-    ;mytext2 := RegExReplace(mytext2, "(.*)Vitreous:",        "`n$1Vitreous:")
-    ;mytext2 := RegExReplace(mytext2, "(.*)Vitreous:",        "`n$1Vitreous:")
-    ;mytext2 := RegExReplace(mytext2, "(.*)Vitreous:",        "`n$1Vitreous:")
-    ;mytext2 := RegExReplace(mytext2, "(?=(\s+)(Lids|Conj|Cornea|Iris|Lens|Angles||Ant\.))", "`n`n")   
-    ;mytext2 := RegExReplace(mytext2, "^(\s+)(Lids|Conj|Cornea|Iris|Lens|Angles||Ant\.))", "`n$1")
-    ;mytext2 := RegExReplace(mytext2, "m)(\n)(?=(\s+)(Vitreous|Disc\sMargin|Cup|Rim|Macula|Vasc|Background|Periphery))", "`n`n") 
+    text_ := RegExReplace(text_, "(.*)Lids/Lashes:",    "`n$1Lids/Lashes:")    
+    text_ := RegExReplace(text_, "(.*)Conjunctiva:",    "`n$1Conjunctiva:")
+    text_ := RegExReplace(text_, "(.*)Cornea:",         "`n$1Cornea:")
+    text_ := RegExReplace(text_, "(.*)Iris:",           "`n$1Iris:")
+    text_ := RegExReplace(text_, "(.*)Lens:",           "`n$1Lens:")
+    text_ := RegExReplace(text_, "(.*)Ant. Chamber:",  "`n$1Ant. Chamber:")
+    text_ := RegExReplace(text_, "(.*)Angles:",         "`n$1Angles:")
+    text_ := RegExReplace(text_, "(.*)Vitreous:",        "`n$1Vitreous:")
+    ;text_ := RegExReplace(text_, "(.*)Vitreous:",        "`n$1Vitreous:")
+    ;text_ := RegExReplace(text_, "(.*)Vitreous:",        "`n$1Vitreous:")
+    ;text_ := RegExReplace(text_, "(.*)Vitreous:",        "`n$1Vitreous:")
+    ;text_ := RegExReplace(text_, "(.*)Vitreous:",        "`n$1Vitreous:")
+    ;text_ := RegExReplace(text_, "(?=(\s+)(Lids|Conj|Cornea|Iris|Lens|Angles||Ant\.))", "`n`n")   
+    ;text_ := RegExReplace(text_, "^(\s+)(Lids|Conj|Cornea|Iris|Lens|Angles||Ant\.))", "`n$1")
+    ;text_ := RegExReplace(text_, "m)(\n)(?=(\s+)(Vitreous|Disc\sMargin|Cup|Rim|Macula|Vasc|Background|Periphery))", "`n`n") 
 
-    ;mytext2 := RegExReplace(mytext2, "m)(\r\n|\r|\n)\s+(\r\n|\r|\n)(?=(\s+)OS)", "`n")
+    ;text_ := RegExReplace(text_, "m)(\r\n|\r|\n)\s+(\r\n|\r|\n)(?=(\s+)OS)", "`n")
 
     ;to delete the fundus exam part
-    mytext2 := RegExReplace(mytext2, "m)\s+\( \) Undilated", "")
+    text_ := RegExReplace(text_, "m)\s+\( \) Undilated", "")
         ;deletes from "reason on + dilated on next line "
-    mytext2 := RegExReplace(mytext2, "m)(\r\n|\r|\n)\s+Reason(.*)[(\r\n|\r|\n)\s*(.*)]", "") 
-    mytext2 := RegExReplace(mytext2, "m)(\r\n|\r|\n)(.*)Dilated with(.*)", "") 
-    mytext2 := RegExReplace(mytext2, "\s+Time(.*)", "") 
-    mytext2 := RegExReplace(mytext2, "m)(\r\n|\r|\n)(.*)\(\w\) 90 D(.*)", "   +90D") 
-    mytext2 := RegExReplace(mytext2, "m)(\r\n|\r|\n)(.*)\( \) 90 D(.*)", "") 
-    mytext2 := RegExReplace(mytext2, "m)(\r\n|\r|\n)(.*)\(\w\) 78 D(.*)", "   +78D") 
-    mytext2 := RegExReplace(mytext2, "m)(\r\n|\r|\n)(.*)\( \) 78 D(.*)", "") 
-    mytext2 := RegExReplace(mytext2, "m)(\r\n|\r|\n)(.*)\(\w\) 20 D(.*)", "   +20D") 
-    mytext2 := RegExReplace(mytext2, "m)(\r\n|\r|\n)(.*)\( \) 20 D(.*)", "") 
-    mytext2 := RegExReplace(mytext2, "m)(\r\n|\r|\n)(.*)Direct(.*)", "") 
+    text_ := RegExReplace(text_, "m)(\r\n|\r|\n)\s+Reason(.*)[(\r\n|\r|\n)\s*(.*)]", "") 
+    text_ := RegExReplace(text_, "m)(\r\n|\r|\n)(.*)Dilated with(.*)", "") 
+    text_ := RegExReplace(text_, "\s+Time(.*)", "") 
+    text_ := RegExReplace(text_, "m)(\r\n|\r|\n)(.*)\(\w\) 90 D(.*)", "   +90D") 
+    text_ := RegExReplace(text_, "m)(\r\n|\r|\n)(.*)\( \) 90 D(.*)", "") 
+    text_ := RegExReplace(text_, "m)(\r\n|\r|\n)(.*)\(\w\) 78 D(.*)", "   +78D") 
+    text_ := RegExReplace(text_, "m)(\r\n|\r|\n)(.*)\( \) 78 D(.*)", "") 
+    text_ := RegExReplace(text_, "m)(\r\n|\r|\n)(.*)\(\w\) 20 D(.*)", "   +20D") 
+    text_ := RegExReplace(text_, "m)(\r\n|\r|\n)(.*)\( \) 20 D(.*)", "") 
+    text_ := RegExReplace(text_, "m)(\r\n|\r|\n)(.*)Direct(.*)", "") 
 
-    mytext2 := StrReplace(mytext2, "Tonometry", "`nTonometry")
+    text_ := StrReplace(text_, "Tonometry", "`nTonometry")
 
     ; clean up text
-    mytext2 := StrReplace(mytext2, "Pupils:", "Pupils: PERRL, (-) APD")
-    mytext2 := StrReplace(mytext2, "(x) Equal, round, reactive without afferent defect.", "")
-    mytext2 := StrReplace(mytext2, "Extraocular Muscle Motility:", "EOMI")
-    mytext2 := StrReplace(mytext2, "(x) Full, equal, smooth, accurate", "")
-    mytext2 := StrReplace(mytext2, "( ) Other`n", "")
+    text_ := StrReplace(text_, "Pupils:", "Pupils: PERRL, (-) APD")
+    text_ := StrReplace(text_, "(x) Equal, round, reactive without afferent defect.", "")
+    text_ := StrReplace(text_, "Extraocular Muscle Motility:", "EOMI")
+    text_ := StrReplace(text_, "(x) Full, equal, smooth, accurate", "")
+    text_ := StrReplace(text_, "( ) Other`n", "")
 
-    mytext2 := StrReplace(mytext2, "Confrontation Fields:", "Confrontation Fields: Full 4 quadrants OU")
-    mytext2 := StrReplace(mytext2, "(x) Full to finger counting OD, OS", "")
+    text_ := StrReplace(text_, "Confrontation Fields:", "Confrontation Fields: Full 4 quadrants OU")
+    text_ := StrReplace(text_, "(x) Full to finger counting OD, OS", "")
 
-    mytext2 := StrReplace(mytext2, "IRIS Neovascularization", "NVI")
-    mytext2 := StrReplace(mytext2, "Normal and flat without neovascularization", "(-) NVI")
-    mytext2 := StrReplace(mytext2, "Clear without pigment, heme or cell", "Clear")
+    ;iris
+    text_ := StrReplace(text_, "IRIS Neovascularization", "NVI")
+    text_ := StrReplace(text_, "Normal and flat without neovascularization", "(-) NVI")
+    text_ := StrReplace(text_, "Clear without pigment, heme or cell", "Clear")
 
-    mytext2 := StrReplace(mytext2, "Distinct (-) NVD", "Normal")
-    mytext2 := StrReplace(mytext2, "Pink and Healthy, (-) pallor", "Normal")
-    mytext2 := StrReplace(mytext2, "Normal without edema, lipid, or hemes. ", "Normal")
-    mytext2 := StrReplace(mytext2, "Normal without holes or tears 360º (-) NVE", "Normal")
-    mytext2 := StrReplace(mytext2, "Normal without holes or tears 360", "Normal")
-    mytext2 := StrReplace(mytext2, "Normal caliber and appearance", "Normal")
+    ;AC
+    text_ := StrReplace(text_, "Deep and Quiet","d&q",0)
 
-    mytext2 := StrReplace(mytext2, "OD (x)", "OD")
-    mytext2 := StrReplace(mytext2, "OS (x)", "OS")
-    mytext2 := StrReplace(mytext2, "Funduscopic Examination", "DFE")
-    mytext2 := StrReplace(mytext2, "Other:")
+    ;rim
+    text_ := StrReplace(text_, "Sharp,pink,flat","s/p/f")
+    text_ := StrReplace(text_, "Distinct (-) NVD", "Normal")
+    text_ := StrReplace(text_, "Pink and Healthy (-)NVD", "Normal")
+    text_ := StrReplace(text_, "Pink and Healthy, (-) pallor", "Normal")
+
+    ;macula
+    text_ := StrReplace(text_, "Normal without edema, lipid, or hemes. ", "Normal")
+
+    ;background
+    text_ := StrReplace(text_, "Normal (-)NVE", "Normal")
+
+    ;periphery
+    text_ := StrReplace(text_, "Normal without holes or tears 360º", "Normal")
+    text_ := StrReplace(text_, "Normal without holes or tears 360", "Normal")
+    text_ := StrReplace(text_, "Normal caliber and appearance", "Normal")
+
+    ;getting rid of the (x)
+    text_ := StrReplace(text_, "OD (x)", "OD")
+    text_ := StrReplace(text_, "OS (x)", "OS")
+
+
+    text_ := StrReplace(text_, "Funduscopic Examination", "DFE")
+    text_ := StrReplace(text_, "Other:")
 
     ;replaces any extra space before "OD with just one tab"
-    ;mytext2 := RegExReplace(mytext2, "^\s+(.*)OD", "`t$1OD")
+    ;text_ := RegExReplace(text_, "^\s+(.*)OD", "`t$1OD")
 
 
-    ; opens and pastes in notepad
-    ;if WinExist("Untitled - Notepad")
-    ;    WinActivate ;
-    ;else 
-    ;    Run "notepad.exe"
-    ;    WinWait(2)
-    ;    WinActivate "Untitled - Notepad"
 
-    ;ShowStart("", "notepad.exe")
-    
-    ;WinActivate("Untitled - Notepad")
+    ;clean glaucoma section
+    text_ := StrReplace(text_, "Medication/treatment history:", "Med/Tx History:",0)
+    text_ := StrReplace(text_, "Have the following been performed within the past year?", "Tests",0)
+    text_ := StrReplace(text_, "Has a drance heme ever been present?", "Drance heme, ever?",0)
+    text_ := StrReplace(text_, "Is a visual field defect present?", "VF defect?",0)
+    text_ := StrReplace(text_, ". Date:", "",0)
 
-    A_Clipboard := mytext2
+
+    ;for some reason generic is not working (Y(*) N(*))
+    text_ := StrReplace(text_, "Y(x)  N( ) Fundus photos", "-Fundus photos:")
+    text_ := StrReplace(text_, "Y( )  N(x) Fundus photos", "-Fundus photos:")
+
+    text_ := StrReplace(text_, "Y(x)  N( ) Visual Fields", "-Visual Fields:")
+    text_ := StrReplace(text_, "Y( )  N(x) Visual Fields", "-Visual Fields:")
+
+    text_ := StrReplace(text_, "Y(x)  N( ) Gonioscopy/Anterior Segment OCT", "-Gonio/AS OCT:")
+    text_ := StrReplace(text_, "Y( )  N(x) Gonioscopy/Anterior Segment OCT", "-Gonio/AS OCT:")
+
+    text_ := StrReplace(text_, "Y(x)  N( ) RNFL OCT", "-OCT RNFL:")
+    text_ := StrReplace(text_, "Y( )  N(x) RNFL OCT", "-OCT RNFL:")    
+
+    ;replace the leftover yes/no
+    text_ := StrReplace(text_, "Y( )  N(x)", "no")
+    text_ := StrReplace(text_, "Y(x)  N( )", "yes")
+
+    ;text_ := StrReplace(text_, "Y(*)  N(*) Visual Fields. Date:", "-VF:")
+    ;text_ := StrReplace(text_, "Y(*)  N(*) Gonioscopy/Anterior Segment OCT", "-Gonio/Ant OCT:")
+    ;text_ := StrReplace(text_, "Y(*)  N(*) RNFL OCT. Date:", "-OCT RNFL:")
+
+
+
+    A_Clipboard := text_
     ;Return A_Clipboard
     Send "^v"
 }
 
-CapsLock & z:: cleanOptom
+CapsLock & z:: cleanNote
 #HotIf GetKeyState("Shift")
 Capslock & f:: findVA
 #Hotif
@@ -258,23 +295,23 @@ findVA(*){
     ;Send "^c"
     ;ClipWait(2)
     mytext := A_Clipboard
-    mytext2 := StrReplace(mytext, "`r`n", "`n")
+    text_ := StrReplace(mytext, "`r`n", "`n")
 
-    RegExMatch(mytext2, "OD\:{0,1}\s*20/(?<od>[a-zA-Z0-9]{2,3})(\s*|\,\s*|-\d*\s*|\+\d*\s*)(`n|PH)", &VA_OD)
-    RegExMatch(mytext2, "OS\:{0,1}\s*20/(?<os>[a-zA-Z0-9]{2,3})(\s*|\,\s*|-\d*\s*|\+\d*\s*)(`n|PH)", &VA_OS)
+    RegExMatch(text_, "OD\:{0,1}\s*20/(?<od>[a-zA-Z0-9]{2,3})(\s*|\,\s*|-\d*\s*|\+\d*\s*)(`n|PH)", &VA_OD)
+    RegExMatch(text_, "OS\:{0,1}\s*20/(?<os>[a-zA-Z0-9]{2,3})(\s*|\,\s*|-\d*\s*|\+\d*\s*)(`n|PH)", &VA_OS)
 
     if(VA_OD.Count=0) 
         VA_OD[1]=000
     if(VA_OS.Count=0) 
         VA_OS[1]=000
-    ;RegExMatch(mytext2, "OD\:{0,1}\s*20/{0,1}(.{2})(\s*|\,\s*|-\d*\s*|\+\d*\s*)(`n|PH)", &VA_OD)
-    ;RegExMatch(mytext2, "OS\:{0,1}\s*20/{0,1}(.{2})(\s*|\,\s*|-\d*\s*|\+\d*\s*)(`n|PH)", &VA_OS)
-    ;RegExMatch(mytext2, "OD\:{0,1}\s*20/{0,1}(.{2})(\s*|\,\s*|-\d*\s*|+\d*\s*)(`n|PH)", &VA_OD)
-    ;RegExMatch(mytext2, "OS\:{0,1}\s*20/{0,1}(.{2})(\s*|\,\s*|-\d*\s*|+\d*\s*)(`n|PH)", &VA_OS)
-    ;RegExMatch(mytext2, "abc(.*)123", &SubPat)
+    ;RegExMatch(text_, "OD\:{0,1}\s*20/{0,1}(.{2})(\s*|\,\s*|-\d*\s*|\+\d*\s*)(`n|PH)", &VA_OD)
+    ;RegExMatch(text_, "OS\:{0,1}\s*20/{0,1}(.{2})(\s*|\,\s*|-\d*\s*|\+\d*\s*)(`n|PH)", &VA_OS)
+    ;RegExMatch(text_, "OD\:{0,1}\s*20/{0,1}(.{2})(\s*|\,\s*|-\d*\s*|+\d*\s*)(`n|PH)", &VA_OD)
+    ;RegExMatch(text_, "OS\:{0,1}\s*20/{0,1}(.{2})(\s*|\,\s*|-\d*\s*|+\d*\s*)(`n|PH)", &VA_OS)
+    ;RegExMatch(text_, "abc(.*)123", &SubPat)
     ;VA_OD[1]
     ;Send "^V"
-    ;A_Clipboard := mytext2
+    ;A_Clipboard := text_
     ;MsgBox VA_OD[1] "," VA_OS[1]
     A_Clipboard := VA_OD[1] "," VA_OS[1]
     Send "^{v}"
@@ -323,4 +360,8 @@ things that don't work
                 OD: LP PHNI
                 OS: 20/30+2 PHNI
  
+ */
+
+ /*
+
  */

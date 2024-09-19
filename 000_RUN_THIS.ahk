@@ -77,10 +77,35 @@ dateTomorrow := DateAdd(A_Now, 1, "days")
 
 
 #HotIf FindVarString_Loose(WinGetTitle("A"), "Return To Clinic")
-	:*:es::
+	:*C:esq::
 	{
 		clinic_chooser()
 	}
+
+	:*C:Esq::Esq Sp O
+	:*:or::Pro-Amb Surg Or Non-Count
+	::pro::Pro-Amb Surg Or Non-Count
+	:*:corn::Esq Sp Opht Cornea
+	:*:biom::Esq Sp Opht Biometry
+	:*:gla::Esq Sp Opht Glaucoma
+	:*:sgla::Esq Sp Ophth Surgical Glaucoma
+	:*:post::Esq Sp Ophthalm Postop 3
+	:*:pre::Esq Sp Ophthalmo Preop 3
+	:*:proc2::Esq Sp Ophthalmo Procedure 2
+	:*:2p::Esq Sp Ophthalmo Procedure 2
+	:*:op1::Esq Sp Ophthalmology 1n
+	:*:1n::Esq Sp Ophthalmology 1n
+	:*:op2::Esq Sp Ophthalmology 2r
+	:*:2r::Esq Sp Ophthalmology 2r
+	:*:op3::Esq Sp Ophthalmology 3
+	:*:las::Esq Sp Ophthalmology Laser
+	:*:pla::Esq Sp Ophthalmology Plast I
+	:*:ppro::Esq Sp Oph Plastics Procedures
+	:*:uv::Esq Sp Ophthalmology Uveitis
+	:*:ref:: Esq Sp Optometry Refraction
+	:*:optom:: Esq Sp Optometry General 1
+	:*:optom:: Esq Sp Optometry General 1
+
 
 #HotIf FindVarString_Loose(WinGetTitle("A"), "Patient Selection")
 /*
@@ -108,6 +133,7 @@ if in the 'patient selection window'
 		MouseClick "left", 35, 124
 		clinic_chooser()
 	}
+
 	:*C:Esq::Esq Sp O
 	:*:or::Pro-Amb Surg Or Non-Count
 	::pro::Pro-Amb Surg Or Non-Count
@@ -115,14 +141,15 @@ if in the 'patient selection window'
 	:*:biom::Esq Sp Opht Biometry
 	:*:gla::Esq Sp Opht Glaucoma
 	:*:sgla::Esq Sp Ophth Surgical Glaucoma
-	:*:pos::Esq Sp Ophthalm Postop 3
+	:*:post::Esq Sp Ophthalm Postop 3
 	:*:pre::Esq Sp Ophthalmo Preop 3
 	:*:proc2::Esq Sp Ophthalmo Procedure 2
 	:*:2p::Esq Sp Ophthalmo Procedure 2
+	:*:op1::Esq Sp Ophthalmology 1n
 	:*:1n::Esq Sp Ophthalmology 1n
+	:*:op2::Esq Sp Ophthalmology 2r
 	:*:2r::Esq Sp Ophthalmology 2r
 	:*:op3::Esq Sp Ophthalmology 3
-	:*:2rg::Esq Sp Ophthalmology 2rg
 	:*:las::Esq Sp Ophthalmology Laser
 	:*:pla::Esq Sp Ophthalmology Plast I
 	:*:ppro::Esq Sp Oph Plastics Procedures
@@ -166,21 +193,6 @@ no acute distress
 }
 
 #Hotif
-
-
-/*
-	:*:nad::{
-	SendText "
-(
-no acute distress 
-`t NCAT (normocephalic atraumatic)
-`t CTAB (clear to auscultation bilaterally)
-`t normal rate RR (regular rhythm)
-`t soft bowel sounds present
-`t moving spontaneously
-)"
-}	
-*/
 
  
 /*
@@ -338,20 +350,29 @@ else
 	Run exe
 }
 
-Capslock & g::ShowStart("Week Calculator", "C:\Program Files\Google\Chrome\Application\chrome.exe  --app=https://dqydj.com/week-calculator/")
+;Capslock & g::ShowStart("Week Calculator", "C:\Program Files\Google\Chrome\Application\chrome.exe  --app=https://dqydj.com/week-calculator/")
 ;^g::ShowStart("Google Calendar", "C:\Program Files\Google\Chrome\Application\chrome.exe  --app=https://www.google.com/calendar/render?pli=1")
 Capslock & b::ShowStart("VitalSource Bookshelf: The Wills Eye Manual", "C:\Program Files\Google\Chrome\Application\chrome.exe  --app=https://bookshelf.vitalsource.com/#/")
 Capslock & k::ShowStart("Title page", "C:\Program Files\Google\Chrome\Application\chrome.exe  --app=file:///C:/Users/VHAPROLiengM/OneDrive%20-%20Department%20of%20Veterans%20Affairs/Kanski%E2%80%99s%20Clinical%20Ophthalmology.%20A%20Systematic%20Approach%20by%20John%20F.%20Salmon%20(z-lib.org).pdf")
-Capslock & s::ShowStart("Surgical calendar", "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe  --app=https://dvagov.sharepoint.com/:x:/r/sites/VHAPROSur/eye/_layouts/15/Doc.aspx?sourcedoc=%7B441E4889-1731-449A-ACCF-CB5492E0C46E%7D&file=Surgical%20calendar.xlsx&action=default&mobileredirect=true")
+Capslock & s::OpenExcelCalendar()
+Capslock & g::ShowStart("Ophthalmology - Surgery", "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe  --app=https://dvagov.sharepoint.com/sites/VHAPROSur/eye/Lists/AnetaSurgery/calendar.aspx?login_hint=Monica.Lieng%40va.gov")
 
 Capslock & v::ShowStart("VistA CPRS", "\\v01.med.va.gov\apps\GUI\Clinical\CPRS\Production\CPRS32Cv515_2\CPRSChart.exe ")
 ; s=vista.providence.med.va.gov p=19218 SHOWRPCS SHOWCERTS
 
 Capslock & d::ShowStart("Dragon Medical One", "C:\Program Files (x86)\Nuance\Dragon Medical One\SoD.exe")
+
+
+OpenExcelCalendar(){
+ShowStart("Surgical calendar", "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe  --app=https://dvagov.sharepoint.com/:x:/r/sites/VHAPROSur/eye/_layouts/15/Doc.aspx?sourcedoc=%7B441E4889-1731-449A-ACCF-CB5492E0C46E%7D&file=Surgical%20calendar.xlsx&action=default&mobileredirect=true")
+}
+
+
 ; keep window on top
 ; ********************************************************************* 
 
 ; with notifications
+#Space::
 ^+SPACE::
 {
 WinSetAlwaysOnTop -1, "A"
@@ -472,7 +493,13 @@ Capslock & t::AddTextOrder()
 		WinWait "Reason for Request: OPTOMETRY/OPHTHALMOLOGY IMAGING SERVICES OUTPT"
 		ImagingGUI()
 		}
-
+	o::
+		{
+		ClickImaging()
+		WinWait "Reason for Request: OPTOMETRY/OPHTHALMOLOGY IMAGING SERVICES OUTPT"
+		ClickOct()
+		EnterImageOrderDetails()
+		}
 	j::ClickInjection()
 	n::ClickNonFormulary()
 
@@ -534,8 +561,8 @@ ImagingOptions := Array(
 ImagingOptionsNames := GetNames(ImagingOptions)
 
 ExitOrderMenu()
-	{
-		if WinExist("Order Menu")
+	{ ;"TfrmOMNavA"
+		if WinExist("Order Menu") ;
 			WinActivate 
 		MouseClick "left", 841, 10 ;exits
 	}
@@ -687,6 +714,29 @@ ClickNonFormulary()
 	}
 
 
+ClickOct()
+	{
+		WinWait "Reason for Request: OPTOMETRY/OPHTHALMOLOGY IMAGING SERVICES OUTPT"
+		WinMove 100,100, 785,490
+		MouseClick "left", 55, 220 ; clicks OCT
+		;Send "{Enter}" ;clicks 'Preview'
+		
+		MouseClick "left", 657, 431	;clicks  'ok'
+		;WinWaitClose "Reason for Request: OPTOMETRY/OPHTHALMOLOGY IMAGING SERVICES OUTPT"
+
+	}	
+
+EnterImageOrderDetails()
+{
+			
+		WinWait "Order a Consult"
+		WinMove 430,200, 640, 414
+		Send "{Click 382 87}"
+		Send FormatTime(, "M/d/yy")  	; 'It will look like 10/4/23'
+		Send "{tab 6}"
+		Send "{enter}" ; closes window
+
+}
 
 
 ; need to add multiline text/all the options
@@ -743,34 +793,17 @@ ImagingGUI()
 				WinMove 100,100, 785,490
 				MouseClick "left", 657, 431	;clicks  ok 
 				;WinWaitClose "Reason for Request: OPTOMETRY/OPHTHALMOLOGY IMAGING SERVICES OUTPT"
-				
-				
-				;if WinExist("Order a Consult")
-				;	WinActivate 
-				; enter date in in "order a consult"
-				;WinActivate "Order a Consult"
-				;WinWaitActive "Order a Consult"
 
 				WinWaitActive "Order a Consult"
 				WinMove ,, 640, 414
-				;Send "{CapsLock down}{f down}{CapsLock up}{f up}"
-				MouseClick "left", 422, 71		;clicks in date area
+				;Send "{CapsLock down}{f down}{CapsLock up}{f u			p}"
+				MouseClick "left", 358,94		;clicks in date area
 				Send FormatTime(, "M/d/yy")  	; 'It will look like 10/4/23'
 				Send "{tab 6}"
-				Send "{enter}"
+				Send "{enter}" ; OR CLICK Send "{Click 549 330}"
 					;MouseClick "left", 626, 402	;closes the window
-				;WinWaitClose "Order a Consult"
-					;Sleep 500
-					;if WinExist("Order Menu")
-					;	{
-					;	WinActivate 
-					;	WinWaitActive
-					;	MouseClick "left", 841, 10						
-					;	}
-				;WinActivate "Order Menu"
-				;MouseClick "left", 841, 10					
+							
 			}
-	    ;MsgBox MyText
 	}	
 }
 
