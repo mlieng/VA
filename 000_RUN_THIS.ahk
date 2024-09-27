@@ -168,10 +168,10 @@ if in the 'patient selection window'
 	:*:nad::{
 	SendText "
 (
-no acute distress 
-`t normocephalic atraumatic
-`t clear to auscultation bilaterally
-`t normal rate, regular rhythm
+NAD
+`t NCAT
+`t CTAB
+`t normal rate, RR
 `t soft, bowel sounds present
 `t moving spontaneously
 )"
@@ -357,10 +357,18 @@ Capslock & k::ShowStart("Title page", "C:\Program Files\Google\Chrome\Applicatio
 Capslock & s::OpenExcelCalendar()
 Capslock & g::ShowStart("Ophthalmology - Surgery", "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe  --app=https://dvagov.sharepoint.com/sites/VHAPROSur/eye/Lists/AnetaSurgery/calendar.aspx?login_hint=Monica.Lieng%40va.gov")
 
-Capslock & v::ShowStart("VistA CPRS", "\\v01.med.va.gov\apps\GUI\Clinical\CPRS\Production\CPRS32Cv515_2\CPRSChart.exe ")
+Capslock & v::ShowStart("VistA CPRS", "\\V01.med.va.gov\Apps\VA_Shortcuts\PRO\CPRSChart PRO.exe")
 ; s=vista.providence.med.va.gov p=19218 SHOWRPCS SHOWCERTS
+;C:\Program Files\CZM\FORUM Viewer\FORUM Viewer.exe
+;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\FORUM from ZEISS\FORUM Viewer.exe
 
-Capslock & d::ShowStart("Dragon Medical One", "C:\Program Files (x86)\Nuance\Dragon Medical One\SoD.exe")
+;C:\Program Files (x86)\Microsoft Office\root\Office16\onenote.exe
+
+
+Capslock & n::
+#n::ShowStart("Dragon Medical One", "C:\Program Files (x86)\Microsoft Office\root\Office16\onenote.exe")
+
+#d::ShowStart("OneNote", "C:\Program Files (x86)\Nuance\Dragon Medical One\SoD.exe")
 
 
 OpenExcelCalendar(){
@@ -482,7 +490,7 @@ Capslock & t::AddTextOrder()
 	a::
 		{
 		ClickAnesthesia()
-		Sleep 1000
+		Sleep 50
 		EnterAnesthesiaOrderDetails()
 		}
 	c:: ClickCardsConsult()
@@ -518,6 +526,13 @@ Capslock & t::AddTextOrder()
 		MouseClick "left", 604, 403
 		;MouseClick "left", 574, 401
 	}
+#Hotif FindVarString_Loose(WinGetTitle("A"), "Reason for Request: ANESTHESIA E-CONSULT INPT")
+	::cat:: 
+	{
+		WinActive(WinGetTitle("A"))
+		EnterAnesthesiaOrderDetails2()
+	}
+
 #Hotif
 
 
@@ -610,7 +625,7 @@ ClickImaging()
 	{	
 		WinWait "Order Menu" 
 		WinMove (A_ScreenWidth/2)-(900/2),(A_ScreenHeight/2)-(800/2),900,600
-		MouseClick "left", 683, 37 ; clicks 42 local consults/requests
+		Send "{Click 735 30}" ;clicks 42 local consults/requests
 		MouseClick "left", 510, 302 ; clicks 34 surgical consult
 		MouseClick "left", 421, 339 ; clicks optometry/ophthalmology imaging services Outpt
 	}
@@ -618,34 +633,40 @@ ClickEKG()
 	{	
 		WinWait "Order Menu" 
 		WinMove (A_ScreenWidth/2)-(900/2),(A_ScreenHeight/2)-(800/2),900,600
-		MouseClick "left", 683, 37 ; clicks 42 local consults/requests
-		MouseClick "left", 90, 368 ; clicks 14 medical  consult
-		MouseClick "left", 102, 83 ; clicks CARDIOLOGY
-		MouseClick "left", 551, 149 ; clicks EKG w/rhythm strip
+		Send "{Click 735 30}" 	; clicks 42 local consults/requests
+		Send "{Click 78 367}"	; clicks 14 medical  consult
+		Send "{Click 71 79}"	; clicks CARDIOLOGY
+		Send "{Click 525 144}" 	; clicks 8 EKG w/rhythm strip
 
 
 		;enter EKG order details
 		WinWait "Order a Procedure" 
 		Send "Preop EKG for anesthesia; for cataract surgery"
-		MouseClick "left", 239, 92 ; clicks date
+		Send "{Click 251 88}"	; clicks date
 		Send FormatTime(, "M/d/yy")
 		Sleep 50
-		Send "{Tab 4}"
-		Send "{Down 2}"	
+		Send "{Tab 4}" 	; moves to location selection
+		Send "{Down 2}"	; clicks 'outpatient'
+		Send "{Tab 3}" 	; MOVES TO 'accept order'
 	}
 
 ClickCardsConsult()
 	{
 		WinWait "Order Menu" 
 		WinMove (A_ScreenWidth/2)-(900/2),(A_ScreenHeight/2)-(800/2),900,600
-		MouseClick "left", 683, 37 ; clicks 42 local consults/requests
-		MouseClick "left", 181, 376 ; clicks 14 Medical Service
 
-		MouseClick "left", 165, 87 ; clicks 'CARDIOLOGY CONSULTATION'
-		MouseClick "left", 160, 290 ; clicks 'Cardiology eConsult'
+		Send "{Click 735 30}" 	; clicks 42 local consults/requests
+		Send "{Click 78 367}"	; clicks 14 medical  consult
+		Send "{Click 71 79}"	; clicks CARDIOLOGY
 
-		WinWait "Reason for Request: CARDIOLOGY E-CONSULT OUTPT"
-		WinMove (A_ScreenWidth/2)-(900/2),(A_ScreenHeight/2)-(1000/2),783,755
+		;Send "{Click 174 316}" ;clicks cards econsult
+		Send "{Click 181 433}" ;clicks cardiology preop consult
+
+		;MouseClick "left", 165, 87 ; clicks 'CARDIOLOGY CONSULTATION'
+		;MouseClick "left", 160, 290 ; clicks 'Cardiology eConsult'
+
+		;WinWait "Reason for Request: CARDIOLOGY E-CONSULT OUTPT"
+		;WinMove (A_ScreenWidth/2)-(900/2),(A_ScreenHeight/2)-(1000/2),783,755
 		
 		;MouseClick "left", 11, 39 ; clicks [ ] for 'Chart Review'
 		;Send "{tab}"
@@ -669,13 +690,62 @@ ClickCardsConsult()
 ClickAnesthesia()
 	{	WinWait "Order Menu" 
 		WinMove (A_ScreenWidth/2)-(900/2),(A_ScreenHeight/2)-(800/2),900,600
-		MouseClick "left", 683, 37 ; clicks 42 local consults/requests
-		MouseClick "left", 510, 302 ; clicks 34 surgical consult
-		MouseClick "left", 414, 85 ; clicks 'Anesthesia E consult'
+
+		Send "{Click 735 30}" 	; clicks 42 local consults/requests
+		Send "{Click 536 302}"	; clicks 34 surgical consult
+		Send "{Click 152 112}"	 ; clicks 'Anesthesia E consult'
+	}
+
+EnterAnesthesiaOrderDetails2()
+	{	Send "{Backspace 3}"
+		WinMove (A_ScreenWidth/2)-(900/2),(A_ScreenHeight/2)-(800/2),1069,893
+		Send "{Click 170 251}" ;clicks procedure
+		Send "{Tab}" ; moves to dx planned procedure
+		Sleep 50
+		Send "Age related cataract"
+		Sleep 50
+		Send "{Tab}" ; moves to type of anesthesia
+		Sleep 50
+		Send "MAC/Topical"
+		Sleep 50
+		Send "{Click 21 706}" ;clicks acknowledge
+		Send "{PgDn 2}"
+		Send "{Click 25 538}" ;clicks not GLp1
+		Send "{Click 15 622}" ;clicks not glp1
+		Send "{Click 27 730}" ;clicks not glp1
+		Send "{PgUp 2}"
+		Sleep 50
+		Send "{Click 170 251}" ;clicks procedure
+		Sleep 50
+		Send "Cataract Extraction and intraocular lens placement,  eye"
 
 	}
+
 EnterAnesthesiaOrderDetails()
-	{
+	{	WinWait "Anesthesia E-CONSULT" 
+		WinMove (A_ScreenWidth/2)-(900/2),(A_ScreenHeight/2)-(800/2),1069,893
+
+		Send "{Click 170 251}" ;clicks procedure
+		Send "{Tab}" ; moves to planned procedure
+		Sleep 50
+		Send "Age related cataract"
+		Sleep 50
+		Send "{Tab}" ; moves to type of anesthesia
+		Sleep 50
+		Send "MAC/Topical"
+		Sleep 50
+		Send "{Click 21 706}" ;clicks acknowledge
+		Send "{PgDn 2}"
+		Send "{Click 25 538}" ;clicks not GLp1
+		Send "{Click 15 622}" ;clicks not glp1
+		Send Send "{Click 27 730}" ;clicks not glp1
+		Send "{PgUp 2}"
+		Sleep 50
+		Send "{Click 170 251}" ;clicks procedure
+		Sleep 50
+		Send "Cataract Extraction and intraocular lens placement,  eye"
+
+		/*
 			MouseClick "left", 102, 319 ;clicks diagnosis
 			Sleep 50
 			WinWait "ANESTHESIA E" 
@@ -687,6 +757,9 @@ EnterAnesthesiaOrderDetails()
 			Sleep 50
 			Send "Cataract Extraction and intraocular lens placement,  eye"
 			Send "{Left 4}"
+		*/
+
+
 	}
 /*
  EnterEKGOrderDetails()
@@ -721,7 +794,7 @@ ClickOct()
 		MouseClick "left", 55, 220 ; clicks OCT
 		;Send "{Enter}" ;clicks 'Preview'
 		
-		MouseClick "left", 657, 431	;clicks  'ok'
+		Send "{Click 694 436}" ;clicks  'ok'
 		;WinWaitClose "Reason for Request: OPTOMETRY/OPHTHALMOLOGY IMAGING SERVICES OUTPT"
 
 	}	
@@ -731,7 +804,7 @@ EnterImageOrderDetails()
 			
 		WinWait "Order a Consult"
 		WinMove 430,200, 640, 414
-		Send "{Click 382 87}"
+		Send "{Click 374 69}"
 		Send FormatTime(, "M/d/yy")  	; 'It will look like 10/4/23'
 		Send "{tab 6}"
 		Send "{enter}" ; closes window
@@ -791,18 +864,10 @@ ImagingGUI()
 				Send "{Enter}"
 				WinWaitActive "Reason for Request: OPTOMETRY/OPHTHALMOLOGY IMAGING SERVICES OUTPT"
 				WinMove 100,100, 785,490
-				MouseClick "left", 657, 431	;clicks  ok 
+				Send "{Click 702 431}"	;clicks  ok 
 				;WinWaitClose "Reason for Request: OPTOMETRY/OPHTHALMOLOGY IMAGING SERVICES OUTPT"
 
-				WinWaitActive "Order a Consult"
-				WinMove ,, 640, 414
-				;Send "{CapsLock down}{f down}{CapsLock up}{f u			p}"
-				MouseClick "left", 358,94		;clicks in date area
-				Send FormatTime(, "M/d/yy")  	; 'It will look like 10/4/23'
-				Send "{tab 6}"
-				Send "{enter}" ; OR CLICK Send "{Click 549 330}"
-					;MouseClick "left", 626, 402	;closes the window
-							
+				EnterImageOrderDetails()
 			}
 	}	
 }
@@ -823,7 +888,7 @@ ClickInjection()
 		WinActivate "Order Menu"	
 		MouseClick "left", 313, 509 ; clicks clinic orders
 		WinActivate "Order Menu"
-		MouseClick "left", 83, 138 ; eagle square
+		MouseClick "left", 132, 138 ; eagle square
 	}
 
 InjectionOptions := Array(

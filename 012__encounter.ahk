@@ -57,16 +57,27 @@ Capslock & e::
 
 
 click_ResTeachingModifier(){
-	Send "{Click 636 47}" ; click unclick modifier
-	Send "{Click 636 47}" ; 
-	Send "{r}{i}"
-	Send "{Click 576, 162}"
+	Send "{Click 482 81}"	; click unclick modifier to highlight area
+	Send "{Click 482 81}" 	; 
+	Send "{r}{i}"			; types 'r i to get right underneath resident teaching service'
+	Send "{up}"				; highlights GC/resident teaching
+	Send "{Click 452 236}" 	;clicks resident teaching
 }
 
 click_newPatient(){
 	Send "{Click 70 73}" ; click new patient
 	Send "{Click 196 94}" ;click med complex
 	click_ResTeachingModifier()
+}
+
+click_addPrimary(){
+	Send "{tab}" 	; highlights 'Add' to add provider
+	Send "{enter}"
+	Send "{tab 2}" 	;highlights 'Primary' to make attending the primary provider
+	Send "{enter}"		
+	;the equivalent
+	;Send "{Click 369 490}"  ;clicks 'Add' to add provider
+	;Send "{Click 369 565}" ;clicks 'Primary' to make attending the primary provider
 }
 
 
@@ -95,15 +106,16 @@ click_newPatient(){
 	; add type of visit eye code
 	;--------------------------
 	; established patient
-	Send "{Click 117 59}"
-	;Send "{Click 196 77}" ;click low complex
-	Send "{Click 196 94}" ;click med complex
+	Send "{Click 88 55}" ; click established patient
+	;Send "{Click 222 69}" ;click low complex
+	Send "{Click 182 86}"	;click med complex
+	;Send "{Click 196 94}" 	;click high complex
 	click_ResTeachingModifier()
 
 	;add attending
 	;-------------
 	choice_attending_reverse2 := StrReplace(choice_attending_reverse, A_Space,"")
-	Send "{Click 49 429}"	; clicks textbox for available providers
+	Send "{Click 49 461}"	; clicks textbox for available providers
 
 	if choice_attending_reverse="NAME"{
 		MsgBox("default ATTENDING")
@@ -115,9 +127,7 @@ click_newPatient(){
 		WinWait "Similar Providers"
 		Send "{Down} {Tab} {Enter}"
 		Sleep 500
-		Send "{Click 400 466}"  ;clicks 'Add' to add provider
-		Send "{Click 400 557}" ;clicks 'Primary' to make attending the primary provider
-
+		click_addPrimary()
 
 	}
 	else if choice_attending_reverse~="Murphy"{
@@ -127,14 +137,12 @@ click_newPatient(){
 		WinWait "Similar Providers"
 		Send "{Tab 2} {Enter}"
 		Sleep 500
-		Send "{Click 400 466}"  ;clicks 'Add' to add provider
-		Send "{Click 400 557}" ;clicks 'Primary' to make attending the primary provider
+		click_addPrimary()
 	}
 	else {
 		SendWait(choice_attending_reverse2)
 		Sleep 500
-		Send "{Click 400 466}"  ;clicks 'Add' to add provider
-		Send "{Click 400 557}" ;clicks 'Primary' to make attending the primary provider
+		click_addPrimary()
 	}
 
 
@@ -185,15 +193,15 @@ click_newPatient(){
 		MouseClick "left", 168, 9	; click 'Procedures'
 		MouseClick "left",  91, 125 ; click 'InjectionCodes'
 		MouseClick "left", 216, 34 ; click 'Intravitreal Eye Injection'
-		MouseClick "left", 91, 46 ; click 'Image/Photos'
-		MouseClick "left", 218, 82 ; click 'OCT Mac'
-		;MouseClick "left", 122, 136	; click 'Proc-inj vegf'
+		Send "{Click 62 42}"	 	; click 'Image/Photos'
+		Send "{Click 226 71}"		; click 'OCT Mac'
+		Send "{Click 86 137}"		; click 'Proc-inj vegf'
 
 		; need to program in the different procedure injections
 		;Sleep 5000
 
-		MouseClick "left", 71, 9 	; click 'Diagnoses'
-		MouseClick "left", 101, 217	; click 'Retina'
+		Send "{Click 79 11}"	; click 'Diagnoses'
+		Send "{Click 80 215}"	; click 'Retina'
 	}
 	if enc_title~="PREOP|PRE-OP" and enc_title~="3" {
 
@@ -209,15 +217,19 @@ click_newPatient(){
 
 	}
 	if enc_title~="POSTOP|POST-OP" and enc_title~="3"{
-		MouseClick "left", 33, 8 	; click 'Visit Type'
-		MouseClick "left", 30, 46 	; click 'Eye codes'
-		MouseClick "left", 195, 111 ; click post-op follow-up visit 
+		Send "{Click 19 15}"		; click 'Visit Type'
+		Send "{Click 43 45}"		; click 'Eye codes'
+		Send "{Click 156 97}"		;click post-op follow-up visit 
 		click_ResTeachingModifier()
 
 		MouseClick "left", 71, 9 	; click 'Diagnoses'
-		MouseClick "left", 103, 153 ; click 'LENS/CORNEA/POSTOP'
-		MouseClick "left", 265, 340 ;   click 'post op form right eye'
-		MouseClick "left", 267, 354 ;   click 'post op form left eye'
+		Send "{Click 117 151}"		; click 'LENS/CORNEA/POSTOP'
+		Send "{Click 327 57}"		;click unclick random dx to highlight area
+		Send "{Click 327 57}"
+		Send "{PgDn 2}"				;scroll down
+		Send "{Click 331 109}" 		;pseudophakia
+		;MouseClick "left", 265, 340 ;   click 'post op form right eye'
+		;MouseClick "left", 267, 354 ;   click 'post op form left eye'
 		}
 	if enc_title~="OPHTHALMOLOGY 2"{
 		MouseClick "left", 168, 9	; click 'Procedures'
@@ -233,182 +245,3 @@ click_newPatient(){
 }
 
 
-
-
-/*
-
-
-; encounter form
-; ********************************************************************* 
-
-
-EncounterBiometry(choice_attending_reverse)
-{	
-	choice_attending_reverse := StrReplace(choice_attending_reverse, A_Space,"")
-	MouseClick "left", 40, 13 	; click 'Visit Type'
-	MouseClick "left", 30, 46 	; click 'Eye codes'
-	MouseClick "left", 195, 46	; click option 'intermediate exam established'
-	MouseClick "left", 476, 268 ; clicks 'not service connected'
-	MouseClick "left", 63, 428  ; clicks in textbox for available providers
-	SendWait(choice_attending_reverse)
-	Sleep 500
-	MouseClick "left", 140, 450 ; clicks 'Add' to add provider
-	MouseClick "left", 359, 559 ; clicks 'Primary' to make attending the primary provider
-
-	MouseClick "left", 168, 9	; click 'Procedures'
-	MouseClick "left", 91, 46 ; click 'Image/Photos'
-	MouseClick "left", 218, 82 ; click 'OCT Mac'
-
-	MouseClick "left", 71, 9 	; click 'Diagnoses'
-	MouseClick "left", 103, 153 ; click 'LENS/CORNEA/POSTOP'
-	MouseClick "left", 266, 95 	; click "Cataract nuclear bilateral"
-
-	;will need to enter both, l, or r
-
-}
-
-EncounterProc2(choice_attending_reverse)
-{
-	MouseClick "left", 40, 13 	; click 'Visit Type'
-	MouseClick "left", 30, 46 	; click 'Eye codes'
-	MouseClick "left", 195, 46	; click option 'intermediate exam established'
-	MouseClick "left", 477, 249 ; clicks 'not service connected'
-	MouseClick "left", 47, 465  ; clicks in textbox for available providers
-	SendWait(choice_attending_reverse)
-	Sleep 500
-
-	Send "{Tab}" ;add
-	Send "{Enter}"
-
-	Send "{Tab 2}" ;make attending primary provider
-	Send "{Enter}"
-
-	;MouseClick "left", 388, 454 ; clicks 'Add' to add provider
-	;MouseClick "left", 359, 559 ; clicks 'Primary' to make attending the primary provider
-
-	MouseClick "left", 168, 9	; click 'Procedures'
-	MouseClick "left",  91, 125 ; click 'InjectionCodes'
-	MouseClick "left", 216, 34 ; click 'Intravitreal Eye Injection'
-	MouseClick "left", 91, 46 ; click 'Image/Photos'
-	MouseClick "left", 218, 82 ; click 'OCT Mac'
-	;MouseClick "left", 122, 136	; click 'Proc-inj vegf'
-
-	; need to program in the different procedure injectionis
-	;Sleep 5000
-
-	MouseClick "left", 71, 9 	; click 'Diagnoses'
-	MouseClick "left", 101, 217	; click 'Retina'
-
-
-}
-
-EncounterPreOp(choice_attending_reverse)
-{
-	
-	MouseClick "left", 40, 13 	; click 'Visit Type'
-	MouseClick "left", 30, 46 	; click 'Eye codes'
-	MouseClick "left", 195, 46	; click option 'intermediate exam established'
-	MouseClick "left", 477, 249 ; clicks 'not service connected'
-	MouseClick "left", 63, 428  ; clicks in textbox for available providers
-	SendWait(choice_attending_reverse)
-	Sleep 500
-	MouseClick "left", 388, 454 ; clicks 'Add' to add provider
-	MouseClick "left", 359, 559 ; clicks 'Primary' to make attending the primary provider
-
-	MouseClick "left", 168, 9	; click 'Procedures'
-	;MouseClick "left", 85, 46   ; click 'Image/Photos'
-	MouseClick "left", 57, 84   ; click 'test-other'
-	MouseClick "left", 216, 99  ; click "ophthalmic biometry"
-
-	MouseClick "left", 71, 9 	; click 'Diagnoses'
-	MouseClick "left", 103, 153 ; click 'LENS/CORNEA/POSTOP'
-
-	MouseClick "left", 264, 244  ; click 'combined form right eye'
-	MouseClick "left", 267, 258  ; click 'combined form left eye'
-}
-
-
-EncounterPostOp(choice_attending_reverse)
-{
-	
-	MouseClick "left", 40, 13 	; click 'Visit Type'
-	MouseClick "left", 30, 46 	; click 'Eye codes'
-	MouseClick "left", 195, 46	; click option 'intermediate exam established'
-	MouseClick "left", 477, 249 ; clicks 'not service connected'
-	MouseClick "left", 63, 428  ; clicks in textbox for available providers
-	SendWait(choice_attending_reverse)
-	Sleep 500
-	MouseClick "left", 388, 454 ; clicks 'Add' to add provider
-	MouseClick "left", 359, 559 ; clicks 'Primary' to make attending the primary provider
-
-	MouseClick "left", 71, 9 	; click 'Diagnoses'
-	MouseClick "left", 103, 153 ; click 'LENS/CORNEA/POSTOP'
-
-	MouseClick "left", 265, 340  ; click 'post op form right eye'
-	MouseClick "left", 267, 354  ; click 'post op form left eye'
-
-
-}
-
-
-Encounter2R(choice_attending_reverse)
-{
-	WinMove ,, 766, 648, "A"
-	;choice_attending_reverse := StrReplace(choice_attending_reverse, A_Space,"")
-	MouseClick "left", 40, 13 	; click 'Visit Type'
-	MouseClick "left", 30, 46 	; click 'Eye codes'
-	MouseClick "left", 195, 46	; click option 'intermediate exam established'
-	MouseClick "left", 477, 249 ; clicks 'not service connected'
-
-	MouseClick "left", 63, 428  ; clicks in textbox for available providers
-	SendWait(choice_attending_reverse)
-	Sleep 500
-	MouseClick "left", 388, 454 ; clicks 'Add' to add provider
-	MouseClick "left", 359, 559 ; clicks 'Primary' to make attending the primary provider
-
-	MouseClick "left", 168, 9	; click 'Procedures'
-	MouseClick "left", 61, 42   ; 	click 'Image/Photos'
-	MouseClick "left", 216, 83  ; 	click 'OCT Mac'
-
-	MouseClick "left", 71, 9 	; click 'Diagnoses'
-	MouseClick "left", 101, 217	; 	click 'Retina-Macula'
-
-}
-
-
-;T2 diabetes without complications 
-; procedures: diabetic eye exam bilateral
-
-*/
-
-
-
-
-
-/*
- EncounterOp3(choice_attending_reverse)
-{
-	WinMove ,, 766, 648, "A"
-	;choice_attending_reverse := StrReplace(choice_attending_reverse, A_Space,"")
-	MouseClick "left", 40, 13 	; click 'Visit Type'
-	MouseClick "left", 30, 46 	; click 'Eye codes'
-	MouseClick "left", 195, 46	; click option 'intermediate exam established'
-	MouseClick "left", 477, 249 ; clicks 'not service connected'
-	MouseClick "left", 63, 428  ; clicks in textbox for available providers
-	SendWait(choice_attending_reverse)
-	Sleep 500
-	MouseClick "left", 388, 454 ; clicks 'Add' to add provider
-	MouseClick "left", 359, 559 ; clicks 'Primary' to make attending the primary provider
-
-	MouseClick "left", 71, 9 	; click 'Diagnoses'
-	MouseClick "left", 84, 174  ; click 'GLAUCOMA open angle'
-
-	MouseClick "left", 168, 9	; click 'Procedures'
-	MouseClick "left", 91, 59   ; click 'Test-Glaucoma'
-	MouseClick "left", 281, 52  ;	click 'OCT RNFL'
-	MouseClick "left", 273, 127 ; 	click "VF"
-
-
-}
-
-*/

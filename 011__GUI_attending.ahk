@@ -60,7 +60,8 @@ AttendingList_LastFirst := [
 	]
 
 NurseList := [
-	"Peter Ortiz",
+	"Tammy",
+	"Tim Walsh",
 	"Nicole Marchand",
 	"Sarah",
 	"Rebecca",
