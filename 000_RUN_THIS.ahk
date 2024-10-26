@@ -1,15 +1,20 @@
+#Requires AutoHotkey v2.0+
 #Include "%A_ScriptDir%"
 #INCLUDE "GuiCtlExt.ahk" ;https://github.com/TheArkive/GuiCtlExt_ahk2
-#Include "010__clinic_chooser.ahk"
-#Include "011__GUI_attending.ahk"
-#Include "012__encounter.ahk"
-#Include "020__newnote.ahk"
-#Include "040__consent.ahk"
-#Include "050__rightclickmenu.ahk"
+#Include "my_lib\010__clinic_chooser.ahk"
+#Include "my_lib\011__GUI_attending.ahk"
+#Include "my_lib\012__encounter.ahk"
+#Include "my_lib\020__newnote.ahk"
+#Include "my_lib\040__consent.ahk"
+#Include "my_lib\050__rightclickmenu.ahk"
+
 #Include "templates\00__phrases.ahk"
 #Include "templates\30__cprs_templates.ahk"
 #Include "templates\41___preop.ahk"
 #Include "templates\42___postop.ahk"
+
+#Include "my_lib\BETA\090_sign.ahk"
+#Include "my_lib\BETA\060_keep_cprs_open.ahk"
 ;
 
 /*
@@ -18,6 +23,7 @@ UPDATES
 see docs/updats
 
 */
+
 
 ;stackoverflow question 45642727 ahk class window matching
 #1::WinGetClass("A") 
@@ -29,6 +35,18 @@ see docs/updats
 	return
 }
 
+
+
+Capslock & 2::
+{
+	MsgBox "The active window's class is " WinGetClass("A")
+	A_Clipboard := WinGetClass("A")
+	return
+}
+
+
+;TraySetIcon(A_WorkingDir . "\green_eye_magnif.ico")
+TraySetIcon(A_WorkingDir . "my_lib\icon_red_eye.ico")
 
 /*
 
@@ -64,8 +82,18 @@ While True{
 
 dateTomorrow := DateAdd(A_Now, 1, "days")
 :X:.to::Send FormatTime(dateTomorrow, "M/d/yy")  ; 'It will look like 10/4/23'
-:X:.to::Send FormatTime(dateTomorrow, "yyyy/MM/dd")  ; 'It will look like 2023/10/04' 
+:X:.to2::Send FormatTime(dateTomorrow, "yyyy/MM/dd")  ; 'It will look like 2023/10/04' 
 :X:.tomorrow::Send FormatTime(dateTomorrow, "MMM d,yyyy")  ; 'It will look like Oct 4,2023'
+
+dateYesterday:= DateAdd(A_Now, -1, "days")
+:X:.ye::Send FormatTime(dateYesterday, "M/d/yy")  ; 'It will look like 10/4/23'
+:X:.ye2::Send FormatTime(dateYesterday, "yyyy/MM/dd")  ; 'It will look like 2023/10/04' 
+:X:.tomorrow::Send FormatTime(dateYesterday, "MMM d,yyyy")  ; 'It will look like Oct 4,2023'
+
+
+:X:.mysig:: Send Format(choice_resident ", " choice_attending)
+:X:.sig:: Send Format(choice_attending ", " choice_resident)
+
 
 
 ;no space. J rivera, murphy, greenberg, brian 
@@ -75,6 +103,24 @@ dateTomorrow := DateAdd(A_Now, 1, "days")
 ::.bar::*********************************************************************
 ::.line::--------------------------------------------------------------------------------
 
+::.cat::Crystal Zhang MD, David Rivera MD, Ezra Galler MD, Jorge Rivera MD, Noelle Pruzan MD
+:*:.jriv::Rivera,Jorge
+:*:.driv::Rivera,David
+::.gal::Galler,Ezra
+::.lop::Loporchio,Salvatore
+::.riz::Rizzuto,Philip
+::.bry::Bryan,Richard
+::.jan::Janigian,Robert
+::.mur::Murphy,Marjorie
+::.zha::Zhang,Crystal
+::.pru::Pruzan,Noelle
+:*:.gre::Greenberg,Paul
+::.pau::Paul,Alfred
+::.sav::Savoie,Brian
+::.nan::Nandakumar,Namrata 
+
+
+::.esq::Esq-Sp-Ophth
 
 #HotIf FindVarString_Loose(WinGetTitle("A"), "Return To Clinic")
 	:*C:esq::
@@ -158,6 +204,9 @@ if in the 'patient selection window'
 
 
 #HotIf
+
+
+Capslock & 1::F1
 
 #Hotif FindVarString_Loose(WinGetTitle("A"), "Sublime")
 	Capslock & F::F3
@@ -296,6 +345,7 @@ Replacing arrows with ijkl
 !+u::Send "+{Home}"
 !+o::Send "+{End}"
 !+h::Send "+^{Left}"
+!+y::Send "+^{Left}"
 !+SC027::Send "+^{Right}"
 
 !i::Send "{Up}"
@@ -305,6 +355,7 @@ Replacing arrows with ijkl
 !u::Send "{Home}"
 !o::Send "{End}"
 !h::Send "^{Left}"
+!y::Send "^{Left}"
 !SC027::Send "^{Right}" ; SC027 is the same as a ; 
 !BS::Send "{Del}"
 
@@ -348,6 +399,7 @@ if WinExist(title)
     	WinActivate ; Use the window found by WinExist.
 else
 	Run exe
+return
 }
 
 ;Capslock & g::ShowStart("Week Calculator", "C:\Program Files\Google\Chrome\Application\chrome.exe  --app=https://dqydj.com/week-calculator/")
@@ -357,7 +409,7 @@ Capslock & k::ShowStart("Title page", "C:\Program Files\Google\Chrome\Applicatio
 Capslock & s::OpenExcelCalendar()
 Capslock & g::ShowStart("Ophthalmology - Surgery", "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe  --app=https://dvagov.sharepoint.com/sites/VHAPROSur/eye/Lists/AnetaSurgery/calendar.aspx?login_hint=Monica.Lieng%40va.gov")
 
-Capslock & v::ShowStart("VistA CPRS", "\\V01.med.va.gov\Apps\VA_Shortcuts\PRO\CPRSChart PRO.exe")
+Capslock & v::ShowStart("VistA CPRS", "\\V01.med.va.gov\Apps\VA_Shortcuts\PRO\CPRSChart PRO")
 ; s=vista.providence.med.va.gov p=19218 SHOWRPCS SHOWCERTS
 ;C:\Program Files\CZM\FORUM Viewer\FORUM Viewer.exe
 ;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\FORUM from ZEISS\FORUM Viewer.exe
@@ -365,10 +417,11 @@ Capslock & v::ShowStart("VistA CPRS", "\\V01.med.va.gov\Apps\VA_Shortcuts\PRO\CP
 ;C:\Program Files (x86)\Microsoft Office\root\Office16\onenote.exe
 
 
-Capslock & n::
-#n::ShowStart("Dragon Medical One", "C:\Program Files (x86)\Microsoft Office\root\Office16\onenote.exe")
+Capslock & d::
+#d::ShowStart("Dragon Medical One", "C:\Program Files (x86)\Nuance\Dragon Medical One\SoD.exe")
 
-#d::ShowStart("OneNote", "C:\Program Files (x86)\Nuance\Dragon Medical One\SoD.exe")
+capslock & n::
+#n::ShowStart("OneNote", "C:\Program Files (x86)\Microsoft Office\root\Office16\onenote.exe")
 
 
 OpenExcelCalendar(){
@@ -406,7 +459,7 @@ Capslock & c::
 	;A_Clipboard := "Send `"{ Click" xpos " " ypos "}"""
 	;A_Clipboard := Format("Send ""{Click {1} {2}}""", xpos, ypos)
 	;MsgBox "The cursor is at " A_Clipboard
-	;return
+	return
 }
 
 ; GET ACTIVE WINDOW NAME
@@ -466,15 +519,14 @@ Capslock & r::
 
 	*/
 	{
-	Send "^o"
-	Sleep 5 ;wait to be processed
-	MouseClick "left", 50, 400
+	SwitchToOrderTab()
 	Send "r"
 	;MsgBox "The active window is '" WinGetTitle("A") "'."
 	;WinActivate "Return To Clinic"	
 	Send "{tab}"
 	  MouseClick "left", 353, 135
 	  MouseClick "left", 353, 135
+	return
 	}
 ^+a::
 Capslock & a::AddNewOrder()
@@ -491,7 +543,8 @@ Capslock & t::AddTextOrder()
 		{
 		ClickAnesthesia()
 		Sleep 50
-		EnterAnesthesiaOrderDetails()
+		;EnterAnesthesiaOrderDetails()
+		return
 		}
 	c:: ClickCardsConsult()
 	e:: ClickEKG()
@@ -500,6 +553,7 @@ Capslock & t::AddTextOrder()
 		ClickImaging()
 		WinWait "Reason for Request: OPTOMETRY/OPHTHALMOLOGY IMAGING SERVICES OUTPT"
 		ImagingGUI()
+		return
 		}
 	o::
 		{
@@ -507,6 +561,7 @@ Capslock & t::AddTextOrder()
 		WinWait "Reason for Request: OPTOMETRY/OPHTHALMOLOGY IMAGING SERVICES OUTPT"
 		ClickOct()
 		EnterImageOrderDetails()
+		return
 		}
 	j::ClickInjection()
 	n::ClickNonFormulary()
@@ -525,12 +580,14 @@ Capslock & t::AddTextOrder()
 		Send FormatTime(, "M/d/yy")  ; 'It will look like 10/4/23'
 		MouseClick "left", 604, 403
 		;MouseClick "left", 574, 401
+		return
 	}
 #Hotif FindVarString_Loose(WinGetTitle("A"), "Reason for Request: ANESTHESIA E-CONSULT INPT")
 	::cat:: 
 	{
 		WinActive(WinGetTitle("A"))
 		EnterAnesthesiaOrderDetails2()
+		return
 	}
 
 #Hotif
@@ -580,13 +637,12 @@ ExitOrderMenu()
 		if WinExist("Order Menu") ;
 			WinActivate 
 		MouseClick "left", 841, 10 ;exits
+		return
 	}
 
 AddTextOrder()
 	{
-		Send "^o"
-		Sleep 10 ;wait to be processed
-		MouseClick "left", 10, 400
+		SwitchToOrderTab()
 		Send "t"
 		WinWait "Word Processing Order" 
 		WinMove (A_ScreenWidth/2)-(900/2),(A_ScreenHeight/2)-(800/2),900,600
@@ -601,24 +657,36 @@ AddTextOrder()
 		Sleep 100 ;wait to be processed\
 		;Send "{tab 2}"
 		;Send "{.4b}{space}"
-
+		return
 	}
 
 AddNewOrder()
-	{
-		Send "^o"
-		Sleep 20 ;wait to be processed
-		MouseClick "left", 10, 400
+	{	
+		SwitchToOrderTab()
 		Send "a"
 		WinWait "Order Menu" 
-		WinMove (A_ScreenWidth/2)-(900/2),(A_ScreenHeight/2)-(800/2),900,600	
+		WinMove (A_ScreenWidth/2)-(900/2),(A_ScreenHeight/2)-(800/2),900,600
+		return	
 	}
+
+SwitchToOrderTab() ;literally so that it stop runs into weird bugs. 
+{
+		Send "{LCtrl down}{o down}"
+		;Send "^o"
+		SetKeyDelay 100
+		Send "{LCtrl up}{o up}"
+		;Sleep 20 ;wait to be processed
+		MouseClick "left", 10, 400
+		SetKeyDelay 100
+		return
+}
 AddNewMedicine()
 	{
 		Send "^o"
 		Sleep 10 ;wait to be processed
 		MouseClick "left", 10, 400
-		Send "m"	
+		Send "m"
+		return	
 	}
 
 ClickImaging()
@@ -628,6 +696,7 @@ ClickImaging()
 		Send "{Click 735 30}" ;clicks 42 local consults/requests
 		MouseClick "left", 510, 302 ; clicks 34 surgical consult
 		MouseClick "left", 421, 339 ; clicks optometry/ophthalmology imaging services Outpt
+		;
 	}
 ClickEKG()
 	{	
@@ -648,6 +717,7 @@ ClickEKG()
 		Send "{Tab 4}" 	; moves to location selection
 		Send "{Down 2}"	; clicks 'outpatient'
 		Send "{Tab 3}" 	; MOVES TO 'accept order'
+		return
 	}
 
 ClickCardsConsult()
@@ -682,7 +752,7 @@ ClickCardsConsult()
 		;MouseClick "left", 414, 60
 		;Send FormatTime(, "M/d/yy")  ; 'It will look like 10/4/23'
 		;MouseClick "left", 604, 403
-
+		return
 
 
 	}
@@ -694,6 +764,7 @@ ClickAnesthesia()
 		Send "{Click 735 30}" 	; clicks 42 local consults/requests
 		Send "{Click 536 302}"	; clicks 34 surgical consult
 		Send "{Click 152 112}"	 ; clicks 'Anesthesia E consult'
+		return
 	}
 
 EnterAnesthesiaOrderDetails2()
@@ -718,6 +789,7 @@ EnterAnesthesiaOrderDetails2()
 		Send "{Click 170 251}" ;clicks procedure
 		Sleep 50
 		Send "Cataract Extraction and intraocular lens placement,  eye"
+		return
 
 	}
 
@@ -759,7 +831,7 @@ EnterAnesthesiaOrderDetails()
 			Send "{Left 4}"
 		*/
 
-
+		return
 	}
 /*
  EnterEKGOrderDetails()
@@ -784,6 +856,7 @@ ClickNonFormulary()
 		MouseClick "left", 513, 185 ;clicks 23 pharmacy consult
 		MouseClick "left", 72, 197 ;clicks NFDR EConsult Outpatient
 		Send "{Tab 2}" ;PLACES CURSOR FOR MEDICATION NAME
+		return
 	}
 
 
@@ -796,7 +869,7 @@ ClickOct()
 		
 		Send "{Click 694 436}" ;clicks  'ok'
 		;WinWaitClose "Reason for Request: OPTOMETRY/OPHTHALMOLOGY IMAGING SERVICES OUTPT"
-
+		return
 	}	
 
 EnterImageOrderDetails()
@@ -806,8 +879,9 @@ EnterImageOrderDetails()
 		WinMove 430,200, 640, 414
 		Send "{Click 374 69}"
 		Send FormatTime(, "M/d/yy")  	; 'It will look like 10/4/23'
-		Send "{tab 6}"
+		Send "{tab 7}"
 		Send "{enter}" ; closes window
+		return
 
 }
 
@@ -868,7 +942,22 @@ ImagingGUI()
 				;WinWaitClose "Reason for Request: OPTOMETRY/OPHTHALMOLOGY IMAGING SERVICES OUTPT"
 
 				EnterImageOrderDetails()
+				ExitOrderMenu()
+				
 			}
+		else {
+				Send "{Enter}"
+				WinWaitActive "Reason for Request: OPTOMETRY/OPHTHALMOLOGY IMAGING SERVICES OUTPT"
+				WinMove 100,100, 785,490
+				MouseMove 702, 431
+				;Send "{Click 702 431}"	;clicks  ok 
+				;WinWaitClose "Reason for Request: OPTOMETRY/OPHTHALMOLOGY IMAGING SERVICES OUTPT"
+
+				EnterImageOrderDetails()
+				ExitOrderMenu()			
+
+		}
+		
 	}	
 }
 
@@ -888,7 +977,8 @@ ClickInjection()
 		WinActivate "Order Menu"	
 		MouseClick "left", 313, 509 ; clicks clinic orders
 		WinActivate "Order Menu"
-		MouseClick "left", 132, 138 ; eagle square
+		MouseClick "left", 79, 128 ; eagle square
+		return
 	}
 
 InjectionOptions := Array(
@@ -960,6 +1050,7 @@ CAPSLOCK DOESN'T WORK AS WELL
 		MsgBox "Hgba1c"
 	else
 		Send "lh"
+	return
 }
 
 
@@ -983,6 +1074,7 @@ ShowLabHgbA1c()
 		Send "{Enter}"
 
 		MouseClick "left", 738, 137
+		return
 	}
 
 
@@ -1023,6 +1115,7 @@ updateNotetime(){ ; eliminates need for choosing where to click
 	Send "{n}" 				; types 'n' for now
 	Sleep 10
 	Send "{tab 5}{Enter}"		; clicks ok
+	return
 }
 
 
