@@ -5,41 +5,6 @@ See original in
 https://www.autohotkey.com/docs/v2/lib/Menu.htm#Remarks
 */
 
-#INCLUDE "000_RUN_THIS.ahk"
-
-/*
-
-UtilMenu := Menu()
-MyMenu.Add("&Cursor", getCursorCoords)
-MyMenu.Add("&Window", getWindowCoords)
-
-~Capslock & RButton::{
-    MouseGetPos &xpos, &ypos 
-    ;MouseClick, right, xpos, ypos
-    UtilMenu.Show()  ; i.e. press the Win-Z hotkey to show the menu.
-}
-
-getCursorCoords(Item,*){
-{
-    ;https://www.autohotkey.com/docs/v2/lib/A_Clipboard.htm
-    A_Clipboard := "" ; empties clipboard
-    MouseGetPos &xpos, &ypos 
-    MsgBox "The cursor is at X" xpos " Y" ypos
-    ;A_Clipboard := xpos ", " ypos
-    A_Clipboard :=Format("Send `"{Click {1} {2}}`"", xpos, ypos)
-    ;A_Clipboard := "Send `"{ Click" xpos " " ypos "}"""
-    ;A_Clipboard := Format("Send ""{Click {1} {2}}""", xpos, ypos)
-    ;MsgBox "The cursor is at " A_Clipboard
-
-}
-
-getWindowCoords(Item,*){
-    MsgBox "The active window is '" WinGetTitle("A") "'."
-    A_Clipboard := WinGetTitle("A")
-}
-*/
-
-
 
 ; Create the popup menu by adding some items to it.
 MyMenu := Menu()
@@ -48,7 +13,7 @@ MyMenu.Add("&Settings", run_settings_GUI)
 MyMenu.Add()  ; Add a separator line.
 MyMenu.Add("&Clean Note", cleanNote)
 MyMenu.Add("&Extract Visual Acuity", findVA)
-MyMenu.Add("&PasteNote", pasteNote)
+;MyMenu.Add("&PasteNote", pasteNote)
 
 ; Create another menu destined to become a submenu of the above menu.
 Submenu1 := Menu()
@@ -271,6 +236,11 @@ cleanNote(*){
     text_ := StrReplace(text_, "Y( )  N(x)", "no")
     text_ := StrReplace(text_, "Y(x)  N( )", "yes")
 
+    ; replace leftovers that don't have the Y/N
+    text_ := StrReplace(text_, "Date of last ", "")
+    text_ := StrReplace(text_, "gonioscopy/anterior segment OCT", "Gonio/AS OCT")
+    text_ := StrReplace(text_, "Optic Nerve OCT", "OCT RNFL")
+
     ;text_ := StrReplace(text_, "Y(*)  N(*) Visual Fields. Date:", "-VF:")
     ;text_ := StrReplace(text_, "Y(*)  N(*) Gonioscopy/Anterior Segment OCT", "-Gonio/Ant OCT:")
     ;text_ := StrReplace(text_, "Y(*)  N(*) RNFL OCT. Date:", "-OCT RNFL:")
@@ -365,3 +335,13 @@ things that don't work
  /*
 
  */
+
+
+Capslock & i:: addTab()
+
+addTab(){
+text_ := A_Clipboard
+text_ := StrReplace(text_, "`r`n", "`r`n`t") 
+A_Clipboard :="`t"  .   text_   .   "`r`n"
+Send "^v"
+}
