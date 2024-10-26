@@ -15,45 +15,6 @@
 ;Capslock & i:: ImagingGUI()
 
 
-/*
-Capslock & e:: 
-	{
-	if FindVarString_Loose(WinGetTitle("A"), "Encounter Form for ESQ-SP-OPHT-BIOMETRY")
-		EncounterBiometry("Zhang")
-	if FindVarString_Loose(WinGetTitle("A"), "Encounter Form for ESQ-SP-OPHTHALMO PROCEDRE 2")
-		EncounterProc2("Loporchio")
-	if FindVarString_Loose(WinGetTitle("A"), "Encounter Form for ESQ-SP-OPHTHALMO PRE-OP 3")
-		EncounterPreop("Pruzan")
-	if FindVarString_Loose(WinGetTitle("A"), "Encounter Form for ESQ-SP-OPHTHALMO POST-OP 3")
-		EncounterPostOp("Pruzan")
-	}
-
-
-;#Hotif FindVarString_Loose(WinGetTitle("A"), "Encounter Form for ESQ-SP-OPHTHALMO PROCEDRE 2")
-	^e::EncounterProc2("Loporchio,S")		
-
-#Hotif FindVarString_Loose(WinGetTitle("A"), "Encounter Form for ESQ-SP-OPHT-BIOMETRY")
-	^e::EncounterBiometry(choice_attending_reverse)
-
-#Hotif FindVarString_Loose(WinGetTitle("A"), "Encounter Form for ESQ-SP-OPHTHALMO PRE-OP 3")
-	^e::EncounterPreOp("Pruzan")
-
-#Hotif  FindVarString_Loose(WinGetTitle("A"), "Encounter Form for ESQ-SP-OPHTHALMO POST-OP 3")
-	^e::EncounterPostOp("Pruzan")
-#Hotif  FindVarString_Loose(WinGetTitle("A"), "Encounter Form for ESQ-SP-OPHTHALMOLOGY 3 ")
-	;global choice_attending_reverse
-	^e::EncounterOp3(choice_attending_reverse)
-
-
-#Hotif  FindVarString_Loose(WinGetTitle("A"), "Encounter Form")
-	;global choice_attending_reverse
-	^e::{
-		if FindVarString_Loose(WinGetTitle("A"), "ESQ-SP-OPHTHALMOLOGY 2R ")
-			Encounter2R(choice_attending_reverse)
-	}
-#Hotif
-
-*/
 
 
 click_ResTeachingModifier(){
@@ -257,8 +218,48 @@ click_addPrimary(){
 
 	}
 
-
+	return
 
 }
 
 
+
+/*
+Capslock & e:: 
+	{
+	if FindVarString_Loose(WinGetTitle("A"), "Encounter Form for ESQ-SP-OPHT-BIOMETRY")
+		EncounterBiometry("Zhang")
+	if FindVarString_Loose(WinGetTitle("A"), "Encounter Form for ESQ-SP-OPHTHALMO PROCEDRE 2")
+		EncounterProc2("Loporchio")
+	if FindVarString_Loose(WinGetTitle("A"), "Encounter Form for ESQ-SP-OPHTHALMO PRE-OP 3")
+		EncounterPreop("Pruzan")
+	if FindVarString_Loose(WinGetTitle("A"), "Encounter Form for ESQ-SP-OPHTHALMO POST-OP 3")
+		EncounterPostOp("Pruzan")
+	}
+
+
+;#Hotif FindVarString_Loose(WinGetTitle("A"), "Encounter Form for ESQ-SP-OPHTHALMO PROCEDRE 2")
+	^e::EncounterProc2("Loporchio,S")		
+
+#Hotif FindVarString_Loose(WinGetTitle("A"), "Encounter Form for ESQ-SP-OPHT-BIOMETRY")
+	^e::EncounterBiometry(choice_attending_reverse)
+
+#Hotif FindVarString_Loose(WinGetTitle("A"), "Encounter Form for ESQ-SP-OPHTHALMO PRE-OP 3")
+	^e::EncounterPreOp("Pruzan")
+
+#Hotif  FindVarString_Loose(WinGetTitle("A"), "Encounter Form for ESQ-SP-OPHTHALMO POST-OP 3")
+	^e::EncounterPostOp("Pruzan")
+#Hotif  FindVarString_Loose(WinGetTitle("A"), "Encounter Form for ESQ-SP-OPHTHALMOLOGY 3 ")
+	;global choice_attending_reverse
+	^e::EncounterOp3(choice_attending_reverse)
+
+
+#Hotif  FindVarString_Loose(WinGetTitle("A"), "Encounter Form")
+	;global choice_attending_reverse
+	^e::{
+		if FindVarString_Loose(WinGetTitle("A"), "ESQ-SP-OPHTHALMOLOGY 2R ")
+			Encounter2R(choice_attending_reverse)
+	}
+#Hotif
+
+*/

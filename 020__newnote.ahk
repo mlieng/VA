@@ -77,7 +77,7 @@ enterProgNoteProperties(note_type := choice_clinic_note_type){
 	} else if FindVarString_Loose(WinGetTitle("A"), "OPHTHALMOLOGY/NOTE/SURGICAL"){
 		Send "{Tab 3}{Enter}" 
 	}
-
+	return
 
 
 }

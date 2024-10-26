@@ -21,6 +21,7 @@ sendSignature(my_passkey,*){
 
 		MsgBox "timed out autosignature"
 	}
+	return
 
 }
 
