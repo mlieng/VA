@@ -1,9 +1,81 @@
+::.eer::{
+  SendText "
+  (
+EXAMINATION:
+ 
+VISUAL ACUITY: ()SC ()CC
+  OD: 20/ PHNI
+  OS: 20/ PHNI
+ 
+Intraocular Pressure: tonopen 
+  OD: 1 mmHg
+  OS: 1 mmHg
+
+ARx:
+  OD:
+  OS:
+
+SLE:
+  L/L: no bleph
+  S,C: post-surgical changes OD, w&q OS
+    K: DMF/microcystic edema OD, clear OS 
+    I: no NVI 
+   AC: tr@@@ cell OD, d&q OS
+    L: PCIOL OD, @@@ OS
+   AV: clear 
+ 
+DFE OD:
+        Vit: PVD@@@
+       Disc: flat, pink, distinct
+        C/D: 
+     Macula: foveal reflex intact
+    Vessels: no hemorrhages
+  Periphery: no holes/tears
+  )"
+} 
+
+::.ees::{
+  SendText "
+  (
+EXAMINATION:
+ 
+VISUAL ACUITY: ()SC ()CC
+  OD: 20/ PHNI
+  OS: 20/ PHNI
+ 
+Intraocular Pressure: tonopen 
+  OD: 1 mmHg
+  OS: 1 mmHg
+
+ARx:
+  OD:
+  OS:
+
+SLE:
+  L/L: no bleph
+  S,C: w&q OD, post-surgical changes OS
+    K: clear OD, DMF/microcystic edema OS
+    I: no NVI 
+   AC: d&q OD, tr@@@ cell OS
+    L: @@@ OD, PCIOL OS
+   AV: clear 
+ 
+DFE OS:
+        Vit: PVD@@@
+       Disc: flat, pink, distinct
+        C/D: 
+     Macula: foveal reflex intact
+    Vessels: no hemorrhages
+  Periphery: no holes/tears
+  )"
+} 
+
 
 
 ::.pod1::{
 	SendText "
 (
-#POD #1 s/p CE /PCIOL O*  / /202 (D. Rivera/Pennington)
+#POD1 s/p CE /PCIOL O*  / /202 (Hogan/D. Rivera)
 - excellent VA, IOP wnl
 - Patient doing well, no signs of infection, wound seidel negative
 - Dc brimonidine
@@ -29,7 +101,7 @@
 ::.pow1::{
 	SendText "
 (
-#POW #1 s/p CE /PCIOL O* //202 (D. Rivera/Pennington)
+#POW1 s/p CE /PCIOL O* //202 (Hogan/D. Rivera)
 - Doing well
 - excellent VA, IOP wnl
 - No signs of infection

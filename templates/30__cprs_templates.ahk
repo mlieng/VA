@@ -49,6 +49,18 @@ Unable to result consult through consult tab
 )"
 }	
 
+::.ora::{
+SendText "
+(
+        ORA 	IOPcc 	CH 	IOPg 	(WS ) / GAT
+        OD: 	
+        OS: 	
+ 
+ )"
+
+}
+
+
 ::.ora1::{
 SendText "
 (
@@ -64,7 +76,7 @@ SendText "
 
 }
 
-::.ora::{
+::.ora2::{
 SendText "
 (
         ORA
@@ -294,6 +306,30 @@ Send end_text
 
 }
 
+::.endi::{ ; in one function
+end_text := Format(
+"
+(
+	
+The patient was seen and examined and/or discussed with the attending
+physician Dr. {1}, who agrees with the management plan.
+ 
+*********************************************************************
+PATIENT EDUCATION/COUNSELING:
+The risks, benefits and alternatives of the injection procedure were
+reviewed with patient at length. All the patient's questions were answered
+and the patient voiced an understanding of the above. The patient elected to
+proceed with the planned injection and written informed consent was obtained.
+
+ 
+All ocular medications reconciled.
+)", 
+        choice_attending)
+
+Send end_text
+
+}
+
 
 ::.end1::{
 
@@ -506,6 +542,21 @@ HVF 30-2 ({1}) :
 FormatTime(, "M/d/yy"))
 Send "{up 2}{Home}{right 3}"
 }	
+
+
+
+/*
+We reviewed the procedure, risks, benefits, and alternatives of anti-
+vascular endothelial growth (anti-VEGF) therapy with the patient, including but 
+not limited to risks of injection-related complications such as infection 
+(endophthalmitis), lens damage, retinal tear/detachment and loss of vision 
+and/or eye. Return precautions were reviewed. In addition, we emphasized that 
+patients who respond to anti-VEGF therapy generally need long term 
+maintenance therapy to control their retinal disease. After the patients 
+questions were answered, the patient voiced an understanding of the above and 
+agreed to proceed with anti-VEGF therapy with IVE in the right ey
+*/
+
 	
 ;********************************************************************* 
 
@@ -612,7 +663,7 @@ EXAMINATION:
 		Periphery: no holes/tears OU
 
 *********************************************************************
-OCT Mac (9/6/24):
+OCT Mac ():
   OD: FC intact, (-) IRF/SRF
   OS: FC intact, (-) IRF/SRF
 
@@ -1034,3 +1085,80 @@ see H&P note
 	}
 
 
+
+
+
+/*
+CC: Pt here for a CEE. No visual complaints. 
+
+(-)injury, (-)surgery
+
+POHx: 
+(-)GL, (-)AMD, LEE: 5-6 yrs ago
+
+
+FOHx: 
+(-)GL, (-)AMD
+(+) Blindness, brother (genetic eye disease, ~30 y.o)
+
+MHx: 
+(+)HTN, (+)hyperlipidemia, (-)cancer, (-)sx, (-)smoking
+
+DVA (sc): 
+        OD 20/25+ 
+        OS 20/30- 
+
+NVA (sc):
+        OU 20/60
+
+Pupils: perrl -apd
+EOMS: full and smooth OU
+CF: full to finger count OD, OS
+
+Habitual Rx:
+NONE
+
+Subjective Rx:
+OD: +1.00/-0.25 x 105 20/20
+OS: +0.75/-0.25 x 180 20/20
+Add:+2.50 20/20
+*TF. Pt was satisfied.
+
+SLE:    Lids/Lash:      clean OU
+        Conj:           pinguecula OU
+        K:              clear OU
+        Iris:           flat and intact OU
+        Lens:           Mild cortical changes OU; NSC gr. 1 OU
+        A/C:            deep and quiet OU, VH 4 OU
+
+Ta:     OD 14
+        OS 13
+        Tonopen @ 1h34
+
+Dilation: Yes, 1gtt Tropicamide 1% OU, 1 gtt Phenylephrine 2.5% OU
+        @ 1h35
+
+Fundus: 
+        Media:          clear OU
+        Margins:        distinct OU
+        C/D:            0.30 OD; 0.25 OS
+        Rim:            intact OU
+        Macula:         flat and dry OU
+        Vessels:        2/3 OU; tortuous vessels OS 
+        Background:     Choroidal nevus 1DD w/ drusens nasally OD; intact OS 
+
+                (-)holes                (x ) 90D
+                (-)tears                ( ) 78D
+                (-)detachment           (x) BIO
+                                        ( ) Ophthalmoscope
+
+Impression:
+1. Choroidal nevus OD 
+2. Refractive error OU and presbyopia OU
+
+Plan:
+1. F/U 6 mths DFE. 
+2. Rx for DVO and NVO ordered today
+
+
+*/

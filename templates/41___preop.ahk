@@ -1,4 +1,6 @@
 /*
+GLP1
+
 Dulaglutide (Trulicity)
 Exenatide (Byetta)
 Exenatide extended-release (Bydureon)
@@ -8,8 +10,16 @@ Semaglutide (Ozempic)
 Semaglutide tablet (Rybelsus)
 Tirzepatide (Mounjaro)
 
+SGLT2
+
+
+
 omidria/malyugin - for alpha-1a antag
 trypan  - if corneal scars etc/difficult to see
+
+Crystal Zhang MD, David Rivera MD, Ezra Galler MD, Jorge Rivera MD, Noelle Pruzan MD
+
+
 
 
 */
@@ -71,8 +81,8 @@ of living,
 (+) Obscured view of fundus impeding diagnosis/treatment of other eye disease:
  
  
-==============================================================================
- 
+=============================================================================
+
 OCULAR HISTORY
  
 OCULAR COMORBIDITIES
@@ -94,8 +104,8 @@ OCULAR COMORBIDITIES
  
  
  
-===============================================================================
- 
+=============================================================================
+
 HISTORY
  
 MEDICAL/SURGICAL/PSYCHIATRIC HISTORY:
@@ -124,13 +134,26 @@ REVIEW OF SYSTEMS:
 ROS has been performed on systems listed below. Any pertinent positive
 findings are described below. Excludes Ocular findings.
  
- ============================================================================= 
+=============================================================================
 
  
 )"
 }	
 
 
+::.cmed::{
+SendText "
+(
+CURRENT MEDICATIONS:
+
+|ACTIVE MEDICATIONS|
+
+ALLERGIES: 
+
+|ALLERGIES/ADR|
+
+)"
+}
 ::.preop2::{
 	SendText "
 ( 
@@ -141,8 +164,8 @@ PHYSICAL EXAMINATION
 GENERAL: NAD
 HEENT: NCAT
 RESPIRATORY: CTAB
-CARDIOVASCULAR: normal rate, rr
-ABDOMEN: soft, nontender, bowel sounds present 
+CARDIOVASCULAR: normal rate, RR
+ABDOMEN: soft, NTND
 EXTREMITIES: moving spontaneously
  
 ============================================================================
@@ -160,8 +183,6 @@ EXAM:
 		OD: 1 mmHg
 		OS: 1 mmHg
 
-		Equal, round and reactive to light.
- 
 		Afferent Pupillary Defect: No
  
 	SLE:
@@ -205,7 +226,6 @@ IOL OPTIONS:
 Posterior Chamber IOL (CC60WF): 
 Ciliary Sulcus IOL (MA60AC):
 Anterior Chamber IOL (MTA***UO):
-Toric: N/A
  
 Pupil size after max dilation: 
   OD: mm
@@ -294,6 +314,32 @@ discussion. The patient voiced an understanding of the procedure, risks and
 benefits discussed above and all the patient’s questions were addressed by
 the provider. The patient elected to proceed with cataract surgery.
  
+============================================================================
+ 
+The Veteran was given the following pre-operative instructions.
+Aspirin/NSAIDs/anticoagulants:
+ 
+(x) Continue taking all aspirin and aspirin like products (Ibuprofen, Aleve,
+Motrin, Advil)
+
+Diabetic Related Instructions:
+
+( )Do not take insulin dose the morning of procedure, 
+(x)Take half a dose of insulin the morning of surgery if fasting blood sugar 
+	is >150, Take no insulin if fasting blood sugar is <150, 
+( )Do not take oral diabetic medication on the day of procedure, 
+( )Resume diabetic medication after surgery
+( )Other:s
+ 
+ 
+Continue all other medications as prescribed
+  
+Do not eat anything after midnight the night before surgery.
+Clear liquids are permitted up until 2 hours before scheduled
+surgery arrival time.
+ 
+A driver (family, friend or medical transport) is required the
+day of surgery. Driving is not permitted for 24 hrs after sedation.
 
  
 )"

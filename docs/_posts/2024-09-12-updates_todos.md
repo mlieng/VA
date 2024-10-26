@@ -40,6 +40,7 @@ layout: post
 - [ ] update the imaging selection (so that have option of exiting or not)
 - [ ] fill the reason for surgery (cataract extraction)
 - [ ] on filling out consent, make it so that you don't have to click button at beginning
+- [ ] CAPSLOCK + A debug
 
 
 # Updates

@@ -1,3 +1,5 @@
+#Requires AutoHotkey v2.0+
+
 /*
 ;autodictionary
 
@@ -7,7 +9,6 @@ simple replacement
 	putting the star does an instant replace
 	https://graphemica.com/unicode/characters/page/35
 */
-
 
 ::optom::optometry
 ::ophtho::ophthalmology
@@ -90,12 +91,11 @@ simple replacement
 ::.cosopt:: dorzolamide-timolol (Cosopt)
 
 ::.brim::brimonidine
-:*:brimo::brimonidine
 
 ::.mrd::MRD1: mm, MRD2: mm
 ::rtc::RTC
 ::shp::See H&P
-::.rba::R/B/A outlined, informed consent obtained, IV given today.
+
 ::.re::right eye
 ::.le::left eye
 
@@ -109,7 +109,6 @@ simple replacement
 ;'
 
 
-
 :C:cnv::CNV (choroidal neovascular membranes)
 ::.rb::R/B/A outlined, informed consent obtained
 
@@ -119,26 +118,7 @@ simple replacement
 ;no space. J rivera, murphy, greenberg, brian 
 ; requires second choice: 
 
-::.cat::Crystal Zhang MD, David Rivera MD, Ezra Galler MD, Jorge Rivera MD, Noelle Pruzan MD
-:*:.jriv::Rivera,Jorge
-:*:.driv::Rivera,David
-::.gal::Galler,Ezra
-::.lop::Loporchio,Salvatore
-::.riz::Rizzuto,Philip
-::.bry::Bryan,Richard
-::.jan::Janigian,Robert
-::.mur::Murphy,Marjorie
-::.zha::Zhang,Crystal
-::.pru::Pruzan,Noelle
-:*:.gre::Greenberg,Paul
-::.pau::Paul,Alfred
-::.sav::Savoie,Brian
-::.nan::Nandakumar,Namrata 
 
-::.mar::Marchand,Nicole
-::.ort::Ortiz,Pete
-
-::.esq::Esq-Sp-Ophth
 
 ; VA phrases
 ; --------------------------------------------------------------------
@@ -179,3 +159,34 @@ SendText "
 	`t`tOS:
 	)"
 }
+
+
+
+;https://www.autohotkey.com/boards/viewtopic.php?style=19&f=82&t=124553
+::.rba::{
+	SendText Format("- R/B/A outlined, IV given today.")
+	Send "{left 13}"
+}
+
+
+::.rbac::{
+	;- Annual informed consent obtained 10/8/24, next due before: 10/8/25
+	;- R/B/A outlined, IV given today.
+	SendText Format("
+(
+- Annual informed consent obtained {1}, next due before: {2}
+- R/B/A outlined, IV given today.
+)", 
+	FormatTime(, "M/d/yy"),FormatTime(dateNextYear, "M/d/yy"))
+Send "{left 13}"
+}	
+
+dateNextYear := DateAdd(A_Now, 365, "days")
+
+::.rba2::R/B/A outlined, informed consent obtained, IV given today.
+::.rbac1:: SendText '
+( RTrim0
+- R/B/A outlined, IV*** given today.
+- Annual informed consent obtained, next due:           
+)'
+

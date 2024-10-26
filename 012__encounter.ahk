@@ -173,16 +173,16 @@ click_addPrimary(){
 		Send "{Click 365 207}"	; 	click mod left eye
 		
 		Send "{Click 168 9}" 	; click 'Procedures'
-		Send "{Click 91 59}"    ; click 'Test-Glaucoma'
-		Send "{Click 281 52}"   ; 	click 'OCT RNFL'
-		Send "{Click 273 127}"  ; 	click "VF"
+		Send "{Click 110 60}"   ; click 'Test-Glaucoma'
+		Send "{Click 263 48}"   ; 	click 'OCT RNFL'
+		Send "{Click 255 111}"  ; 	click "VF"
 
 	}
 
 	if enc_title~="BIOMETRY"{
 		MouseClick "left", 168, 9	; click 'Procedures'
 		MouseClick "left", 91, 46 ; click 'Image/Photos'
-		MouseClick "left", 218, 82 ; click 'OCT Mac'
+		Send "{Click 277 71}" 		;click 'OCT Mac'
 
 		MouseClick "left", 71, 9 	; click 'Diagnoses'
 		MouseClick "left", 103, 153 ; click 'LENS/CORNEA/POSTOP'
@@ -238,6 +238,23 @@ click_addPrimary(){
 
 		MouseClick "left", 71, 9 	; click 'Diagnoses'
 		MouseClick "left", 101, 217	; 	click 'Retina-Macula'
+	}
+	if enc_title~="LASER"{
+		MouseClick "left", 168, 9	; click 'Procedures'
+		Send "{Click 94 162}"		; click 'proc laser/cryo'
+		Send "{Click 324 36}"		; iridotomy
+		Send "{Click 217 59}"		; YAG
+		Send "{Click 281 98}"		; iridoplasty
+
+		MouseClick "left", 71, 9 	; click 'Diagnoses'
+		Send "{Click 97 154}"		; lens
+		Send "{Click 331 62}"		; click to right
+		Sleep 100
+		Send "{Click 331 62}"		;click to right
+		Send "{PgDn 2}"
+		Send "{Click 349 162}"		; PCO
+		Send "{Click 325 145}"		;PCO
+
 	}
 
 
